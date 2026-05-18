@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>Material 3 Expressive Lab</title>
+<title>Spatial OS Experience</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,27 +15,24 @@
 
 :root{
 
-  --bg:#071016;
+  --bg:#071017;
 
   --surface:
-    rgba(16,26,34,.72);
+    rgba(18,28,36,.74);
 
   --surface-2:
-    rgba(24,38,48,.62);
+    rgba(30,44,54,.52);
 
-  --primary:#6ad7ff;
+  --primary:#6ad8ff;
 
-  --primary-soft:#153746;
+  --primary-soft:#183847;
 
   --text:#f5fbff;
 
-  --sub:#9fb6c1;
+  --sub:#9eb5c0;
 
   --line:
     rgba(255,255,255,.06);
-
-  --shadow:
-    rgba(0,0,0,.35);
 
   --spring:
     cubic-bezier(.22,1,.36,1);
@@ -54,63 +51,109 @@ body{
 
   margin:0;
 
+  overflow-x:hidden;
+
   background:
     var(--bg);
 
-  color:var(--text);
+  color:
+    var(--text);
 
   font-family:
     'Plus Jakarta Sans',
     sans-serif;
 
-  overflow-x:hidden;
-
 }
 
-/* background */
+/* animated background */
 
-body::before{
-
-  content:'';
+.bg{
 
   position:fixed;
-  inset:-20%;
+  inset:0;
 
-  z-index:-2;
+  z-index:-5;
 
-  background:
-
-    radial-gradient(
-      circle at 20% 20%,
-      rgba(106,215,255,.14),
-      transparent 35%
-    ),
-
-    radial-gradient(
-      circle at 80% 30%,
-      rgba(255,255,255,.05),
-      transparent 25%
-    ),
-
-    radial-gradient(
-      circle at 50% 80%,
-      rgba(106,215,255,.08),
-      transparent 40%
-    );
-
-  animation:
-    ambient 24s linear infinite;
+  overflow:hidden;
 
 }
 
-@keyframes ambient{
+.orb{
 
-  from{
-    transform:rotate(0deg);
+  position:absolute;
+
+  border-radius:50%;
+
+  filter:blur(70px);
+
+  opacity:.6;
+
+  animation:
+    drift 20s linear infinite;
+
+}
+
+.orb.one{
+
+  width:500px;
+  height:500px;
+
+  background:
+    rgba(106,216,255,.16);
+
+  top:-120px;
+  left:-120px;
+
+}
+
+.orb.two{
+
+  width:400px;
+  height:400px;
+
+  background:
+    rgba(255,255,255,.05);
+
+  bottom:-100px;
+  right:-100px;
+
+  animation-duration:28s;
+
+}
+
+.orb.three{
+
+  width:300px;
+  height:300px;
+
+  background:
+    rgba(106,216,255,.08);
+
+  top:50%;
+  left:60%;
+
+  animation-duration:24s;
+
+}
+
+@keyframes drift{
+
+  0%{
+    transform:
+      translate(0,0)
+      rotate(0deg);
   }
 
-  to{
-    transform:rotate(360deg);
+  50%{
+    transform:
+      translate(40px,-30px)
+      rotate(180deg);
+  }
+
+  100%{
+    transform:
+      translate(0,0)
+      rotate(360deg);
   }
 
 }
@@ -119,47 +162,49 @@ body::before{
 
 .topbar{
 
-  position:sticky;
+  position:fixed;
 
   top:0;
+  left:0;
+  right:0;
 
-  z-index:999;
+  z-index:9999;
+
+  height:74px;
 
   display:flex;
   align-items:center;
   justify-content:space-between;
 
   padding:
-    1rem 1.2rem;
+    0 1.2rem;
 
   backdrop-filter:
     blur(18px)
     saturate(180%);
 
   background:
-    rgba(7,16,22,.58);
+    rgba(7,16,23,.46);
 
   border-bottom:
     1px solid var(--line);
 
 }
 
-.logo{
+.brand{
 
   display:flex;
   align-items:center;
-  gap:.7rem;
-
-  font-weight:700;
+  gap:.8rem;
 
 }
 
-.logo-badge{
+.brand-logo{
 
-  width:40px;
-  height:40px;
+  width:44px;
+  height:44px;
 
-  border-radius:14px;
+  border-radius:16px;
 
   display:flex;
   align-items:center;
@@ -168,11 +213,22 @@ body::before{
   background:
     linear-gradient(
       135deg,
-      #6ad7ff,
-      #2ca9dc
+      #7edfff,
+      #3cbfff
     );
 
-  color:#003347;
+  color:#00394d;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.2);
+
+}
+
+.brand-name{
+
+  font-weight:700;
+
+  letter-spacing:-.03em;
 
 }
 
@@ -183,14 +239,14 @@ body::before{
 
 }
 
-.action-btn{
+.icon-btn{
 
-  width:42px;
-  height:42px;
+  width:44px;
+  height:44px;
 
   border:none;
 
-  border-radius:14px;
+  border-radius:16px;
 
   background:
     rgba(255,255,255,.05);
@@ -204,19 +260,19 @@ body::before{
   cursor:pointer;
 
   transition:
-    .3s var(--spring);
+    .35s var(--spring);
 
 }
 
-.action-btn:hover{
-
-  background:
-    rgba(255,255,255,.1);
-
-  color:white;
+.icon-btn:hover{
 
   transform:
     translateY(-2px);
+
+  color:white;
+
+  background:
+    rgba(255,255,255,.08);
 
 }
 
@@ -224,15 +280,20 @@ body::before{
 
 .hero{
 
+  min-height:100vh;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
   padding:
-    5rem 1.2rem 2rem;
+    8rem 1.2rem 4rem;
 
 }
 
 .hero-inner{
 
   width:min(1300px,100%);
-  margin:auto;
 
 }
 
@@ -243,7 +304,7 @@ body::before{
   gap:.5rem;
 
   padding:
-    .6rem 1rem;
+    .7rem 1rem;
 
   border-radius:999px;
 
@@ -255,19 +316,22 @@ body::before{
 
   color:var(--sub);
 
+  backdrop-filter:
+    blur(12px);
+
 }
 
 .hero h1{
 
   margin:
-    1.6rem 0 1rem;
+    1.8rem 0 1rem;
 
   font-size:
-    clamp(3rem,8vw,6rem);
+    clamp(4rem,10vw,8rem);
 
-  line-height:.92;
+  line-height:.9;
 
-  letter-spacing:-.06em;
+  letter-spacing:-.08em;
 
 }
 
@@ -279,191 +343,283 @@ body::before{
 
   line-height:1.8;
 
-  font-size:1.05rem;
+  font-size:1.1rem;
 
 }
 
-/* layout */
+/* spatial area */
 
-.layout{
+.spatial{
 
-  width:min(1300px,100%);
+  width:min(1400px,100%);
   margin:auto;
 
-  display:grid;
-
-  grid-template-columns:
-    260px 1fr;
-
-  gap:1.5rem;
-
   padding:
-    2rem 1.2rem 8rem;
+    0 1.2rem 10rem;
 
 }
 
-/* sidebar */
+/* massive glass panel */
 
-.sidebar{
-
-  position:sticky;
-
-  top:92px;
-
-  height:fit-content;
-
-  padding:1rem;
-
-  border-radius:28px;
-
-  background:
-    var(--surface);
-
-  border:
-    1px solid var(--line);
-
-  backdrop-filter:
-    blur(18px)
-    saturate(180%);
-
-}
-
-.sidebar-title{
-
-  font-size:.9rem;
-
-  color:var(--sub);
-
-  margin-bottom:1rem;
-
-}
-
-.nav{
-
-  display:flex;
-  flex-direction:column;
-
-  gap:.5rem;
-
-}
-
-.nav-item{
-
-  display:flex;
-  align-items:center;
-  gap:.8rem;
-
-  padding:
-    .9rem 1rem;
-
-  border-radius:18px;
-
-  color:var(--sub);
-
-  cursor:pointer;
-
-  transition:
-    .35s var(--spring);
-
-}
-
-.nav-item:hover{
-
-  background:
-    rgba(255,255,255,.06);
-
-  color:white;
-
-  transform:
-    translateX(4px);
-
-}
-
-/* content */
-
-.content{
-
-  display:flex;
-  flex-direction:column;
-
-  gap:2rem;
-
-}
-
-/* cards */
-
-.panel{
+.main-panel{
 
   position:relative;
 
   overflow:hidden;
 
-  border-radius:34px;
+  min-height:640px;
 
-  padding:1.4rem;
+  border-radius:42px;
+
+  padding:2rem;
 
   background:
-    var(--surface);
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.05),
+      rgba(255,255,255,.03)
+    );
 
   border:
-    1px solid var(--line);
+    1px solid rgba(255,255,255,.08);
 
   backdrop-filter:
-    blur(18px)
+    blur(24px)
     saturate(180%);
+
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.35);
 
 }
 
-.panel-head{
+/* glow */
+
+.panel-glow{
+
+  position:absolute;
+
+  width:500px;
+  height:500px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(106,216,255,.18),
+      transparent 70%
+    );
+
+  filter:blur(40px);
+
+  top:-180px;
+  right:-120px;
+
+  pointer-events:none;
+
+}
+
+/* live status */
+
+.live-status{
 
   display:flex;
   align-items:center;
-  justify-content:space-between;
-
-  margin-bottom:1.2rem;
-
-}
-
-.panel-title{
-
-  font-size:1.1rem;
-  font-weight:700;
-
-}
-
-.panel-sub{
+  gap:.7rem;
 
   color:var(--sub);
-  font-size:.9rem;
 
 }
 
-/* grid */
+.live-dot{
 
-.grid{
+  width:10px;
+  height:10px;
+
+  border-radius:50%;
+
+  background:
+    #6ad8ff;
+
+  box-shadow:
+    0 0 18px #6ad8ff;
+
+  animation:
+    pulse 2s infinite;
+
+}
+
+@keyframes pulse{
+
+  0%,100%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.5);
+  }
+
+}
+
+/* huge system area */
+
+.system-grid{
+
+  margin-top:2rem;
 
   display:grid;
 
   grid-template-columns:
-    repeat(auto-fit,minmax(180px,1fr));
+    1.2fr .8fr;
+
+  gap:1.5rem;
+
+}
+
+/* left */
+
+.system-left{
+
+  display:flex;
+  flex-direction:column;
+
+  gap:1.5rem;
+
+}
+
+/* ambient card */
+
+.ambient-card{
+
+  position:relative;
+
+  overflow:hidden;
+
+  min-height:260px;
+
+  border-radius:34px;
+
+  padding:1.6rem;
+
+  background:
+    rgba(255,255,255,.04);
+
+  border:
+    1px solid rgba(255,255,255,.06);
+
+}
+
+.ambient-top{
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+}
+
+.ambient-title{
+
+  font-size:1.5rem;
+  font-weight:700;
+
+}
+
+.ambient-sub{
+
+  margin-top:.7rem;
+
+  color:var(--sub);
+
+  line-height:1.8;
+
+}
+
+/* giant toggle */
+
+.massive-toggle{
+
+  margin-top:2rem;
+
+  width:120px;
+  height:68px;
+
+  border-radius:999px;
+
+  background:
+    rgba(255,255,255,.08);
+
+  position:relative;
+
+  cursor:pointer;
+
+  transition:
+    .5s var(--spring);
+
+}
+
+.massive-toggle::after{
+
+  content:'';
+
+  position:absolute;
+
+  top:8px;
+  left:8px;
+
+  width:52px;
+  height:52px;
+
+  border-radius:50%;
+
+  background:white;
+
+  transition:
+    .5s var(--spring);
+
+}
+
+.massive-toggle.active{
+
+  background:
+    #6ad8ff;
+
+  box-shadow:
+    0 0 40px rgba(106,216,255,.35);
+
+}
+
+.massive-toggle.active::after{
+
+  left:60px;
+
+  background:#003a4d;
+
+}
+
+/* controls */
+
+.controls{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
 
   gap:1rem;
 
 }
 
-/* component */
-
-.component{
+.control-card{
 
   position:relative;
 
   overflow:hidden;
 
-  min-height:150px;
+  min-height:200px;
 
-  padding:1rem;
+  border-radius:30px;
 
-  border-radius:26px;
+  padding:1.4rem;
 
   background:
     rgba(255,255,255,.04);
@@ -471,67 +627,27 @@ body::before{
   border:
     1px solid rgba(255,255,255,.05);
 
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
+  transition:
+    transform .45s var(--spring),
+    border-radius .45s var(--spring);
 
   cursor:pointer;
 
-  transition:
-    transform .5s var(--spring),
-    border-radius .5s var(--spring),
-    background .3s ease;
-
-  transform-style:preserve-3d;
-
 }
 
-.component:hover{
+.control-card:hover{
 
   transform:
-    translateY(-6px)
-    scale(1.02);
+    translateY(-6px);
 
-  border-radius:34px;
-
-}
-
-.component::before{
-
-  content:'';
-
-  position:absolute;
-  inset:0;
-
-  opacity:0;
-
-  transition:.4s ease;
-
-  background:
-    radial-gradient(
-      circle at var(--x) var(--y),
-      rgba(255,255,255,.14),
-      transparent 40%
-    );
+  border-radius:38px;
 
 }
 
-.component:hover::before{
-  opacity:1;
-}
+.control-icon{
 
-.component-top{
-
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-
-}
-
-.icon-box{
-
-  width:48px;
-  height:48px;
+  width:52px;
+  height:52px;
 
   border-radius:18px;
 
@@ -542,134 +658,200 @@ body::before{
   background:
     linear-gradient(
       135deg,
-      rgba(106,215,255,.2),
-      rgba(255,255,255,.04)
+      rgba(106,216,255,.2),
+      rgba(255,255,255,.05)
     );
 
-  color:var(--primary);
+  color:#6ad8ff;
 
 }
 
-.tag{
-
-  font-size:.7rem;
-
-  padding:
-    .35rem .55rem;
-
-  border-radius:999px;
-
-  background:
-    rgba(255,255,255,.05);
-
-  color:var(--sub);
-
-}
-
-.component-title{
+.control-title{
 
   margin-top:1.3rem;
 
   font-weight:700;
 
+  font-size:1.1rem;
+
 }
 
-.component-desc{
+.control-desc{
 
-  margin-top:.5rem;
+  margin-top:.6rem;
 
   color:var(--sub);
 
-  font-size:.88rem;
+  line-height:1.7;
 
-  line-height:1.6;
+  font-size:.92rem;
 
 }
 
-/* live elements */
+/* right */
 
-.switch{
+.system-right{
 
-  width:52px;
-  height:32px;
+  display:flex;
+  flex-direction:column;
 
-  border-radius:999px;
+  gap:1.5rem;
 
-  background:
-    rgba(255,255,255,.08);
+}
+
+/* floating card */
+
+.float-ui{
 
   position:relative;
 
-  transition:
-    .35s var(--spring);
+  overflow:hidden;
+
+  min-height:320px;
+
+  border-radius:36px;
+
+  padding:1.5rem;
+
+  background:
+    rgba(255,255,255,.04);
+
+  border:
+    1px solid rgba(255,255,255,.06);
 
 }
 
-.switch::after{
-
-  content:'';
+.floating-window{
 
   position:absolute;
 
-  top:4px;
-  left:4px;
+  inset:90px 20px 20px;
 
-  width:24px;
-  height:24px;
+  border-radius:28px;
+
+  background:
+    rgba(9,17,22,.7);
+
+  border:
+    1px solid rgba(255,255,255,.05);
+
+  backdrop-filter:
+    blur(16px);
+
+  animation:
+    levitate 5s ease-in-out infinite;
+
+}
+
+@keyframes levitate{
+
+  0%,100%{
+    transform:translateY(0px);
+  }
+
+  50%{
+    transform:translateY(-12px);
+  }
+
+}
+
+.window-top{
+
+  height:58px;
+
+  display:flex;
+  align-items:center;
+
+  padding:0 1rem;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.05);
+
+}
+
+.window-dot{
+
+  width:10px;
+  height:10px;
 
   border-radius:50%;
 
-  background:white;
-
-  transition:
-    .35s var(--spring);
-
-}
-
-.switch.active{
-
   background:
-    #56d3ff;
+    rgba(255,255,255,.18);
+
+  margin-right:.5rem;
 
 }
 
-.switch.active::after{
+.window-content{
 
-  left:24px;
-
-  background:#00384b;
+  padding:1.2rem;
 
 }
 
-/* slider */
+.window-line{
 
-.slider{
-
-  width:100%;
-  height:8px;
+  height:16px;
 
   border-radius:999px;
-
-  overflow:hidden;
 
   background:
     rgba(255,255,255,.06);
 
+  margin-bottom:1rem;
+
 }
 
-.slider-fill{
+.window-line.large{
+  width:100%;
+}
 
-  width:65%;
-  height:100%;
+.window-line.mid{
+  width:68%;
+}
 
-  border-radius:999px;
+.window-line.small{
+  width:40%;
+}
+
+/* reactive area */
+
+.reactive-card{
+
+  min-height:280px;
+
+  border-radius:36px;
+
+  padding:1.5rem;
 
   background:
-    linear-gradient(
-      90deg,
-      #6ad7ff,
-      #d7f5ff
+    rgba(255,255,255,.04);
+
+  border:
+    1px solid rgba(255,255,255,.06);
+
+  position:relative;
+
+  overflow:hidden;
+
+}
+
+.reactive-bg{
+
+  position:absolute;
+  inset:0;
+
+  opacity:.6;
+
+  background:
+    radial-gradient(
+      circle at var(--mx) var(--my),
+      rgba(106,216,255,.24),
+      transparent 40%
     );
+
+  transition:
+    .12s linear;
 
 }
 
@@ -682,7 +864,7 @@ body::before{
   right:24px;
   bottom:24px;
 
-  z-index:9999;
+  z-index:99999;
 
   display:flex;
   flex-direction:column;
@@ -702,13 +884,13 @@ body::before{
   opacity:0;
 
   transform:
-    translateY(10px)
+    translateY(12px)
     scale(.9);
 
   pointer-events:none;
 
   transition:
-    .4s var(--spring);
+    .45s var(--spring);
 
 }
 
@@ -728,10 +910,10 @@ body::before{
 
   display:flex;
   align-items:center;
-  gap:.7rem;
+  gap:.8rem;
 
   padding:
-    1rem 1.2rem;
+    1rem 1.3rem;
 
   border:none;
 
@@ -741,24 +923,24 @@ body::before{
     linear-gradient(
       135deg,
       #7edfff,
-      #45c7ff
+      #47c8ff
     );
 
-  color:#00384c;
+  color:#00384d;
 
   font-weight:700;
 
   cursor:pointer;
 
   box-shadow:
-    0 18px 40px rgba(0,0,0,.35);
+    0 24px 60px rgba(0,0,0,.3);
 
 }
 
 .fab{
 
-  width:72px;
-  height:72px;
+  width:76px;
+  height:76px;
 
   border:none;
 
@@ -768,10 +950,10 @@ body::before{
     linear-gradient(
       135deg,
       #7edfff,
-      #45c7ff
+      #47c8ff
     );
 
-  color:#00384c;
+  color:#00384d;
 
   display:flex;
   align-items:center;
@@ -780,7 +962,7 @@ body::before{
   cursor:pointer;
 
   box-shadow:
-    0 24px 60px rgba(0,0,0,.4);
+    0 24px 70px rgba(0,0,0,.45);
 
   transition:
     .45s var(--spring);
@@ -802,122 +984,31 @@ body::before{
 
 }
 
-/* dialog */
-
-.dialog{
-
-  position:fixed;
-  inset:0;
-
-  z-index:99999;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  background:
-    rgba(0,0,0,.6);
-
-  backdrop-filter:
-    blur(16px);
-
-  opacity:0;
-
-  pointer-events:none;
-
-  transition:.3s ease;
-
-}
-
-.dialog.open{
-
-  opacity:1;
-
-  pointer-events:auto;
-
-}
-
-.dialog-box{
-
-  width:min(520px,90%);
-
-  padding:2rem;
-
-  border-radius:36px;
-
-  background:
-    rgba(16,26,34,.92);
-
-  border:
-    1px solid rgba(255,255,255,.08);
-
-  transform:
-    translateY(30px)
-    scale(.92);
-
-  transition:
-    .45s var(--spring);
-
-}
-
-.dialog.open .dialog-box{
-
-  transform:
-    translateY(0)
-    scale(1);
-
-}
-
-.dialog h2{
-
-  margin-top:0;
-
-}
-
-.dialog p{
-
-  color:var(--sub);
-
-  line-height:1.8;
-
-}
-
-.close-btn{
-
-  margin-top:1rem;
-
-  padding:
-    .9rem 1.2rem;
-
-  border:none;
-
-  border-radius:18px;
-
-  background:
-    #6ad7ff;
-
-  color:#00384c;
-
-  font-weight:700;
-
-  cursor:pointer;
-
-}
-
 /* responsive */
 
 @media(max-width:980px){
 
-  .layout{
+  .system-grid{
 
     grid-template-columns:1fr;
 
   }
 
-  .sidebar{
+}
 
-    position:relative;
-    top:auto;
+@media(max-width:700px){
+
+  .hero{
+
+    min-height:auto;
+
+    padding-top:7rem;
+
+  }
+
+  .controls{
+
+    grid-template-columns:1fr;
 
   }
 
@@ -928,11 +1019,19 @@ body::before{
 
 <body>
 
+<div class="bg">
+
+  <div class="orb one"></div>
+  <div class="orb two"></div>
+  <div class="orb three"></div>
+
+</div>
+
 <div class="topbar">
 
-  <div class="logo">
+  <div class="brand">
 
-    <div class="logo-badge">
+    <div class="brand-logo">
 
       <span class="material-symbols-rounded">
         auto_awesome
@@ -940,22 +1039,28 @@ body::before{
 
     </div>
 
-    Expressive Lab
+    <div class="brand-name">
+      Spatial OS
+    </div>
 
   </div>
 
   <div class="top-actions">
 
-    <button class="action-btn">
+    <button class="icon-btn">
+
       <span class="material-symbols-rounded">
         search
       </span>
+
     </button>
 
-    <button class="action-btn">
+    <button class="icon-btn">
+
       <span class="material-symbols-rounded">
         dark_mode
       </span>
+
     </button>
 
   </div>
@@ -972,22 +1077,22 @@ body::before{
         animation
       </span>
 
-      Material 3 Expressive System
+      Interactive Spatial Interface
 
     </div>
 
     <h1>
 
-      Interactive<br>
-      UI Playground
+      The interface<br>
+      feels alive.
 
     </h1>
 
     <p>
 
-      A tactile component showroom focused on motion,
-      depth, transitions, and immersive interaction.
-      Designed to feel responsive and alive.
+      A motion-focused Material 3 Expressive concept
+      designed around depth, atmosphere, spatial interaction,
+      and reactive states.
 
     </p>
 
@@ -995,184 +1100,56 @@ body::before{
 
 </section>
 
-<div class="layout">
+<section class="spatial">
 
-  <aside class="sidebar">
+  <div class="main-panel">
 
-    <div class="sidebar-title">
-      Components
-    </div>
+    <div class="panel-glow"></div>
 
-    <div class="nav">
+    <div class="live-status">
 
-      <div class="nav-item">
-        <span class="material-symbols-rounded">
-          widgets
-        </span>
-        Dynamic Cards
-      </div>
+      <div class="live-dot"></div>
 
-      <div class="nav-item">
-        <span class="material-symbols-rounded">
-          toggle_on
-        </span>
-        Controls
-      </div>
-
-      <div class="nav-item">
-        <span class="material-symbols-rounded">
-          touch_app
-        </span>
-        Interactions
-      </div>
-
-      <div class="nav-item">
-        <span class="material-symbols-rounded">
-          palette
-        </span>
-        Visual System
-      </div>
+      Spatial environment active
 
     </div>
 
-  </aside>
+    <div class="system-grid">
 
-  <main class="content">
+      <div class="system-left">
 
-    <section class="panel">
+        <div class="ambient-card">
 
-      <div class="panel-head">
+          <div class="ambient-top">
 
-        <div>
+            <div>
 
-          <div class="panel-title">
-            Dynamic Components
+              <div class="ambient-title">
+
+                Ambient System
+
+              </div>
+
+              <div class="ambient-sub">
+
+                The environment softly reacts
+                to interaction and system state.
+
+              </div>
+
+            </div>
+
           </div>
 
-          <div class="panel-sub">
-            Hover and interact with elements
-          </div>
+          <div class="massive-toggle active" id="mainToggle"></div>
 
         </div>
 
-      </div>
+        <div class="controls">
 
-      <div class="grid">
+          <div class="control-card interactive">
 
-        <div class="component interactive">
-
-          <div class="component-top">
-
-            <div class="icon-box">
-
-              <span class="material-symbols-rounded">
-                dashboard
-              </span>
-
-            </div>
-
-            <div class="tag">
-              Live
-            </div>
-
-          </div>
-
-          <div>
-
-            <div class="component-title">
-              Adaptive Dashboard
-            </div>
-
-            <div class="component-desc">
-
-              Responsive glass layout
-              with fluid interaction states.
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="component interactive">
-
-          <div class="component-top">
-
-            <div class="icon-box">
-
-              <span class="material-symbols-rounded">
-                toggle_on
-              </span>
-
-            </div>
-
-            <div class="switch active"></div>
-
-          </div>
-
-          <div>
-
-            <div class="component-title">
-              Dynamic Toggle
-            </div>
-
-            <div class="component-desc">
-
-              Soft spring physics and
-              spatial feedback.
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="component interactive">
-
-          <div class="component-top">
-
-            <div class="icon-box">
-
-              <span class="material-symbols-rounded">
-                tune
-              </span>
-
-            </div>
-
-            <div class="tag">
-              Motion
-            </div>
-
-          </div>
-
-          <div>
-
-            <div class="component-title">
-              Expressive Slider
-            </div>
-
-            <div class="component-desc">
-
-              Reactive visual movement
-              with layered lighting.
-
-            </div>
-
-            <div class="slider">
-
-              <div class="slider-fill"></div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="component interactive">
-
-          <div class="component-top">
-
-            <div class="icon-box">
+            <div class="control-icon">
 
               <span class="material-symbols-rounded">
                 blur_on
@@ -1180,22 +1157,91 @@ body::before{
 
             </div>
 
-            <div class="tag">
-              Glass
+            <div class="control-title">
+
+              Glass Surface
+
+            </div>
+
+            <div class="control-desc">
+
+              Layered translucent materials
+              with spatial depth.
+
             </div>
 
           </div>
 
-          <div>
+          <div class="control-card interactive">
 
-            <div class="component-title">
-              Frosted Surface
+            <div class="control-icon">
+
+              <span class="material-symbols-rounded">
+                tune
+              </span>
+
             </div>
 
-            <div class="component-desc">
+            <div class="control-title">
 
-              Layered translucent UI
-              inspired by spatial systems.
+              Dynamic Motion
+
+            </div>
+
+            <div class="control-desc">
+
+              Spring-based movement
+              with inertia and softness.
+
+            </div>
+
+          </div>
+
+          <div class="control-card interactive">
+
+            <div class="control-icon">
+
+              <span class="material-symbols-rounded">
+                light_mode
+              </span>
+
+            </div>
+
+            <div class="control-title">
+
+              Lighting Engine
+
+            </div>
+
+            <div class="control-desc">
+
+              Ambient glow synchronized
+              with interaction.
+
+            </div>
+
+          </div>
+
+          <div class="control-card interactive">
+
+            <div class="control-icon">
+
+              <span class="material-symbols-rounded">
+                vibration
+              </span>
+
+            </div>
+
+            <div class="control-title">
+
+              Haptic Simulation
+
+            </div>
+
+            <div class="control-desc">
+
+              Tactile visual responses
+              inspired by physical motion.
 
             </div>
 
@@ -1205,11 +1251,63 @@ body::before{
 
       </div>
 
-    </section>
+      <div class="system-right">
 
-  </main>
+        <div class="float-ui">
 
-</div>
+          <div class="floating-window">
+
+            <div class="window-top">
+
+              <div class="window-dot"></div>
+              <div class="window-dot"></div>
+              <div class="window-dot"></div>
+
+            </div>
+
+            <div class="window-content">
+
+              <div class="window-line large"></div>
+              <div class="window-line mid"></div>
+              <div class="window-line small"></div>
+
+              <br>
+
+              <div class="window-line large"></div>
+              <div class="window-line mid"></div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="reactive-card" id="reactiveCard">
+
+          <div class="reactive-bg"></div>
+
+          <h2>
+
+            Reactive Space
+
+          </h2>
+
+          <p style="color:var(--sub); line-height:1.8;">
+
+            Move the cursor across the surface.
+            The interface reacts with depth and light.
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
 
 <div class="fab-wrap" id="fabWrap">
 
@@ -1257,69 +1355,9 @@ body::before{
 
 </div>
 
-<div class="dialog" id="dialog">
-
-  <div class="dialog-box">
-
-    <h2 id="dialogTitle">
-      Component
-    </h2>
-
-    <p id="dialogText">
-
-      Interactive component description.
-
-    </p>
-
-    <button class="close-btn" id="closeBtn">
-
-      Close
-
-    </button>
-
-  </div>
-
-</div>
-
 <script>
 
-/* glow */
-
-document.querySelectorAll('.interactive')
-.forEach(card=>{
-
-  card.addEventListener('mousemove',e=>{
-
-    const rect =
-      card.getBoundingClientRect();
-
-    const x =
-      e.clientX - rect.left;
-
-    const y =
-      e.clientY - rect.top;
-
-    card.style.setProperty('--x',`${x}px`);
-    card.style.setProperty('--y',`${y}px`);
-
-  });
-
-});
-
-/* switch */
-
-document.querySelectorAll('.switch')
-.forEach(sw=>{
-
-  sw.addEventListener('click',()=>{
-
-    sw.classList.toggle('active');
-
-  });
-
-});
-
-/* fab */
+/* FAB */
 
 const fabWrap =
   document.getElementById('fabWrap');
@@ -1331,46 +1369,90 @@ document.getElementById('fab')
 
 });
 
-/* dialog */
+/* reactive lighting */
 
-const dialog =
-  document.getElementById('dialog');
+const reactive =
+  document.getElementById('reactiveCard');
 
-document.querySelectorAll('.component')
+reactive.addEventListener('mousemove',e=>{
+
+  const rect =
+    reactive.getBoundingClientRect();
+
+  const x =
+    e.clientX - rect.left;
+
+  const y =
+    e.clientY - rect.top;
+
+  reactive.style.setProperty(
+    '--mx',
+    `${x}px`
+  );
+
+  reactive.style.setProperty(
+    '--my',
+    `${y}px`
+  );
+
+});
+
+/* ambient toggle */
+
+const toggle =
+  document.getElementById('mainToggle');
+
+toggle.addEventListener('click',()=>{
+
+  toggle.classList.toggle('active');
+
+  document.body.style.transition =
+    'background .8s ease';
+
+  if(toggle.classList.contains('active')){
+
+    document.body.style.background =
+      '#071017';
+
+  }else{
+
+    document.body.style.background =
+      '#03070a';
+
+  }
+
+});
+
+/* parallax */
+
+document.querySelectorAll('.interactive')
 .forEach(card=>{
 
-  card.addEventListener('click',()=>{
+  card.addEventListener('mousemove',e=>{
 
-    document.getElementById('dialogTitle')
-    .textContent =
-      card.querySelector('.component-title')
-      .textContent;
+    const rect =
+      card.getBoundingClientRect();
 
-    document.getElementById('dialogText')
-    .textContent =
-      card.querySelector('.component-desc')
-      .textContent;
+    const x =
+      e.clientX - (rect.left + rect.width/2);
 
-    dialog.classList.add('open');
+    const y =
+      e.clientY - (rect.top + rect.height/2);
+
+    card.style.transform =
+      `
+      rotateX(${(y/20)*-1}deg)
+      rotateY(${x/20}deg)
+      translateY(-8px)
+      `;
 
   });
 
-});
+  card.addEventListener('mouseleave',()=>{
 
-document.getElementById('closeBtn')
-.addEventListener('click',()=>{
+    card.style.transform='';
 
-  dialog.classList.remove('open');
-
-});
-
-dialog.addEventListener('click',e=>{
-
-  if(e.target === dialog){
-
-    dialog.classList.remove('open');
-
-  }
+  });
 
 });
 
