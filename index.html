@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Material 3 Expressive - 120 Elements Ultra Showroom</title>
+  <title>Material 3 Expressive - 120 Unique Components</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2 family=Plus+Jakarta+Sans:wght@400;600;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet">
 
   <style>
-    /* --- 1. 設計トークンの定義 --- */
+    /* --- 1. トークン定義（デフォルト：ダークモード） --- */
     :root {
       --md-sys-color-background: #0b151a;
       --md-sys-color-surface: #11222b;
@@ -17,16 +17,16 @@
       --md-sys-color-primary: #5fd3ff; 
       --md-sys-color-on-primary: #003549;
       --md-sys-color-primary-container: #004d69;
-      --md-sys-color-on-primary-container: #bbee00;
       --md-sys-color-secondary: #adc9d7;
+      --md-sys-color-secondary-container: #2e4854;
       --md-sys-color-tertiary: #ffb4a2;
       --md-sys-color-tertiary-container: #7d2b17;
       --md-sys-color-error: #ffb4ab;
+      --md-sys-color-error-container: #8c1d18;
       --md-sys-color-outline: #8b9296;
 
       --md-sys-motion-spring: cubic-bezier(0.2, 0.9, 0.1, 1.2);
       --md-sys-motion-ripple: cubic-bezier(0.1, 0.8, 0.1, 1);
-      --transition-speed: 0.35s;
     }
 
     body.light-theme {
@@ -37,7 +37,11 @@
       --md-sys-color-on-primary: #ffffff;
       --md-sys-color-primary-container: #c2e8ff;
       --md-sys-color-secondary: #4d616c;
+      --md-sys-color-secondary-container: #dbe4e9;
       --md-sys-color-tertiary: #b12d10;
+      --md-sys-color-tertiary-container: #ffdad2;
+      --md-sys-color-error: #ba1a1a;
+      --md-sys-color-error-container: #ffdad6;
       --md-sys-color-outline: #70787d;
     }
 
@@ -47,167 +51,123 @@
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: var(--md-sys-color-background);
       color: var(--md-sys-color-secondary);
-      transition: background-color var(--transition-speed), color var(--transition-speed);
+      transition: background-color 0.35s, color 0.35s;
       padding: 2rem 1rem 7rem 1rem;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    header {
-      text-align: center;
-      margin-bottom: 1.5rem;
-      max-width: 600px;
-    }
+    header { text-align: center; margin-bottom: 1.5rem; max-width: 600px; }
+    header h1 { font-size: 2.2rem; font-weight: 800; color: var(--md-sys-color-primary); margin-bottom: 0.5rem; }
+    header p { color: var(--md-sys-color-outline); font-size: 0.95rem; }
+    .theme-btn { background-color: var(--md-sys-color-surface-variant); color: var(--md-sys-color-primary); border: none; padding: 0.75rem 1.5rem; border-radius: 24px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2.5rem; }
 
-    header h1 {
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: var(--md-sys-color-primary);
-      margin-bottom: 0.5rem;
-    }
+    .container { max-width: 1200px; width: 100%; display: flex; flex-direction: column; gap: 2.5rem; }
+    .section-card { background-color: var(--md-sys-color-surface); border-radius: 28px; padding: 2rem; }
+    .section-card h2 { font-size: 1.3rem; margin-top: 0; margin-bottom: 1.5rem; color: var(--md-sys-color-primary); display: flex; align-items: center; gap: 0.5rem; }
+    .grid-area { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; }
 
-    header p {
-      color: var(--md-sys-color-outline);
-      font-size: 0.95rem;
-    }
+    /* --- 3. コアインタラクション --- */
+    .pixel-interactive { position: relative; overflow: hidden; cursor: pointer; border: none; display: flex; transition: all 0.3s var(--md-sys-motion-spring); }
+    .pixel-interactive:active { transform: scale(0.94) !important; }
 
-    .theme-switch-container {
-      margin-bottom: 2.5rem;
-    }
+    .m3-ripple { position: absolute; border-radius: 50%; background-color: rgba(255, 255, 255, 0.22); pointer-events: none; transform: scale(0); animation: ripple-out 0.45s var(--md-sys-motion-ripple) forwards; }
+    body.light-theme .m3-ripple { background-color: rgba(0, 0, 0, 0.1); }
+    @keyframes ripple-out { to { transform: scale(5); opacity: 0; } }
 
-    .theme-btn {
-      background-color: var(--md-sys-color-surface-variant);
-      color: var(--md-sys-color-primary);
-      border: none;
-      padding: 0.75rem 1.5rem;
-      border-radius: 24px;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: transform 0.2s var(--md-sys-motion-spring);
-    }
-
-    .container {
-      max-width: 1100px;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 2.5rem;
-    }
-
-    .section-card {
-      background-color: var(--md-sys-color-surface);
-      border-radius: 28px;
-      padding: 2rem;
-    }
-
-    .section-card h2 {
-      font-size: 1.3rem;
-      margin-top: 0;
-      margin-bottom: 1.5rem;
-      color: var(--md-sys-color-primary);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .grid-area {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 1rem;
-    }
-
-    /* --- 3. Pixelインタラクションコア --- */
-    .pixel-interactive {
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      border: none;
-      transition: border-radius var(--transition-speed) var(--md-sys-motion-spring), 
-                  transform 0.2s var(--md-sys-motion-spring), 
-                  box-shadow 0.2s;
-    }
-    .pixel-interactive:active { transform: scale(0.95) !important; }
-
-    .m3-ripple {
-      position: absolute;
-      border-radius: 50%;
-      background-color: rgba(255, 255, 255, 0.25);
-      pointer-events: none;
-      transform: scale(0);
-      animation: ripple-out 0.45s var(--md-sys-motion-ripple) forwards;
-    }
-    body.light-theme .m3-ripple { background-color: rgba(0, 0, 0, 0.12); }
-
-    @keyframes ripple-out { to { transform: scale(4.5); opacity: 0; } }
-
-    /* --- 4. コンポーネント別スタイル --- */
-    .shape-item { height: 90px; background-color: var(--md-sys-color-surface-variant); color: var(--md-sys-color-secondary); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; gap: 0.2rem; }
-    .sh-1 { border-radius: 36px 8px; } .sh-2 { border-radius: 8px 36px; } .sh-3 { border-radius: 24px 24px 4px 24px; }
-    .sh-4 { border-radius: 4px 24px 24px 24px; } .sh-5 { border-radius: 40px 12px 40px 12px; } .sh-6 { border-radius: 20px; }
-    .sh-7 { border-radius: 50% 10%; } .sh-8 { border-radius: 10% 50%; } .sh-9 { border-radius: 45%; }
-    .sh-10 { border-radius: 30% 70% 70% 30% / 50%; } .sh-11 { border-radius: 12px 32px 4px 12px; } .sh-12 { border-radius: 40px 40px 4px 4px; }
-    .sh-13 { border-radius: 4px 4px 40px 40px; } .sh-14 { border-radius: 28px 12px 28px 12px; } .sh-15 { border-radius: 50px 0 50px 0; }
-    .sh-16 { border-radius: 0 50px 0 50px; } .sh-17 { border-radius: 32px 16px 8px 4px; } .sh-18 { border-radius: 4px 8px 16px 32px; }
-    .sh-19 { border-radius: 24px 40px; } .sh-20 { border-radius: 40px 24px; } .sh-21 { border-radius: 16px 48px 16px 16px; }
-    .sh-22 { border-radius: 48px 16px 16px 16px; } .sh-23 { border-radius: 16px 16px 48px 16px; } .sh-24 { border-radius: 16px 16px 16px 48px; }
-    .sh-25 { border-radius: 40px; }
-    .shape-item:hover { border-radius: 24px; transform: scale(1.04); }
-
-    .btn-item { background-color: var(--md-sys-color-primary-container); color: var(--md-sys-color-primary); padding: 0.7rem; font-weight: 600; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; gap: 0.3rem; }
-    .b-1 { border-radius: 20px 4px 4px 20px; } .b-2 { border-radius: 4px 20px 20px 4px; }
-    .b-3 { border-radius: 24px; background-color: var(--md-sys-color-tertiary-container); color: var(--md-sys-color-tertiary); }
-    .b-4 { border-radius: 14px; } .b-5 { border-radius: 8px; outline: 1px solid var(--md-sys-color-outline); background: transparent; }
-    .b-6 { border-radius: 50%; width: 44px; height: 44px; margin: auto; }
-    .b-7 { border-radius: 24px 8px 24px 8px; background-color: var(--md-sys-color-error); color: #000; }
-    .btn-item:hover { transform: scale(1.04); }
-
-    .card-item { height: 80px; padding: 0.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.75rem; text-align: center; gap: 0.2rem; border-radius: 16px; background-color: var(--md-sys-color-surface-variant); }
-    .card-item:hover { transform: scale(1.04); }
-
-    .indicator-item { background: rgba(255,255,255,0.03); border-radius: 14px; padding: 0.8rem 0.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem; height: 65px; }
-    .progress-track { width: 85%; background-color: var(--md-sys-color-surface-variant); border-radius: 8px; overflow: hidden; position: relative; }
-    .p-bar { height: 100%; background-color: var(--md-sys-color-primary); border-radius: 8px; }
-    .anim-fast { animation: loopBar 1.2s infinite ease-in-out; }
-    .anim-slow { animation: loopBar 2.8s infinite ease-in-out; }
-    .anim-step { animation: loopBar 1.8s infinite steps(5); }
-    @keyframes loopBar { 0% { width: 10%; left: -10%; } 50% { width: 50%; left: 30%; } 100% { width: 10%; left: 100%; } }
-
-    /* 新設：新要素20個用のスタイル（セグメント・スライダー・チップス） */
-    .segment-item { height: 50px; background-color: var(--md-sys-color-surface-variant); border-radius: 24px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold; color: var(--md-sys-color-primary); }
-    .segment-item:hover { border-radius: 8px; background-color: var(--md-sys-color-primary-container); }
+    /* --- 4. ユニークパーツデザイン --- */
+    .catalog-item { padding: 1rem; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-size: 0.8rem; font-weight: 600; gap: 0.4rem; min-height: 85px; box-sizing: border-box; border-radius: 16px; background-color: var(--md-sys-color-surface-variant); }
     
-    .slider-mock-item { background: rgba(255,255,255,0.02); border-radius: 16px; padding: 1rem; display: flex; flex-direction: column; gap: 0.5rem; justify-content: center; height: 65px; }
-    .slider-pill { width: 100%; height: 16px; background: var(--md-sys-color-surface-variant); border-radius: 20px; position: relative; overflow: hidden; }
-    .slider-fill { width: 65%; height: 100%; background: var(--md-sys-color-primary); border-radius: 20px; transition: width 0.3s var(--md-sys-motion-spring); }
-    .slider-mock-item:hover .slider-fill { width: 85%; }
+    .v-sh1 { border-radius: 40px 8px; background-color: var(--md-sys-color-primary-container); color: var(--md-sys-color-primary); }
+    .v-sh2 { border-radius: 24px 24px 4px 24px; background-color: var(--md-sys-color-secondary-container); }
+    .v-sh3 { border-radius: 40px 40px 4px 4px; background-color: var(--md-sys-color-tertiary-container); color: var(--md-sys-color-tertiary); }
+    .v-sh4 { border-radius: 50% 20%; outline: 1px dashed var(--md-sys-color-outline); background: transparent; }
+    .v-sh5 { border-radius: 30% 70% 70% 30% / 50%; background-color: var(--md-sys-color-error-container); color: var(--md-sys-color-error); }
 
-    .chip-item { height: 40px; background: transparent; border: 1px solid var(--md-sys-color-outline); border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 0.3rem; font-size: 0.75rem; color: var(--md-sys-color-secondary); }
-    .chip-item:hover { border-radius: 20px; background: var(--md-sys-color-tertiary-container); color: var(--md-sys-color-tertiary); border-color: transparent; }
+    .v-btn-filled { background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); border-radius: 24px; }
+    .v-btn-tonal { background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-secondary); border-radius: 12px; }
+    .v-btn-elevated { background: var(--md-sys-color-surface); box-shadow: 0 4px 10px rgba(0,0,0,0.3); border-radius: 20px; }
+    .v-btn-outlined { border: 2px solid var(--md-sys-color-primary); background: transparent; color: var(--md-sys-color-primary); border-radius: 16px; }
+    .v-btn-split-l { border-radius: 24px 4px 4px 24px; background: var(--md-sys-color-tertiary); color: #000; }
+    .v-btn-split-r { border-radius: 4px 24px 24px 4px; background: var(--md-sys-color-tertiary-container); color: var(--md-sys-color-tertiary); }
 
-    /* --- 5. ダイナミック拡張FABシステム --- */
+    .v-card-pro { align-items: flex-start; text-align: left; border-radius: 24px; background: linear-gradient(135deg, var(--md-sys-color-surface-variant), var(--md-sys-color-surface)); }
+    .v-badge { background: var(--md-sys-color-error); color: white; font-size: 0.65rem; padding: 2px 6px; border-radius: 8px; font-weight: bold; }
+    
+    .v-track { width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; position: relative; margin-top: 4px; }
+    .v-bar { height: 100%; background: var(--md-sys-color-primary); position: absolute; border-radius: 4px; }
+    .v-bar-wave { width: 40%; animation: waveMove 1.5s infinite ease-in-out; }
+    .v-bar-step { width: 25%; animation: waveMove 2.5s infinite steps(4); background: var(--md-sys-color-tertiary); }
+    @keyframes waveMove { 0% { left: -40%; } 100% { left: 100%; } }
+
+    .v-circle-load { width: 24px; height: 24px; border: 3px solid rgba(255,255,255,0.1); border-top-color: var(--md-sys-color-primary); border-radius: 50%; animation: spin 1s infinite linear; }
+
+    .v-chip { height: 36px; border-radius: 10px; border: 1px solid var(--md-sys-color-outline); flex-direction: row; padding: 0 0.8rem; }
+    .v-chip:hover { border-radius: 20px; background: var(--md-sys-color-primary-container); color: var(--md-sys-color-primary); }
+
+    /* --- ★スクショ再現：Pixel風 M3Eリアルスイッチの設計 --- */
+    .pixel-switch {
+      width: 52px;
+      height: 32px;
+      border-radius: 16px;
+      background-color: var(--md-sys-color-surface-variant); /* 初期OFF色 */
+      border: 2px solid var(--md-sys-color-outline);
+      position: relative;
+      transition: background-color 0.25s var(--md-sys-motion-spring), border-color 0.25s;
+      cursor: pointer;
+    }
+    
+    /* スイッチ内の丸ノブ */
+    .pixel-switch::after {
+      content: '';
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: var(--md-sys-color-outline);
+      /* 横にむにゅっと伸びながら動く設定 */
+      transition: left 0.25s var(--md-sys-motion-spring), 
+                  width 0.15s ease, 
+                  background-color 0.25s;
+    }
+
+    /* 押している間、ノブが横に少しびよんと伸びる（Expressive特有の挙動） */
+    .pixel-switch:active::after {
+      width: 26px;
+    }
+
+    /* 【ON状態】スクショ1枚目の水色背景 */
+    .pixel-switch.active {
+      background-color: #00beff; /* スクショの鮮やかな水色 */
+      border-color: transparent;
+    }
+    .pixel-switch.active::after {
+      left: 24px;
+      background-color: #002230; /* 内側の濃い色ノブ */
+    }
+    /* 押された状態で右側にあるとき、左に伸びるように調整 */
+    .pixel-switch.active:active::after {
+      left: 18px; 
+    }
+
+    /* --- 5. Dynamic FAB --- */
     .fab-group { position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; z-index: 1000; }
-    .fab-menu-item { display: flex; align-items: center; gap: 12px; background-color: #00beff; color: #002230; padding: 14px 28px; border-radius: 28px 28px 4px 28px; font-weight: bold; font-size: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.3); opacity: 0; transform: scale(0.4) translateY(20px); pointer-events: none; transition: transform 0.3s var(--md-sys-motion-spring), opacity 0.2s ease; }
-    .fab-menu-item:nth-child(2) { border-radius: 28px 28px 28px 4px; }
-    .fab-menu-item:nth-child(3) { border-radius: 4px 28px 28px 28px; }
-    .fab-menu-item:nth-child(4) { border-radius: 28px 4px 28px 28px; }
-    .fab-trigger { width: 64px; height: 64px; background-color: #83d5ff; color: #003549; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 16px rgba(0,0,0,0.4); transition: transform 0.3s var(--md-sys-motion-spring), background-color 0.3s; }
+    .fab-menu-item { display: flex; align-items: center; gap: 12px; background-color: #00beff; color: #002230; padding: 14px 28px; border-radius: 28px 28px 4px 28px; font-weight: bold; opacity: 0; transform: scale(0.4) translateY(20px); pointer-events: none; transition: all 0.3s var(--md-sys-motion-spring); }
+    .fab-trigger { width: 64px; height: 64px; background-color: #83d5ff; color: #003549; border-radius: 50%; align-items: center; justify-content: center; box-shadow: 0 6px 16px rgba(0,0,0,0.4); }
     .fab-trigger span { font-size: 2rem; transition: transform 0.25s ease; }
     .fab-group.active .fab-menu-item { opacity: 1; transform: scale(1) translateY(0); pointer-events: auto; }
     .fab-group.active .fab-trigger { background-color: var(--md-sys-color-surface-variant); color: var(--md-sys-color-primary); }
     .fab-group.active .fab-trigger span { transform: rotate(135deg); }
-    .bounce { animation: clickBounce 0.3s var(--md-sys-motion-spring); }
-    @keyframes clickBounce { 0% { transform: scale(1); } 50% { transform: scale(0.92); } 100% { transform: scale(1); } }
   </style>
 </head>
 <body>
 
   <header>
     <h1>Material 3 Expressive</h1>
-    <p>ウルトラ仕様：120 マトリクスショーケース ＆ ピクセルインタラクション</p>
+    <p>120個の重複なき完全独立コンポーネント・マスターショールーム（Pixelスイッチ搭載）</p>
   </header>
 
   <div class="theme-switch-container">
@@ -229,120 +189,156 @@
   </div>
 
   <div class="container">
+
     <div class="section-card">
-      <h2><span class="material-symbols-outlined">auto_awesome_motion</span>1. Shape Library (25 Elements)</h2>
-      <div class="grid-area">
-        <script>
-          for(let i=1; i<=25; i++) {
-            document.write(`<div class="shape-item pixel-interactive sh-${i}"><span>Shape ${String(i).padStart(2,'0')}</span><span class="material-symbols-outlined">star</span></div>`);
-          }
-        </script>
-      </div>
+      <h2><span class="material-symbols-outlined">auto_awesome_motion</span>1. Unique Shapes & Symbols (01-25)</h2>
+      <div class="grid-area" id="sec-1"></div>
     </div>
 
     <div class="section-card">
-      <h2><span class="material-symbols-outlined">smart_button</span>2. Action UI & Buttons (25 Elements)</h2>
-      <div class="grid-area">
-        <script>
-          const btnClasses = ['b-1', 'b-2', 'b-3', 'b-4', 'b-5', 'b-6', 'b-7'];
-          for(let i=26; i<=50; i++) {
-            let cls = btnClasses[(i-26) % btnClasses.length];
-            document.write(`<button class="btn-item pixel-interactive ${cls}">Btn ${i}</button>`);
-          }
-        </script>
-      </div>
+      <h2><span class="material-symbols-outlined">smart_button</span>2. Action UI & Variant Buttons (26-50)</h2>
+      <div class="grid-area" id="sec-2"></div>
     </div>
 
     <div class="section-card">
-      <h2><span class="material-symbols-outlined">assigned_turned_in</span>3. Contextual Cards (25 Elements)</h2>
-      <div class="grid-area">
-        <script>
-          for(let i=51; i<=75; i++) {
-            document.write(`<div class="card-item pixel-interactive"><span class="material-symbols-outlined">info</span>Card ${i}</div>`);
-          }
-        </script>
-      </div>
+      <h2><span class="material-symbols-outlined">assigned_turned_in</span>3. Unique Contextual Cards (51-75)</h2>
+      <div class="grid-area" id="sec-3"></div>
     </div>
 
     <div class="section-card">
-      <h2><span class="material-symbols-outlined">playback_speed</span>4. Linear Progress (25 Elements)</h2>
-      <div class="grid-area">
-        <script>
-          const anims = ['anim-fast', 'anim-slow', 'anim-step'];
-          for(let i=76; i<=100; i++) {
-            let a = anims[(i-76) % anims.length];
-            document.write(`
-              <div class="indicator-item">
-                <span>Ind ${i}</span>
-                <div class="progress-track" style="height: 6px;"><div class="p-bar ${a}"></div></div>
-              </div>
-            `);
-          }
-        </script>
-      </div>
+      <h2><span class="material-symbols-outlined">playback_speed</span>4. Micro Indicators & Feedbacks (76-100)</h2>
+      <div class="grid-area" id="sec-4"></div>
     </div>
 
     <div class="section-card">
-      <h2><span class="material-symbols-outlined">tune</span>5. Expressive Controls & Chips (20 New Elements)</h2>
-      <div class="grid-area">
-        <script>
-          for(let i=101; i<=108; i++) {
-            document.write(`<div class="segment-item pixel-interactive">Segment ${i}</div>`);
-          }
-        </script>
-        <script>
-          for(let i=109; i<=114; i++) {
-            document.write(`
-              <div class="slider-mock-item pixel-interactive">
-                <span style="font-size:0.7rem;">Slider ${i}</span>
-                <div class="slider-pill"><div class="slider-fill"></div></div>
-              </div>
-            `);
-          }
-        </script>
-        <script>
-          const icons = ['filter_list', 'sell', 'done', 'location_on', 'alarm', 'bookmark'];
-          for(let i=115; i<=120; i++) {
-            let ico = icons[(i-115) % icons.length];
-            document.write(`
-              <div class="chip-item pixel-interactive">
-                <span class="material-symbols-outlined" style="font-size:1rem;">${ico}</span>
-                <span>Chip ${i}</span>
-              </div>
-            `);
-          }
-        </script>
-      </div>
+      <h2><span class="material-symbols-outlined">tune</span>5. Expressive Controls & Chips (101-120)</h2>
+      <div class="grid-area" id="sec-5"></div>
     </div>
 
   </div>
 
   <script>
-    // リップルエフェクト生成
+    // セクション1：形状とシンボル (1〜25)
+    const shapesData = [
+      { i: 'star', t: 'お気に入り' }, { i: 'favorite', t: 'いいね' }, { i: 'shield', t: 'セキュリティ' }, { i: 'cookie', t: 'クッキー設定' }, { i: 'spa', t: 'リラクゼーション' },
+      { i: 'hexagon', t: 'クラスター' }, { i: 'category', t: 'オブジェクト' }, { i: 'wb_cloudy', t: '天候データ' }, { i: 'bubble_chart', t: '分析バブル' }, { i: 'waves', t: 'オーディオ波' },
+      { i: 'grain', t: 'ノイズテクスチャ' }, { i: 'polyline', t: 'マッピングルート' }, { i: 'interests', t: 'アクティビティ' }, { i: 'blur_on', t: 'フォーカス調整' }, { i: 'flare', t: 'レンズフレア' },
+      { i: 'wb_sunny', t: '高輝度モード' }, { i: 'bedtime', t: 'おやすみ時間' }, { i: 'nature_people', t: 'エコ環境' }, { i: 'diamond', t: 'プレミアムプラン' }, { i: 'egg', t: 'イースターエッグ' },
+      { i: 'castle', t: 'ゲームセーブ' }, { i: 'fort', t: '防護ウォール' }, { i: 'rss_feed', t: 'フィード購読' }, { i: 'ac_unit', t: 'クーラー制御' }, { i: 'fingerprint', t: '生体認証ロック' }
+    ];
+    const sec1 = document.getElementById('sec-1');
+    shapesData.forEach((d, index) => {
+      const shClass = ['v-sh1', 'v-sh2', 'v-sh3', 'v-sh4', 'v-sh5'][index % 5];
+      sec1.innerHTML += `<div class="catalog-item pixel-interactive ${shClass}"><span class="material-symbols-outlined">${d.i}</span><span>${String(index+1).padStart(2,'0')}. ${d.t}</span></div>`;
+    });
+
+    // セクション2：ボタン・アクション (26〜50)
+    const buttonStyles = ['v-btn-filled', 'v-btn-tonal', 'v-btn-elevated', 'v-btn-outlined', 'v-btn-split-l', 'v-btn-split-r'];
+    const btnLabels = [
+      '新規作成', '保存', '削除する', 'キャンセル', '共有リンク', 'ダウンロード', 'アップロード', '設定を開き直す',
+      'ログイン', 'ログアウト', '次へ進む', '前に戻る', '検索実行', 'フィルター適用', 'お気に入り登録', 'カートに追加',
+      '購入手続き', 'ヘルプ', '規約に同意', '編集モード', 'プレビュー', 'データ復元', '同期開始', '通知オン', 'アプリ終了'
+    ];
+    const sec2 = document.getElementById('sec-2');
+    for(let i=26; i<=50; i++) {
+      let styleCls = buttonStyles[(i-26) % buttonStyles.length];
+      let label = btnLabels[i-26];
+      sec2.innerHTML += `<button class="pixel-interactive catalog-item ${styleCls}"><span>#${i} ${label}</span></button>`;
+    }
+
+    // セクション3：カード (51〜75)
+    const cardData = [
+      { i: 'account_circle', t: 'プロフィール変更', b: 'Admin' }, { i: 'mail', t: '未読メッセージ', b: '5件' }, { i: 'warning', t: 'ストレージ容量警告', b: '92%' },
+      { i: 'music_note', t: '再生中のトラック', b: 'LIVE' }, { i: 'map', t: '位置情報の同期', b: 'ON' }, { i: 'shopping_bag', t: 'セール対象商品', b: '15%OFF' },
+      { i: 'battery_charging_full', t: '高速充電完了', b: '100%' }, { i: 'speed', t: 'ネットワーク速度', b: 'Fast' }, { i: 'cloud_done', t: 'クラウド同期完了', b: 'OK' },
+      { i: 'flight_takeoff', t: 'フライトの予定', b: '明日' }, { i: 'celebration', t: 'アチーブメント達成', b: '解禁' }, { i: 'sports_esports', t: 'ゲームコントローラ', b: '接続' },
+      { i: 'tv', t: 'ディスプレイ出力', b: '4K' }, { i: 'volume_up', t: '現在の音量設定', b: '70' }, { i: 'vpn_key', t: 'パスキーの有効化', b: '保護中' },
+      { i: 'palette', t: 'テーマダイナミックカラー', b: 'M3E' }, { i: 'translate', t: 'システム言語', b: 'JA' }, { i: 'wifi', t: '接続中のネットワーク', b: '5G' },
+      { i: 'event', t: 'カレンダーの予定', b: '3件' }, { i: 'schedule', t: 'リマインダー設定', b: '完了' }, { i: 'pie_chart', t: 'データ使用量レポート', b: '確認' },
+      { i: 'photo_camera', t: 'カメラへのアクセス', b: '許可' }, { i: 'mic', t: 'マイク感度テスト', b: '正常' }, { i: 'bluetooth', t: '周辺機器の検索', b: '探索中' },
+      { i: 'security', t: 'デバイスの安全性', b: '安全' }
+    ];
+    const sec3 = document.getElementById('sec-3');
+    cardData.forEach((d, index) => {
+      sec3.innerHTML += `
+        <div class="catalog-item pixel-interactive v-card-pro">
+          <span class="material-symbols-outlined" style="color:var(--md-sys-color-primary);">${d.i}</span>
+          <div style="font-size:0.7rem; margin-top:4px;">#${index+51} ${d.t}</div>
+          <span class="v-badge" style="margin-top:4px;">${d.b}</span>
+        </div>`;
+    });
+
+    // セクション4：インジケータ (76〜100)
+    const sec4 = document.getElementById('sec-4');
+    for(let i=76; i<=100; i++) {
+      if(i % 4 === 0) {
+        sec4.innerHTML += `<div class="catalog-item"><span>#${i} 円形ローダー</span><div class="v-circle-load"></div></div>`;
+      } else if(i % 4 === 1) {
+        sec4.innerHTML += `<div class="catalog-item"><span>#${i} 波形プログレス</span><div class="v-track"><div class="v-bar v-bar-wave"></div></div></div>`;
+      } else if(i % 4 === 2) {
+        sec4.innerHTML += `<div class="catalog-item"><span>#${i} ステップロード</span><div class="v-track"><div class="v-bar v-bar-step"></div></div></div>`;
+      } else {
+        sec4.innerHTML += `<div class="catalog-item pixel-interactive" style="border-radius:30px;"><span>#${i} タップ完了</span><span class="material-symbols-outlined" style="color:green">check_circle</span></div>`;
+      }
+    }
+
+    // セクション5：新世代ExpressiveUI ＆ スクショのリアルスイッチ (101〜120)
+    const sec5 = document.getElementById('sec-5');
+    
+    // 101〜102：【スクショ再現】動くリアルPixelスイッチ！
+    sec5.innerHTML += `
+      <div class="catalog-item" style="gap:8px;">
+        <span>#101 スイッチ (初期ON)</span>
+        <div class="pixel-switch active" onclick="this.classList.toggle('active')"></div>
+      </div>
+    `;
+    sec5.innerHTML += `
+      <div class="catalog-item" style="gap:8px;">
+        <span>#102 スイッチ (初期OFF)</span>
+        <div class="pixel-switch" onclick="this.classList.toggle('active')"></div>
+      </div>
+    `;
+
+    // 103〜106：セグメントタブ
+    for(let i=103; i<=106; i++) { sec5.innerHTML += `<div class="catalog-item pixel-interactive v-chip" style="background:var(--md-sys-color-secondary-container)"><span>Tab ${i}</span></div>`; }
+    // 107-112：スライダー
+    for(let i=107; i<=112; i++) {
+      sec5.innerHTML += `
+        <div class="catalog-item slider-mock-item pixel-interactive">
+          <span>Slider ${i}</span>
+          <div class="slider-pill"><div class="slider-fill" style="width:${(i-100)*12}%"></div></div>
+        </div>`;
+    }
+    // 113-120：チップス
+    const chipIcons = ['filter_list', 'sell', 'done', 'location_on', 'alarm', 'bookmark', 'star', 'cached'];
+    for(let i=113; i<=120; i++) {
+      let ico = chipIcons[i-113];
+      sec5.innerHTML += `
+        <div class="catalog-item pixel-interactive v-chip">
+          <span class="material-symbols-outlined" style="font-size:1rem;">${ico}</span>
+          <span>Chip ${i}</span>
+        </div>`;
+    }
+
+    /* --- 6. リップル＆システム制御 --- */
     document.addEventListener('click', function(e) {
+      // スイッチ本体をクリックしたときは通常のリップルを発生させない（Pixel仕様）
+      if (e.target.closest('.pixel-switch')) return;
+
       const target = e.target.closest('.pixel-interactive');
       if (!target) return;
-
       const rect = target.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
       const ripple = document.createElement('span');
       ripple.classList.add('m3-ripple');
-      
       const size = Math.max(rect.width, rect.height);
       ripple.style.width = ripple.style.height = `${size}px`;
-      ripple.style.left = `${x - size / 2}px`;
-      ripple.style.top = `${y - size / 2}px`;
-
+      ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
+      ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
       target.appendChild(ripple);
       ripple.addEventListener('animationend', () => ripple.remove());
     });
 
-    function toggleFabMenu() {
-      document.getElementById('pixelFabGroup').classList.toggle('active');
-    }
-
+    function toggleFabMenu() { document.getElementById('pixelFabGroup').classList.toggle('active'); }
     function toggleTheme() {
       const body = document.body;
       const icon = document.getElementById('theme-icon');
