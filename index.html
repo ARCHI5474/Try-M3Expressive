@@ -4,643 +4,814 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>Material 3 Expressive Ultimate</title>
+<title>Material 3 Expressive Experience</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,500,1,0&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,500,1,0&display=swap" rel="stylesheet">
 
 <style>
 
 :root{
-  --bg:#060d11;
-  --surface:rgba(17,34,43,.76);
-  --surface-v:rgba(28,53,66,.6);
 
-  --primary:#5fd3ff;
-  --primary-c:#004d69;
-  --on-primary:#003549;
+  --bg:#071015;
 
-  --secondary:#adc9d7;
-  --secondary-c:#2e4854;
+  --surface:
+    rgba(16,28,36,.72);
 
-  --tertiary:#ffb4a2;
+  --surface-2:
+    rgba(24,40,52,.58);
 
-  --outline:#8b9296;
+  --primary:#69d5ff;
+  --primary-soft:#183748;
 
-  --spring:cubic-bezier(.43,1.95,.22,.75);
+  --secondary:#b0c6d1;
 
-  --z-fab:900;
-  --z-dialog:1000;
-}
+  --outline:
+    rgba(255,255,255,.08);
 
-body.light-theme{
-  --bg:#edf3f7;
-  --surface:rgba(255,255,255,.82);
-  --surface-v:rgba(239,244,248,.85);
+  --shadow:
+    rgba(0,0,0,.35);
 
-  --primary:#00668b;
-  --primary-c:#c2e8ff;
-  --on-primary:#fff;
+  --spring:
+    cubic-bezier(.22,1,.36,1);
 
-  --secondary:#4a5e68;
-  --secondary-c:#dbe4e9;
 }
 
 *{
   box-sizing:border-box;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
+
   margin:0;
-  font-family:'Plus Jakarta Sans',sans-serif;
-  background:var(--bg);
-  color:var(--secondary);
 
   overflow-x:hidden;
 
-  padding:1rem .8rem 9rem;
+  background:var(--bg);
 
-  transition:
-    background .35s ease,
-    color .35s ease;
+  color:white;
+
+  font-family:
+    'Plus Jakarta Sans',
+    sans-serif;
+
 }
 
-/* Aurora */
+/* Background */
 
 body::before{
+
   content:'';
+
   position:fixed;
-  inset:-50%;
-  z-index:-1;
+  inset:-30%;
+
+  z-index:-2;
 
   background:
-    radial-gradient(circle,rgba(95,211,255,.08),transparent 40%),
-    radial-gradient(circle,rgba(255,180,162,.05),transparent 55%);
+    radial-gradient(circle at 20% 20%,
+      rgba(105,213,255,.12),
+      transparent 30%),
 
-  animation:aurora 22s linear infinite;
+    radial-gradient(circle at 80% 30%,
+      rgba(255,255,255,.04),
+      transparent 25%),
+
+    radial-gradient(circle at 50% 80%,
+      rgba(105,213,255,.08),
+      transparent 30%);
+
+  animation:
+    bgRotate 26s linear infinite;
+
 }
 
-@keyframes aurora{
+@keyframes bgRotate{
+
   from{
     transform:rotate(0deg);
   }
+
   to{
     transform:rotate(360deg);
   }
+
 }
 
-/* Header */
+/* Noise */
 
-header{
-  text-align:center;
-  margin:1rem 0 2rem;
+body::after{
+
+  content:'';
+
+  position:fixed;
+  inset:0;
+
+  z-index:-1;
+
+  opacity:.03;
+
+  pointer-events:none;
+
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+
 }
 
-header h1{
-  margin:0;
-  font-size:2.5rem;
-  font-weight:800;
+/* Hero */
 
-  color:var(--primary);
+.hero{
 
-  text-shadow:
-    0 0 24px rgba(95,211,255,.25);
-}
-
-header p{
-  color:var(--outline);
-  margin-top:.5rem;
-}
-
-/* Theme Button */
-
-.theme-btn{
-  margin:auto auto 2rem;
+  min-height:100vh;
 
   display:flex;
-  align-items:center;
-  gap:.6rem;
-
-  padding:.8rem 1.3rem;
-
-  border:none;
-  border-radius:22px;
-
-  background:var(--surface-v);
-
-  color:var(--primary);
-
-  backdrop-filter:blur(12px);
-
-  cursor:pointer;
-
-  transition:.25s;
-}
-
-.theme-btn:hover{
-  transform:scale(1.05);
-}
-
-/* Layout */
-
-.container{
-  max-width:1300px;
-  margin:auto;
-
-  display:flex;
-  flex-direction:column;
-  gap:2rem;
-
-  transition:filter .3s ease;
-}
-
-body.fab-open .container{
-  filter:
-    blur(3px)
-    brightness(.8);
-}
-
-.section-card{
-  background:var(--surface);
-
-  border-radius:32px;
-
-  padding:1.5rem;
-
-  border:1px solid rgba(255,255,255,.05);
-
-  box-shadow:
-    0 8px 24px rgba(0,0,0,.18);
-
-  backdrop-filter:blur(14px);
-}
-
-.section-card h2{
-  margin-top:0;
-
-  display:flex;
-  align-items:center;
-  gap:.5rem;
-
-  color:var(--primary);
-}
-
-.grid-area{
-  display:grid;
-
-  grid-template-columns:
-    repeat(auto-fit,minmax(160px,1fr));
-
-  gap:1rem;
-}
-
-/* Cards */
-
-.m3-card{
-  min-height:100px;
-
-  position:relative;
-
-  display:flex;
-  flex-direction:column;
   align-items:center;
   justify-content:center;
 
-  gap:.5rem;
+  position:relative;
+
+  padding:2rem;
+
+}
+
+.hero-inner{
+
+  width:min(1000px,100%);
 
   text-align:center;
 
-  padding:1rem;
+}
 
-  border-radius:22px;
+.hero-badge{
 
-  background:var(--surface-v);
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+
+  padding:.6rem 1rem;
+
+  border-radius:999px;
+
+  background:
+    rgba(255,255,255,.05);
+
+  border:
+    1px solid var(--outline);
+
+  backdrop-filter:
+    blur(12px)
+    saturate(160%);
+
+  color:var(--secondary);
+
+  margin-bottom:1.5rem;
+
+}
+
+.hero h1{
+
+  margin:0;
+
+  font-size:
+    clamp(3rem,9vw,7rem);
+
+  line-height:.92;
+
+  font-weight:800;
+
+  letter-spacing:-.06em;
+
+}
+
+.gradient{
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff,
+      #69d5ff
+    );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+}
+
+.hero p{
+
+  width:min(720px,100%);
+
+  margin:
+    2rem auto 0;
+
+  color:var(--secondary);
+
+  line-height:1.8;
+
+  font-size:
+    clamp(1rem,2vw,1.2rem);
+
+}
+
+/* Floating Panels */
+
+.float-layer{
+
+  position:absolute;
+  inset:0;
 
   overflow:hidden;
 
-  border:1px solid rgba(255,255,255,.03);
+  pointer-events:none;
 
-  transition:
-    transform .2s ease-out,
-    border-radius .35s var(--spring),
-    background .3s ease;
 }
 
-.pixel-interactive{
+.float-card{
+
+  position:absolute;
+
+  background:
+    rgba(255,255,255,.04);
+
+  border:
+    1px solid rgba(255,255,255,.06);
+
+  backdrop-filter:
+    blur(20px)
+    saturate(160%);
+
+  border-radius:28px;
+
+  box-shadow:
+    0 24px 60px rgba(0,0,0,.2);
+
+  animation:
+    float 9s ease-in-out infinite;
+
+}
+
+.float-card:nth-child(1){
+
+  width:260px;
+  height:180px;
+
+  top:14%;
+  left:7%;
+
+}
+
+.float-card:nth-child(2){
+
+  width:180px;
+  height:180px;
+
+  top:18%;
+  right:8%;
+
+  animation-delay:-3s;
+
+}
+
+.float-card:nth-child(3){
+
+  width:320px;
+  height:140px;
+
+  bottom:10%;
+  left:18%;
+
+  animation-delay:-5s;
+
+}
+
+@keyframes float{
+
+  0%,100%{
+    transform:
+      translateY(0px)
+      rotate(0deg);
+  }
+
+  50%{
+    transform:
+      translateY(-16px)
+      rotate(.8deg);
+  }
+
+}
+
+/* Sections */
+
+.section{
+
+  width:min(1300px,100%);
+
+  margin:auto;
+
+  padding:
+    8rem 1.2rem;
+
+}
+
+.section-head{
+
+  margin-bottom:3rem;
+
+}
+
+.section-label{
+
+  color:var(--primary);
+
+  font-size:.85rem;
+
+  letter-spacing:.25em;
+
+  text-transform:uppercase;
+
+}
+
+.section-title{
+
+  font-size:
+    clamp(2rem,5vw,4rem);
+
+  margin:
+    .7rem 0 1rem;
+
+}
+
+.section-text{
+
+  color:var(--secondary);
+
+  line-height:1.8;
+
+  max-width:700px;
+
+}
+
+/* Grid */
+
+.grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(auto-fit,minmax(260px,1fr));
+
+  gap:1.5rem;
+
+}
+
+/* Experience Cards */
+
+.exp-card{
+
+  position:relative;
+
+  overflow:hidden;
+
+  min-height:320px;
+
+  padding:1.8rem;
+
+  border-radius:32px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.05),
+      rgba(255,255,255,.02)
+    );
+
+  border:
+    1px solid rgba(255,255,255,.07);
+
+  backdrop-filter:
+    blur(18px)
+    saturate(180%);
+
+  transition:
+    transform .6s var(--spring),
+    border-radius .6s var(--spring),
+    background .4s ease;
+
   cursor:pointer;
 
   transform-style:preserve-3d;
-  perspective:600px;
 
-  will-change:transform;
 }
 
-.pixel-interactive:hover{
-  border-radius:28px;
+.exp-card:hover{
+
+  transform:
+    translateY(-8px)
+    scale(1.02);
+
+  border-radius:42px;
+
 }
 
-.pixel-interactive *{
-  transform:translateZ(18px);
-}
+.exp-card::before{
 
-.pixel-interactive::before{
   content:'';
 
   position:absolute;
   inset:0;
 
+  opacity:0;
+
+  transition:.5s ease;
+
   background:
-    linear-gradient(
-      45deg,
-      transparent,
-      rgba(255,255,255,.08),
-      transparent
+    radial-gradient(
+      circle at var(--x) var(--y),
+      rgba(255,255,255,.18),
+      transparent 40%
     );
 
-  transform:translateX(-100%);
-  transition:transform .6s ease;
 }
 
-.pixel-interactive:hover::before{
-  transform:translateX(100%);
+.exp-card:hover::before{
+  opacity:1;
 }
 
-/* Ripple */
+.exp-top{
 
-.m3-ripple{
-  position:absolute;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 
-  border-radius:50%;
-
-  transform:scale(0);
-
-  pointer-events:none;
-
-  background:
-    radial-gradient(circle,
-    rgba(255,255,255,.35),
-    transparent 70%);
-
-  animation:ripple .6s cubic-bezier(0,.7,.1,1);
 }
 
-@keyframes ripple{
-  to{
-    transform:scale(5);
-    opacity:0;
-  }
-}
+.icon-wrap{
 
-/* Shapes */
+  width:58px;
+  height:58px;
 
-.v-sh1{
-  border-radius:38px 12px;
+  border-radius:20px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
   background:
     linear-gradient(
       135deg,
-      var(--primary-c),
-      #003549
+      rgba(105,213,255,.24),
+      rgba(255,255,255,.04)
     );
 
   color:var(--primary);
+
 }
 
-.v-sh2{
-  border-radius:26px 26px 4px 26px;
+.exp-title{
+
+  margin-top:2rem;
+
+  font-size:1.5rem;
+
+  font-weight:700;
+
 }
 
-.v-sh3{
-  border-radius:40px 40px 4px 4px;
-  background:#35231d;
+.exp-desc{
+
+  margin-top:1rem;
+
+  color:var(--secondary);
+
+  line-height:1.7;
+
 }
 
-.v-sh4{
-  border-radius:50% 20%;
-  border:2px dashed var(--outline);
-}
+/* Interactive Bar */
 
-.v-sh5{
-  border-radius:
-    24px 50% 24px 50% /
-    50% 24px 50% 24px;
-}
+.exp-bar{
 
-/* Buttons */
+  margin-top:2rem;
 
-.v-btn-filled{
-  background:
-    linear-gradient(
-      135deg,
-      var(--primary),
-      #00a2ff
-    );
-
-  color:var(--on-primary);
-}
-
-.v-btn-tonal{
-  background:var(--secondary-c);
-}
-
-.v-btn-outline{
-  border:2px solid var(--primary);
-  background:transparent;
-  color:var(--primary);
-}
-
-/* Progress */
-
-.v-track{
-  width:90%;
-  height:8px;
+  width:100%;
+  height:10px;
 
   border-radius:999px;
 
   overflow:hidden;
 
   background:
-    rgba(255,255,255,.08);
+    rgba(255,255,255,.05);
+
 }
 
-.v-bar{
+.exp-fill{
+
+  width:42%;
+
   height:100%;
-  width:45%;
 
   border-radius:999px;
 
   background:
     linear-gradient(
       90deg,
-      var(--primary),
-      #9fe6ff
+      #69d5ff,
+      #d6f5ff
     );
 
-  animation:progress 1.3s infinite;
+  animation:
+    move 2s infinite;
+
 }
 
-@keyframes progress{
+@keyframes move{
+
   from{
     transform:translateX(-120%);
   }
+
   to{
-    transform:translateX(300%);
+    transform:translateX(320%);
   }
+
 }
 
-/* Toggle */
+/* Showcase */
 
-.pixel-switch{
-  width:54px;
-  height:30px;
+.showcase{
 
-  border-radius:999px;
+  margin-top:3rem;
 
-  background:var(--surface-v);
+  display:grid;
 
-  border:2px solid var(--outline);
+  grid-template-columns:
+    1.4fr .8fr;
+
+  gap:1.5rem;
+
+}
+
+.big-panel{
+
+  min-height:520px;
 
   position:relative;
 
-  cursor:pointer;
+  overflow:hidden;
 
-  transition:.25s var(--spring);
+  border-radius:42px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.06),
+      rgba(255,255,255,.03)
+    );
+
+  border:
+    1px solid rgba(255,255,255,.08);
+
+  backdrop-filter:
+    blur(18px)
+    saturate(180%);
+
+  padding:2rem;
+
 }
 
-.pixel-switch::after{
-  content:'';
+.panel-glow{
 
   position:absolute;
 
-  top:3px;
-  left:3px;
-
-  width:20px;
-  height:20px;
+  width:420px;
+  height:420px;
 
   border-radius:50%;
 
-  background:var(--outline);
+  background:
+    radial-gradient(circle,
+      rgba(105,213,255,.24),
+      transparent 70%);
 
-  transition:.3s var(--spring);
+  filter:blur(40px);
+
+  top:-120px;
+  right:-120px;
+
 }
 
-.pixel-switch.active{
-  background:#00beff;
-  border-color:transparent;
+.ui-window{
+
+  position:absolute;
+
+  inset:120px 40px 40px;
+
+  border-radius:30px;
+
+  overflow:hidden;
+
+  border:
+    1px solid rgba(255,255,255,.08);
+
+  background:
+    rgba(8,16,22,.7);
+
+  backdrop-filter:
+    blur(16px);
+
 }
 
-.pixel-switch.active::after{
-  left:27px;
-  background:#002230;
+.ui-topbar{
+
+  height:64px;
+
+  display:flex;
+  align-items:center;
+
+  padding:0 1.2rem;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.05);
+
 }
 
-/* Chips */
+.dot{
 
-.v-chip{
-  flex-direction:row;
+  width:10px;
+  height:10px;
 
-  min-height:auto;
+  border-radius:50%;
 
-  height:42px;
+  background:
+    rgba(255,255,255,.2);
 
-  border-radius:14px;
+  margin-right:.5rem;
 
-  padding:0 .9rem;
+}
+
+.ui-content{
+
+  padding:1.5rem;
+
+}
+
+.ui-line{
+
+  height:18px;
+
+  border-radius:999px;
+
+  margin-bottom:1rem;
+
+  background:
+    rgba(255,255,255,.05);
+
+}
+
+.ui-line.large{
+  width:100%;
+}
+
+.ui-line.mid{
+  width:70%;
+}
+
+.ui-line.small{
+  width:45%;
+}
+
+/* Side Cards */
+
+.side-stack{
+
+  display:flex;
+  flex-direction:column;
+
+  gap:1.5rem;
+
+}
+
+.side-card{
+
+  flex:1;
+
+  padding:1.5rem;
+
+  border-radius:32px;
+
+  background:
+    rgba(255,255,255,.04);
+
+  border:
+    1px solid rgba(255,255,255,.06);
+
+  backdrop-filter:
+    blur(18px)
+    saturate(180%);
+
+  transition:
+    transform .4s var(--spring);
+
+}
+
+.side-card:hover{
+  transform:translateY(-6px);
 }
 
 /* FAB */
 
-.fab-group{
+.fab{
+
   position:fixed;
 
   right:24px;
-  bottom:calc(24px + env(safe-area-inset-bottom));
+  bottom:24px;
 
-  z-index:var(--z-fab);
+  z-index:100;
 
-  display:flex;
-  flex-direction:column;
-  align-items:flex-end;
-  gap:12px;
-
-  transition:
-    transform .25s ease;
-}
-
-.fab-menu-item{
-  border:none;
-
-  display:flex;
-  align-items:center;
-  gap:.7rem;
-
-  padding:15px 26px;
-
-  border-radius:28px 28px 6px 28px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #00beff,
-      #0095c2
-    );
-
-  color:#002230;
-
-  font-weight:800;
-
-  opacity:0;
-
-  transform:
-    scale(.4)
-    translateY(20px);
-
-  pointer-events:none;
-
-  transition:
-    all .35s var(--spring);
-
-  box-shadow:
-    0 8px 24px rgba(0,0,0,.3);
-}
-
-.fab-trigger{
-  width:64px;
-  height:64px;
+  width:68px;
+  height:68px;
 
   border:none;
+
   border-radius:50%;
 
   background:
     linear-gradient(
       135deg,
-      #83d5ff,
-      #3ec1ff
+      #7edbff,
+      #44c7ff
     );
 
-  color:#003549;
+  color:#00384d;
 
   display:flex;
   align-items:center;
   justify-content:center;
-
-  cursor:pointer;
 
   box-shadow:
-    0 10px 28px rgba(0,0,0,.35);
-
-  transition:
-    transform .3s var(--spring),
-    background .3s;
-}
-
-.fab-trigger .material-symbols-rounded{
-  font-size:2rem;
-  transition:transform .35s var(--spring);
-}
-
-.fab-group.active .fab-menu-item{
-  opacity:1;
-
-  transform:
-    scale(1)
-    translateY(0);
-
-  pointer-events:auto;
-}
-
-.fab-group.active .fab-trigger{
-  transform:scale(.9);
-
-  background:var(--surface-v);
-
-  color:var(--primary);
-}
-
-.fab-group.active .fab-trigger .material-symbols-rounded{
-  transform:rotate(135deg);
-}
-
-/* Dialog */
-
-.m3-dialog-overlay{
-  position:fixed;
-  inset:0;
-
-  z-index:var(--z-dialog);
-
-  background:rgba(0,0,0,.72);
-
-  backdrop-filter:blur(12px);
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  opacity:0;
-  pointer-events:none;
-
-  transition:.3s ease;
-}
-
-.m3-dialog-overlay.open{
-  opacity:1;
-  pointer-events:auto;
-}
-
-.m3-dialog-window{
-  width:min(400px,90vw);
-
-  background:#182830;
-
-  border-radius:32px;
-
-  padding:2rem;
-
-  transform:
-    scale(.7)
-    translateY(60px);
-
-  transition:
-    transform .4s var(--spring);
-}
-
-body.light-theme .m3-dialog-window{
-  background:white;
-  color:#162129;
-}
-
-.m3-dialog-overlay.open .m3-dialog-window{
-  transform:
-    scale(1)
-    translateY(0);
-}
-
-.dialog-close{
-  border:none;
-
-  margin-top:1rem;
-
-  background:var(--primary);
-
-  color:var(--on-primary);
-
-  padding:.8rem 1.4rem;
-
-  border-radius:18px;
+    0 20px 50px rgba(0,0,0,.35);
 
   cursor:pointer;
+
+  transition:
+    transform .35s var(--spring);
+
 }
 
-@media (prefers-reduced-motion: reduce){
+.fab:hover{
 
-  *,
-  *::before,
-  *::after{
-    animation:none !important;
-    transition:none !important;
+  transform:
+    scale(1.08)
+    rotate(6deg);
+
+}
+
+/* Footer */
+
+footer{
+
+  padding:
+    6rem 1rem 3rem;
+
+  text-align:center;
+
+  color:var(--secondary);
+
+}
+
+/* Responsive */
+
+@media(max-width:980px){
+
+  .showcase{
+
+    grid-template-columns:1fr;
+
+  }
+
+}
+
+@media(max-width:700px){
+
+  .hero{
+    min-height:auto;
+    padding:8rem 1.2rem;
+  }
+
+  .float-card{
+    display:none;
+  }
+
+  .section{
+    padding:5rem 1rem;
   }
 
 }
@@ -650,365 +821,305 @@ body.light-theme .m3-dialog-window{
 
 <body>
 
-<header>
-  <h1>Material 3 Expressive</h1>
-  <p>Ultimate Showcase Edition</p>
-</header>
+<!-- HERO -->
 
-<button class="theme-btn" onclick="toggleTheme()">
-  <span class="material-symbols-rounded" id="theme-icon">light_mode</span>
-  <span id="theme-text">ライトモード</span>
-</button>
+<section class="hero">
 
-<!-- FAB -->
+  <div class="float-layer">
 
-<div class="fab-group" id="pixelFabGroup">
-
-  <button class="fab-menu-item pixel-interactive">
-    <span class="material-symbols-rounded">image</span>
-    画像
-  </button>
-
-  <button class="fab-menu-item pixel-interactive">
-    <span class="material-symbols-rounded">mic</span>
-    音声
-  </button>
-
-  <button class="fab-menu-item pixel-interactive">
-    <span class="material-symbols-rounded">draw</span>
-    描画
-  </button>
-
-  <button class="fab-menu-item pixel-interactive">
-    <span class="material-symbols-rounded">edit_note</span>
-    テキスト
-  </button>
-
-  <button class="fab-trigger pixel-interactive" onclick="toggleFabMenu()">
-    <span class="material-symbols-rounded">add</span>
-  </button>
-
-</div>
-
-<div class="container">
-
-  <!-- Shapes -->
-
-  <div class="section-card">
-
-    <h2>
-      <span class="material-symbols-rounded">auto_awesome</span>
-      Dynamic Shapes
-    </h2>
-
-    <div class="grid-area" id="shapes"></div>
+    <div class="float-card"></div>
+    <div class="float-card"></div>
+    <div class="float-card"></div>
 
   </div>
 
-  <!-- Buttons -->
+  <div class="hero-inner">
 
-  <div class="section-card">
-
-    <h2>
-      <span class="material-symbols-rounded">smart_button</span>
-      Buttons
-    </h2>
-
-    <div class="grid-area" id="buttons"></div>
-
-  </div>
-
-  <!-- Progress -->
-
-  <div class="section-card">
-
-    <h2>
-      <span class="material-symbols-rounded">progress_activity</span>
-      State Indicators
-    </h2>
-
-    <div class="grid-area" id="progress"></div>
-
-  </div>
-
-  <!-- Toggles -->
-
-  <div class="section-card">
-
-    <h2>
-      <span class="material-symbols-rounded">toggle_on</span>
-      Toggles & Chips
-    </h2>
-
-    <div class="grid-area" id="toggles"></div>
-
-  </div>
-
-</div>
-
-<!-- Dialog -->
-
-<div class="m3-dialog-overlay" id="dialog" onclick="closeDialog(event)">
-
-  <div class="m3-dialog-window">
-
-    <h2 id="dialogTitle"></h2>
-
-    <p id="dialogText"></p>
-
-    <button class="dialog-close"
-      onclick="document.getElementById('dialog').classList.remove('open')">
-      閉じる
-    </button>
-
-  </div>
-
-</div>
-
-<script>
-
-/* Shape Cards */
-
-const shapes = [
-  'お気に入り',
-  'クラウド',
-  '通知',
-  '分析',
-  '同期',
-  'AI',
-  'ゲーム',
-  '検索'
-];
-
-const shapeClasses = [
-  'v-sh1',
-  'v-sh2',
-  'v-sh3',
-  'v-sh4',
-  'v-sh5'
-];
-
-const shapeRoot =
-  document.getElementById('shapes');
-
-shapes.forEach((name,index)=>{
-
-  shapeRoot.innerHTML += `
-    <div class="m3-card pixel-interactive ${shapeClasses[index % 5]}"
-      onclick="openDialog('${name}','${name} UI コンポーネント')">
+    <div class="hero-badge">
 
       <span class="material-symbols-rounded">
         auto_awesome
       </span>
 
-      <span>${name}</span>
+      Material 3 Expressive
 
     </div>
-  `;
 
-});
+    <h1>
 
-/* Buttons */
+      Designed<br>
+      for <span class="gradient">Experience</span>
 
-const buttonRoot =
-  document.getElementById('buttons');
+    </h1>
 
-const btnStyles = [
-  'v-btn-filled',
-  'v-btn-tonal',
-  'v-btn-outline'
-];
+    <p>
 
-[
-  '保存',
-  '共有',
-  '同期',
-  '検索',
-  '購入',
-  '削除'
-].forEach((name,index)=>{
+      A spatial interface concept focused on motion,
+      atmosphere, depth, and interaction.
+      Built to feel alive instead of static.
 
-  buttonRoot.innerHTML += `
-    <button class="m3-card pixel-interactive ${btnStyles[index % 3]}"
-      onclick="openDialog('${name}','${name}ボタン')">
+    </p>
 
-      <span>${name}</span>
+  </div>
 
-    </button>
-  `;
+</section>
 
-});
+<!-- EXPERIENCE -->
 
-/* Progress */
+<section class="section">
 
-const progressRoot =
-  document.getElementById('progress');
+  <div class="section-head">
 
-for(let i=0;i<6;i++){
+    <div class="section-label">
+      Interactive System
+    </div>
 
-  progressRoot.innerHTML += `
-    <div class="m3-card">
+    <div class="section-title">
+      Motion feels natural.
+    </div>
 
-      <span>処理中...</span>
+    <div class="section-text">
 
-      <div class="v-track">
-        <div class="v-bar"></div>
+      Every element reacts with subtle depth,
+      soft lighting, and fluid transitions to create
+      a calm and immersive interface experience.
+
+    </div>
+
+  </div>
+
+  <div class="grid">
+
+    <div class="exp-card">
+
+      <div class="exp-top">
+
+        <div class="icon-wrap">
+
+          <span class="material-symbols-rounded">
+            animation
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="exp-title">
+        Adaptive Motion
+      </div>
+
+      <div class="exp-desc">
+
+        Smooth spring animations respond naturally
+        to movement and interaction.
+
+      </div>
+
+      <div class="exp-bar">
+        <div class="exp-fill"></div>
       </div>
 
     </div>
-  `;
 
-}
+    <div class="exp-card">
 
-/* Toggles */
+      <div class="exp-top">
 
-const toggleRoot =
-  document.getElementById('toggles');
+        <div class="icon-wrap">
 
-toggleRoot.innerHTML += `
-  <div class="m3-card">
+          <span class="material-symbols-rounded">
+            blur_on
+          </span>
 
-    <span>Wi-Fi</span>
+        </div>
 
-    <div class="pixel-switch active"
-      onclick="this.classList.toggle('active')">
+      </div>
+
+      <div class="exp-title">
+        Glass Surfaces
+      </div>
+
+      <div class="exp-desc">
+
+        Layered translucent materials create depth
+        without overwhelming the interface.
+
+      </div>
+
+      <div class="exp-bar">
+        <div class="exp-fill"></div>
+      </div>
+
+    </div>
+
+    <div class="exp-card">
+
+      <div class="exp-top">
+
+        <div class="icon-wrap">
+
+          <span class="material-symbols-rounded">
+            light_mode
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="exp-title">
+        Dynamic Lighting
+      </div>
+
+      <div class="exp-desc">
+
+        Subtle glow effects and reactive highlights
+        enhance focus and hierarchy.
+
+      </div>
+
+      <div class="exp-bar">
+        <div class="exp-fill"></div>
+      </div>
+
     </div>
 
   </div>
-`;
 
-toggleRoot.innerHTML += `
-  <div class="m3-card">
+</section>
 
-    <span>Bluetooth</span>
+<!-- SHOWCASE -->
 
-    <div class="pixel-switch"
-      onclick="this.classList.toggle('active')">
+<section class="section">
+
+  <div class="section-head">
+
+    <div class="section-label">
+      Spatial UI
+    </div>
+
+    <div class="section-title">
+      Built around atmosphere.
     </div>
 
   </div>
-`;
 
-[
-  'Music',
-  'Gaming',
-  'Focus',
-  'Travel'
-].forEach(name=>{
+  <div class="showcase">
 
-  toggleRoot.innerHTML += `
-    <div class="m3-card pixel-interactive v-chip"
-      onclick="openDialog('${name}','Chip Component')">
+    <div class="big-panel">
 
-      <span class="material-symbols-rounded">
-        sell
-      </span>
+      <div class="panel-glow"></div>
 
-      <span>${name}</span>
+      <div class="ui-window">
+
+        <div class="ui-topbar">
+
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+
+        </div>
+
+        <div class="ui-content">
+
+          <div class="ui-line large"></div>
+          <div class="ui-line mid"></div>
+          <div class="ui-line small"></div>
+
+          <br>
+
+          <div class="ui-line large"></div>
+          <div class="ui-line mid"></div>
+
+        </div>
+
+      </div>
 
     </div>
-  `;
+
+    <div class="side-stack">
+
+      <div class="side-card">
+
+        <h3>Reactive Depth</h3>
+
+        <p>
+
+          Elements subtly shift and respond
+          to cursor movement.
+
+        </p>
+
+      </div>
+
+      <div class="side-card">
+
+        <h3>Quiet Visual Design</h3>
+
+        <p>
+
+          Soft gradients and restrained motion
+          reduce visual fatigue.
+
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<button class="fab">
+
+  <span class="material-symbols-rounded">
+    add
+  </span>
+
+</button>
+
+<footer>
+
+  Material 3 Expressive Experience Concept
+
+</footer>
+
+<script>
+
+/* Interactive Glow */
+
+document.querySelectorAll('.exp-card')
+.forEach(card=>{
+
+  card.addEventListener('mousemove',e=>{
+
+    const rect =
+      card.getBoundingClientRect();
+
+    const x =
+      e.clientX - rect.left;
+
+    const y =
+      e.clientY - rect.top;
+
+    card.style.setProperty('--x',`${x}px`);
+    card.style.setProperty('--y',`${y}px`);
+
+  });
 
 });
 
-/* Dialog */
+/* Parallax */
 
-function openDialog(title,text){
+const cards =
+  document.querySelectorAll('.exp-card,.side-card');
 
-  document.getElementById('dialogTitle')
-    .textContent = title;
+document.addEventListener('mousemove',e=>{
 
-  document.getElementById('dialogText')
-    .textContent = text;
-
-  document.getElementById('dialog')
-    .classList.add('open');
-
-}
-
-function closeDialog(e){
-
-  if(e.target.id === 'dialog'){
-    e.target.classList.remove('open');
-  }
-
-}
-
-/* Theme */
-
-function toggleTheme(){
-
-  document.body.classList.toggle('light-theme');
-
-  const light =
-    document.body.classList.contains('light-theme');
-
-  document.getElementById('theme-icon')
-    .textContent =
-      light ? 'dark_mode' : 'light_mode';
-
-  document.getElementById('theme-text')
-    .textContent =
-      light ? 'ダークモード' : 'ライトモード';
-
-}
-
-/* FAB */
-
-function toggleFabMenu(){
-
-  document
-    .getElementById('pixelFabGroup')
-    .classList.toggle('active');
-
-  document.body.classList.toggle('fab-open');
-
-}
-
-/* Optimized Parallax */
-
-const isTouch =
-  'ontouchstart' in window ||
-  navigator.maxTouchPoints > 0;
-
-if(!isTouch){
-
-  let activeCard = null;
-
-  document.addEventListener('mouseover',e=>{
-
-    const card =
-      e.target.closest('.pixel-interactive');
-
-    if(card){
-      activeCard = card;
-    }
-
-  });
-
-  document.addEventListener('mouseout',e=>{
-
-    const card =
-      e.target.closest('.pixel-interactive');
-
-    if(card){
-
-      card.style.transform = '';
-
-      if(activeCard === card){
-        activeCard = null;
-      }
-
-    }
-
-  });
-
-  document.addEventListener('mousemove',e=>{
-
-    if(!activeCard) return;
+  cards.forEach(card=>{
 
     const rect =
-      activeCard.getBoundingClientRect();
+      card.getBoundingClientRect();
 
     const x =
       e.clientX - (rect.left + rect.width / 2);
@@ -1016,77 +1127,50 @@ if(!isTouch){
     const y =
       e.clientY - (rect.top + rect.height / 2);
 
-    activeCard.style.transform = `
-      perspective(600px)
-      rotateX(${(y / rect.height) * -12}deg)
-      rotateY(${(x / rect.width) * 12}deg)
-      scale(1.03)
-    `;
+    if(
+      Math.abs(x) < 300 &&
+      Math.abs(y) < 300
+    ){
 
-  });
+      card.style.transform =
+      `
+      rotateX(${(y / rect.height) * -5}deg)
+      rotateY(${(x / rect.width) * 5}deg)
+      translateY(-4px)
+      `;
 
-}
+    }else{
 
-/* Ripple */
+      card.style.transform = '';
 
-document.addEventListener('click',e=>{
+    }
 
-  if(e.target.closest('.pixel-switch')) return;
-
-  const target =
-    e.target.closest('.pixel-interactive');
-
-  if(!target) return;
-
-  const rect =
-    target.getBoundingClientRect();
-
-  const ripple =
-    document.createElement('span');
-
-  ripple.className = 'm3-ripple';
-
-  const size =
-    Math.max(rect.width,rect.height);
-
-  ripple.style.width =
-    ripple.style.height =
-      `${size}px`;
-
-  ripple.style.left =
-    `${e.clientX - rect.left - size/2}px`;
-
-  ripple.style.top =
-    `${e.clientY - rect.top - size/2}px`;
-
-  target.appendChild(ripple);
-
-  ripple.addEventListener('animationend',()=>{
-    ripple.remove();
   });
 
 });
 
-/* FAB Scroll */
+/* FAB Scroll Motion */
 
-let lastScrollY = window.scrollY;
+let lastScroll = window.scrollY;
 
 window.addEventListener('scroll',()=>{
 
   const fab =
-    document.getElementById('pixelFabGroup');
+    document.querySelector('.fab');
 
-  if(window.scrollY > lastScrollY){
+  if(window.scrollY > lastScroll){
 
-    fab.style.transform = 'scale(.92)';
+    fab.style.transform =
+      'scale(.9)';
 
   }else{
 
-    fab.style.transform = 'scale(1)';
+    fab.style.transform =
+      'scale(1)';
 
   }
 
-  lastScrollY = window.scrollY;
+  lastScroll = window.scrollY;
 
 });
 
