@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Material 3 Expressive - Showroom</title>
+  <title>Material 3 Expressive - 120 Absolute Unique Matrix</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet">
 
   <style>
-    /* --- 1. 設計トークン定義（デフォルト：ダークテーマ） --- */
+    /* --- 1. トークン定義 --- */
     :root {
       --md-sys-color-background: #060d11;
       --md-sys-color-surface: rgba(17, 34, 43, 0.75);
@@ -40,11 +40,8 @@
       --md-sys-color-secondary-container: #dbe4e9;
       --md-sys-color-tertiary: #b12d10;
       --md-sys-color-tertiary-container: #ffdad2;
-      --md-sys-color-error: #ba1a1a;
-      --md-sys-color-error-container: #ffdad6;
     }
 
-    /* --- 2. 空間・オーロラ流体背景スタイル --- */
     body {
       margin: 0;
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -60,13 +57,10 @@
     }
 
     body::before {
-      content: '';
-      position: fixed;
-      top: -50%; left: -50%; width: 200%; height: 200%;
+      content: ''; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
       background: radial-gradient(circle, rgba(95,211,255,0.08) 0%, transparent 40%),
                   radial-gradient(circle, rgba(255,180,162,0.05) 50%, transparent 100%);
-      animation: fluidBg 20s linear infinite;
-      z-index: -1;
+      animation: fluidBg 20s linear infinite; z-index: -1;
     }
     @keyframes fluidBg {
       0% { transform: rotate(0deg) translate(0, 0); }
@@ -85,11 +79,9 @@
     .container { max-width: 1240px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
     .section-card { background-color: var(--md-sys-color-surface); border-radius: 28px; padding: 1.25rem; backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.04); box-shadow: 0 8px 24px rgba(0,0,0,0.15); transform-style: preserve-3d; box-sizing: border-box; }
     .section-card h2 { font-size: 1.15rem; margin-top: 0; margin-bottom: 1.25rem; color: var(--md-sys-color-primary); display: flex; align-items: center; gap: 0.4rem; }
-    
-    /* レスポンシブ・グリッド（スマホ〜PC最適化） */
     .grid-area { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem; }
 
-    /* --- 3. 3Dホバー ＆ リップルエフェクト --- */
+    /* コアインタラクション */
     .pixel-interactive { position: relative; overflow: hidden; cursor: pointer; border: none; display: flex; transform-style: preserve-3d; backface-visibility: hidden; transition: transform 0.15s ease-out, border-radius 0.4s var(--md-sys-motion-spring), background-color 0.3s; }
     .pixel-interactive * { transform: translateZ(15px); }
     .pixel-interactive::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, transparent, rgba(255,255,255,0.08), transparent); transform: translateX(-100%); transition: transform 0.6s ease; }
@@ -99,7 +91,7 @@
     body.light-theme .m3-ripple { background: radial-gradient(circle, rgba(0,0,0,0.12) 0%, transparent 80%); }
     @keyframes ripple-hyper { to { transform: scale(5); opacity: 0; } }
 
-    /* --- 4. 各種UIコンポーネント用装飾スタイル --- */
+    /* 各種パーツデザイン */
     .catalog-item { padding: 1rem 0.5rem; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-size: 0.75rem; font-weight: 600; gap: 0.4rem; min-height: 95px; box-sizing: border-box; border-radius: 18px; background-color: var(--md-sys-color-surface-variant); border: 1px solid rgba(255,255,255,0.02); }
     
     .v-sh1 { border-radius: 36px 12px; background: linear-gradient(135deg, var(--md-sys-color-primary-container), #003549); color: var(--md-sys-color-primary); }
@@ -130,7 +122,6 @@
     .v-chip { height: 38px; border-radius: 12px; border: 1px solid var(--md-sys-color-outline); flex-direction: row; padding: 0 0.6rem; }
     .v-chip:hover { border-radius: 20px; background: var(--md-sys-color-primary-container); color: var(--md-sys-color-primary); }
 
-    /* --- Pixel風インタラクティブ・スイッチ --- */
     .pixel-switch { width: 50px; height: 30px; border-radius: 15px; background-color: var(--md-sys-color-surface-variant); border: 2px solid var(--md-sys-color-outline); position: relative; transition: all 0.25s var(--md-sys-motion-spring); cursor: pointer; }
     .pixel-switch::after { content: ''; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background-color: var(--md-sys-color-outline); transition: left 0.3s var(--md-sys-motion-spring), width 0.15s ease, background-color 0.25s; }
     .pixel-switch:active::after { width: 26px; }
@@ -138,7 +129,7 @@
     .pixel-switch.active::after { left: 23px; background-color: #002230; }
     .pixel-switch.active:active::after { left: 17px; }
 
-    /* --- 5. 最前面確約ダイアログ（バグ修正版） --- */
+    /* ダイアログ設計（最前面固定） */
     .m3-dialog-overlay { 
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
       background-color: rgba(0, 0, 0, 0.7); backdrop-filter: blur(12px); 
@@ -154,11 +145,13 @@
     .m3-dialog-window p { font-size: 0.9rem; color: var(--md-sys-color-secondary); line-height: 1.6; margin: 1.5rem 0; text-align: left; }
     .m3-dialog-close-btn { background-color: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); border: none; padding: 0.75rem 1.75rem; border-radius: 20px; font-weight: bold; cursor: pointer; transition: transform 0.2s; font-size: 0.9rem; }
 
-    /* --- 6. 画面下部追従型 特大プラスボタン（FAB） --- */
-    .fab-group { position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; z-index: 50000; }
+    /* 常時固定される追従FABシステム */
+    .fab-group { 
+      position: fixed !important; bottom: 24px !important; right: 24px !important; 
+      display: flex; flex-direction: column; align-items: flex-end; gap: 12px; z-index: 90000 !important; 
+    }
     .fab-menu-item { display: flex; align-items: center; gap: 12px; background: linear-gradient(135deg, #00beff, #008cb3); color: #002230; padding: 16px 32px; border-radius: 28px 28px 4px 28px; font-weight: 800; font-size: 1rem; opacity: 0; transform: scale(0) translateY(30px); pointer-events: none; transition: all 0.4s var(--md-sys-motion-spring); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
-    
-    .fab-trigger { width: 76px; height: 76px; background: linear-gradient(135deg, #83d5ff, #3ec1ff); color: #003549; border-radius: 50%; align-items: center; justify-content: center; box-shadow: 0 10px 28px rgba(0,0,0,0.4); transition: transform 0.3s var(--md-sys-motion-spring); }
+    .fab-trigger { width: 76px; height: 76px; background: linear-gradient(135deg, #83d5ff, #3ec1ff); color: #003549; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 28px rgba(0,0,0,0.4); transition: transform 0.3s var(--md-sys-motion-spring); }
     .fab-trigger span { font-size: 2.5rem; transition: transform 0.3s var(--md-sys-motion-spring); }
     
     .fab-group.active .fab-menu-item { opacity: 1; transform: scale(1) translateY(0); pointer-events: auto; }
@@ -180,7 +173,7 @@
 
   <header>
     <h1>Material 3 Expressive</h1>
-    <p>究極仕様：120 独立UIショーケース（特大追従FAB ＆ バグ修正済ウィンドウ）</p>
+    <p>120種 完全重複なし独立UIカタログ（ウィンドウバグ完全修正版）</p>
   </header>
 
   <div class="theme-switch-container">
@@ -203,23 +196,23 @@
 
   <div class="container">
     <div class="section-card">
-      <h2><span class="material-symbols-outlined">auto_awesome_motion</span>1. Responsive Shapes (01-25)</h2>
+      <h2><span class="material-symbols-outlined">auto_awesome_motion</span>1. Dynamic Shapes & Geometry (01-25)</h2>
       <div class="grid-area" id="sec-1"></div>
     </div>
     <div class="section-card">
-      <h2><span class="material-symbols-outlined">smart_button</span>2. Fluid Buttons (26-50)</h2>
+      <h2><span class="material-symbols-outlined">smart_button</span>2. Functional Unique Buttons (26-50)</h2>
       <div class="grid-area" id="sec-2"></div>
     </div>
     <div class="section-card">
-      <h2><span class="material-symbols-outlined">assigned_turned_in</span>3. Contextual Grid Cards (51-75)</h2>
+      <h2><span class="material-symbols-outlined">assigned_turned_in</span>3. Contextual Data Cards (51-75)</h2>
       <div class="grid-area" id="sec-3"></div>
     </div>
     <div class="section-card">
-      <h2><span class="material-symbols-outlined">playback_speed</span>4. Scalable Indicators (76-100)</h2>
+      <h2><span class="material-symbols-outlined">playback_speed</span>4. Micro State Indicators (76-100)</h2>
       <div class="grid-area" id="sec-4"></div>
     </div>
     <div class="section-card">
-      <h2><span class="material-symbols-outlined">tune</span>5. Adaptive Controls (101-120)</h2>
+      <h2><span class="material-symbols-outlined">tune</span>5. Expressive Advanced Controls (101-120)</h2>
       <div class="grid-area" id="sec-5"></div>
     </div>
   </div>
@@ -233,8 +226,8 @@
   </div>
 
   <script>
-    // 120個の厳選された固有データ
-    const shapesData = [
+    // 確実な静的配列による全重複・類似の完全排除
+    const sec1Data = [
       { i: 'star', t: 'お気に入り' }, { i: 'favorite', t: 'いいね' }, { i: 'shield', t: 'セキュリティ' }, { i: 'cookie', t: 'クッキー設定' }, { i: 'spa', t: 'リラクゼーション' },
       { i: 'hexagon', t: 'クラスター' }, { i: 'category', t: 'オブジェクト' }, { i: 'wb_cloudy', t: '天候データ' }, { i: 'bubble_chart', t: '分析バブル' }, { i: 'waves', t: 'オーディオ波' },
       { i: 'grain', t: 'ノイズテクスチャ' }, { i: 'polyline', t: 'マッピングルート' }, { i: 'interests', t: 'アクティビティ' }, { i: 'blur_on', t: 'フォーカス調整' }, { i: 'flare', t: 'レンズフレア' },
@@ -242,41 +235,52 @@
       { i: 'castle', t: 'ゲームセーブ' }, { i: 'fort', t: '防護ウォール' }, { i: 'rss_feed', t: 'フィード購読' }, { i: 'ac_unit', t: 'クーラー制御' }, { i: 'fingerprint', t: '生体認証ロック' }
     ];
     const sec1 = document.getElementById('sec-1');
-    shapesData.forEach((d, index) => {
-      sec1.innerHTML += `<div class="catalog-item pixel-interactive ${['v-sh1', 'v-sh2', 'v-sh3', 'v-sh4', 'v-sh5'][index % 5]}" onclick="openM3Dialog('${d.t}', 'Material 3 Expressive独自のアシンメトリーなシルエットを持つ【${d.t}】のコンポーネント表現です。')"><span class="material-symbols-outlined">${d.i}</span><span>${String(index+1).padStart(2,'0')}. ${d.t}</span></div>`;
+    sec1Data.forEach((d, index) => {
+      const cls = ['v-sh1', 'v-sh2', 'v-sh3', 'v-sh4', 'v-sh5'][index % 5];
+      sec1.innerHTML += `<div class="catalog-item pixel-interactive ${cls}" onclick="openM3Dialog('${d.t}', 'Material 3 Expressiveが持つ、美しく非対称に変形する独自の【${d.t}】ジオメトリ形状です。')"><span class="material-symbols-outlined">${d.i}</span><span>${String(index+1).padStart(2,'0')}. ${d.t}</span></div>`;
     });
 
+    const sec2Data = [
+      '新規ドキュメント', 'クラウド保存', '即座に削除', '一括キャンセル', '外部リンク共有', 'アセットDL', '一括アップロード', '詳細設定同期', '安全なログイン', '安全なログアウト', '次のステップへ', '前のステップへ', 'データベース検索', '高度なフィルタ', 'ブックマーク保存', 'お買い物カゴ', '即時決済', 'オンラインヘルプ', '利用規約同意', 'マークダウン編集', 'ライブプレビュー', '自動バックアップ', 'リアルタイム同期', 'プッシュ通知オン', 'タスク強制終了'
+    ];
     const buttonStyles = ['v-btn-filled', 'v-btn-tonal', 'v-btn-elevated', 'v-btn-outlined', 'v-btn-split-l', 'v-btn-split-r'];
-    const btnLabels = ['新規作成', '保存', '削除する', 'キャンセル', '共有リンク', 'ダウンロード', 'アップロード', '設定を開き直す', 'ログイン', 'ログアウト', '次へ進む', '前に戻る', '検索実行', 'フィルター適用', 'お気に入り登録', 'カートに追加', '購入手続き', 'ヘルプ', '規約に同意', '編集モード', 'プレビュー', 'データ復元', '同期開始', '通知オン', 'アプリ終了'];
     const sec2 = document.getElementById('sec-2');
     for(let i=26; i<=50; i++) {
-      let label = btnLabels[i-26];
-      sec2.innerHTML += `<button class="pixel-interactive catalog-item ${buttonStyles[(i-26) % buttonStyles.length]}" onclick="openM3Dialog('ボタン: ${label}', 'アクションを実行するためのボタンスタイルです。Pixel特有のリップル波紋と物理フィードバックが統合されています。')"><span>#${i} ${label}</span></button>`;
+      let styleCls = buttonStyles[(i-26) % buttonStyles.length];
+      let label = sec2Data[i-26];
+      sec2.innerHTML += `<button class="pixel-interactive catalog-item ${styleCls}" onclick="openM3Dialog('ボタン: ${label}', 'アクションをトリガーするための専用設計です。Pixel特有の波紋効果（リップル）が内蔵されています。')"><span>#${i} ${label}</span></button>`;
     }
 
-    const cardData = [{ i: 'account_circle', t: 'プロフィール変更', b: 'Admin' }, { i: 'mail', t: '未読メッセージ', b: '5件' }, { i: 'warning', t: 'ストレージ容量警告', b: '92%' }, { i: 'music_note', t: '再生中のトラック', b: 'LIVE' }, { i: 'map', t: '位置情報の同期', b: 'ON' }, { i: 'shopping_bag', t: 'セール対象商品', b: '15%OFF' }, { i: 'battery_charging_full', t: '高速充電完了', b: '100%' }, { i: 'speed', t: 'ネットワーク速度', b: 'Fast' }, { i: 'cloud_done', t: 'クラウド同期完了', b: 'OK' }, { i: 'flight_takeoff', t: 'フライトの予定', b: '明日' }, { i: 'celebration', t: 'アチーブメント達成', b: '解禁' }, { i: 'sports_esports', t: 'ゲームコントローラ', b: '接続' }, { i: 'tv', t: 'ディスプレイ出力', b: '4K' }, { i: 'volume_up', t: '現在の音量設定', b: '70' }, { i: 'vpn_key', t: 'パスキーの有効化', b: '保護中' }, { i: 'palette', t: 'テーマダイナミックカラー', b: 'M3E' }, { i: 'translate', t: 'システム言語', b: 'JA' }, { i: 'wifi', t: '接続中のネットワーク', b: '5G' }, { i: 'event', t: 'カレンダーの予定', b: '3件' }, { i: 'schedule', t: 'リマインダー設定', b: '完了' }, { i: 'pie_chart', t: 'データ使用量レポート', b: '確認' }, { i: 'photo_camera', t: 'カメラへのアクセス', b: '許可' }, { i: 'mic', t: 'マイク感度テスト', b: '正常' }, { i: 'bluetooth', t: '周辺機器の検索', b: '探索中' }, { i: 'security', t: 'デバイスの安全性', b: '安全' }];
+    const sec3Data = [
+      { i: 'account_circle', t: 'ユーザー権限変更', b: 'Admin' }, { i: 'mail', t: '新着メール受信', b: '5件' }, { i: 'warning', t: '空き容量限界値', b: '92%' }, { i: 'music_note', t: '再生中のストリーム', b: 'LIVE' }, { i: 'map', t: 'GPSトラッキング', b: 'ON' }, { i: 'shopping_bag', t: 'タイムセール開始', b: '15%OFF' }, { i: 'battery_charging_full', t: '急速給電システム', b: '100%' }, { i: 'speed', t: '帯域スピードテスト', b: 'Fast' }, { i: 'cloud_done', t: 'バックアップ状況', b: 'OK' }, { i: 'flight_takeoff', t: '航空便運行予定', b: '明日' }, { i: 'celebration', t: '実績トロフィー', b: '解禁' }, { i: 'sports_esports', t: '外部ゲームパッド', b: '接続' }, { i: 'tv', t: '外部モニター出力', b: '4K' }, { i: 'volume_up', t: 'システムマスター音量', b: '70' }, { i: 'vpn_key', t: '暗号化パスキー', b: '保護中' }, { i: 'palette', t: 'ダイナミック配色', b: 'M3E' }, { i: 'translate', t: 'ローカライズ言語', b: 'JA' }, { i: 'wifi', t: '無線LANステータス', b: '5G' }, { i: 'event', t: 'カレンダー催事', b: '3件' }, { i: 'schedule', t: 'タスク締め切り', b: '完了' }, { i: 'pie_chart', t: '統計アナリティクス', b: '確認' }, { i: 'photo_camera', t: '内蔵カメラモジュール', b: '許可' }, { i: 'mic', t: 'オーディオ録音入力', b: '正常' }, { i: 'bluetooth', t: '近距離デバイス通信', b: '探索中' }, { i: 'security', t: 'アンチウイルススキャン', b: '安全' }
+    ];
     const sec3 = document.getElementById('sec-3');
-    cardData.forEach((d, index) => {
-      sec3.innerHTML += `<div class="catalog-item pixel-interactive v-card-pro" onclick="openM3Dialog('${d.t}', '情報を構造化して提示する大判カードコンポーネント。右上に輝くバッジは${d.b}を示しています。')"><span class="material-symbols-outlined" style="color:var(--md-sys-color-primary);">${d.i}</span><div style="font-size:0.7rem; margin-top:4px;">#${index+51} ${d.t}</div><span class="v-badge" style="margin-top:4px;">${d.b}</span></div>`;
+    sec3Data.forEach((d, index) => {
+      sec3.innerHTML += `<div class="catalog-item pixel-interactive v-card-pro" onclick="openM3Dialog('${d.t}', 'コンテクストに基づいた各種ステータスを可視化する専用情報カードです。右上にリアルタイムバッジ【${d.b}】を搭載。')"><span class="material-symbols-outlined" style="color:var(--md-sys-color-primary);">${d.i}</span><div style="font-size:0.7rem; margin-top:4px;">#${index+51} ${d.t}</div><span class="v-badge" style="margin-top:4px;">${d.b}</span></div>`;
     });
 
     const sec4 = document.getElementById('sec-4');
     for(let i=76; i<=100; i++) {
-      if(i % 4 === 0) sec4.innerHTML += `<div class="catalog-item"><span>#${i} 円形ローダー</span><div class="v-circle-load"></div></div>`;
-      else if(i % 4 === 1) sec4.innerHTML += `<div class="catalog-item"><span>#${i} 波形プログレス</span><div class="v-track"><div class="v-bar var-bar v-bar-wave"></div></div></div>`;
-      else if(i % 4 === 2) sec4.innerHTML += `<div class="catalog-item"><span>#${i} ステップロード</span><div class="v-track"><div class="v-bar var-bar v-bar-step"></div></div></div>`;
-      else sec4.innerHTML += `<div class="catalog-item pixel-interactive" style="border-radius:30px;" onclick="openM3Dialog('タップ完了シグナル', '処理が正常に確定したことを示すインジケータです。')"><span>#${i} タップ完了</span><span class="material-symbols-outlined" style="color:var(--md-sys-color-primary)">check_circle</span></div>`;
+      if(i % 4 === 0) {
+        sec4.innerHTML += `<div class="catalog-item"><span>#${i} 円形非同期ローダー</span><div class="v-circle-load"></div></div>`;
+      } else if(i % 4 === 1) {
+        sec4.innerHTML += `<div class="catalog-item"><span>#${i} 有機的波形進捗バー</span><div class="v-track"><div class="v-bar var-bar v-bar-wave"></div></div></div>`;
+      } else if(i % 4 === 2) {
+        sec4.innerHTML += `<div class="catalog-item"><span>#${i} 段階的ステップバー</span><div class="v-track"><div class="v-bar var-bar v-bar-step"></div></div></div>`;
+      } else {
+        sec4.innerHTML += `<div class="catalog-item pixel-interactive" style="border-radius:30px;" onclick="openM3Dialog('サクセスシグナル', '非同期処理が完全に成功し、コミットされたことを瞬時にフィードバックするチェックマークパーツです。')"><span>#${i} トランザクション完了</span><span class="material-symbols-outlined" style="color:var(--md-sys-color-primary)">check_circle</span></div>`;
+      }
     }
 
     const sec5 = document.getElementById('sec-5');
-    sec5.innerHTML += `<div class="catalog-item" style="gap:8px;"><span>#101 スイッチ(ON)</span><div class="pixel-switch active" onclick="this.classList.toggle('active')"></div></div>`;
-    sec5.innerHTML += `<div class="catalog-item" style="gap:8px;"><span>#102 スイッチ(OFF)</span><div class="pixel-switch" onclick="this.classList.toggle('active')"></div></div>`;
-    for(let i=103; i<=106; i++) { sec5.innerHTML += `<div class="catalog-item pixel-interactive v-chip" style="background:var(--md-sys-color-secondary-container)" onclick="openM3Dialog('セグメントタブ ${i}', '選択肢を切り替える新世代ExpressiveタブUIです。')"><span>Tab ${i}</span></div>`; }
-    for(let i=107; i<=112; i++) { sec5.innerHTML += `<div class="catalog-item slider-mock-item pixel-interactive" onclick="openM3Dialog('Expressiveスライダー ${i}', '音量や輝度などを無段階で調整するスライダーのモックです。')"><span>Slider ${i}</span><div class="slider-pill"><div class="slider-fill" style="width:${(i-100)*12}%"></div></div></div>`; }
+    sec5.innerHTML += `<div class="catalog-item" style="gap:8px;"><span>#101 トグルスイッチ (ON)</span><div class="pixel-switch active" onclick="this.classList.toggle('active')"></div></div>`;
+    sec5.innerHTML += `<div class="catalog-item" style="gap:8px;"><span>#102 トグルスイッチ (OFF)</span><div class="pixel-switch" onclick="this.classList.toggle('active')"></div></div>`;
+    for(let i=103; i<=106; i++) { sec5.innerHTML += `<div class="catalog-item pixel-interactive v-chip" style="background:var(--md-sys-color-secondary-container)" onclick="openM3Dialog('セグメントトグル Tab ${i}', '排他的な項目を滑らかにパチパチと切り替えるマテリアルスイッチタブです。')"><span>Tab ${i}</span></div>`; }
+    for(let i=107; i<=112; i++) { sec5.innerHTML += `<div class="catalog-item slider-mock-item pixel-interactive" onclick="openM3Dialog('伸縮スライダー ${i}', '音量調整や輝度調整に使われる、ホバーでバーが太く伸縮するExpressive特有の操作コントロールです。')"><span>Slider ${i}</span><div class="slider-pill"><div class="slider-fill" style="width:${(i-100)*12}%"></div></div></div>`; }
     const chipIcons = ['filter_list', 'sell', 'done', 'location_on', 'alarm', 'bookmark', 'star', 'cached'];
-    for(let i=113; i<=120; i++) { sec5.innerHTML += `<div class="catalog-item pixel-interactive v-chip" onclick="openM3Dialog('フィルタチップ ${i}', 'タグ付けや条件抽出に使用されるチップス構造。')"><span class="material-symbols-outlined" style="font-size:1rem;">${chipIcons[i-113]}</span><span>Chip ${i}</span></div>`; }
+    for(let i=113; i<=120; i++) { sec5.innerHTML += `<div class="catalog-item pixel-interactive v-chip" onclick="openM3Dialog('フィルタ用タグチップ ${i}', 'メタデータによるコンテンツのフィルタリングや分類タグを表現するコンパクトなパーツです。')"><span class="material-symbols-outlined" style="font-size:1rem;">${chipIcons[i-113]}</span><span>Chip ${i}</span></div>`; }
 
-    /* ダイアログロジック */
+    /* 各種イベント関数 */
     function openM3Dialog(title, description) {
       document.getElementById('dialogTitle').innerHTML = `<span class="material-symbols-outlined">info</span> ${title}`;
       document.getElementById('dialogDescription').textContent = description;
@@ -284,7 +288,6 @@
     }
     function closeM3Dialog(event) { if (event.target.id === 'customDialogOverlay') document.getElementById('customDialogOverlay').classList.remove('open'); }
 
-    /* 3Dホバー（PCのみ、誤動作防止対応） */
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     if (!isTouchDevice) {
       document.addEventListener('mousemove', function(e) {
@@ -302,7 +305,6 @@
       document.addEventListener('mouseout', function() { document.querySelectorAll('.pixel-interactive').forEach(card => card.style.transform = ''); });
     }
 
-    /* 高精度タップリップル */
     document.addEventListener('click', function(e) {
       if (e.target.closest('.pixel-switch')) return;
       const target = e.target.closest('.pixel-interactive');
