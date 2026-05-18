@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Material 3 Expressive Experience</title>
-  <!-- Google Fontsからフォントとアイコンを読み込み -->
+  <title>Material 3 Expressive - 50 Elements Showroom</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet">
@@ -12,20 +11,43 @@
   <style>
     /* --- 1. 設計トークン（変数）の定義 --- */
     :root {
-      /* M3 Expressiveを意識した鮮やかでコントラストの高い配色 */
+      /* ライトモードのカラーパレット */
       --md-sys-color-primary: #6750A4;
       --md-sys-color-on-primary: #FFFFFF;
       --md-sys-color-primary-container: #EADDFF;
+      --md-sys-color-on-primary-container: #21005D;
       --md-sys-color-secondary: #625B71;
       --md-sys-color-tertiary: #7D5260;
       --md-sys-color-tertiary-container: #FFD8E4;
+      --md-sys-color-on-tertiary-container: #31111D;
       --md-sys-color-background: #FEF7FF;
       --md-sys-color-surface: #F3EDF7;
       --md-sys-color-surface-variant: #E7E0EC;
       --md-sys-color-outline: #79747E;
 
-      /* 有機的なバネの動きをイメージしたイージング */
+      /* M3 Expressive特有のバネの動き（弾むような質感） */
       --md-sys-motion-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      --transition-speed: 0.4s;
+    }
+
+    /* ダークモード用のカラー上書き設定 */
+    @media (prefers-color-scheme: dark) {
+      /* システム設定がダークの場合の初期値（オプション） */
+    }
+
+    body.dark-theme {
+      --md-sys-color-primary: #D0BCFF;
+      --md-sys-color-on-primary: #381E72;
+      --md-sys-color-primary-container: #4F378B;
+      --md-sys-color-on-primary-container: #EADDFF;
+      --md-sys-color-secondary: #CCC2DC;
+      --md-sys-color-tertiary: #EFB8C8;
+      --md-sys-color-tertiary-container: #633B48;
+      --md-sys-color-on-tertiary-container: #FFD8E4;
+      --md-sys-color-background: #141218;
+      --md-sys-color-surface: #211F26;
+      --md-sys-color-surface-variant: #49454F;
+      --md-sys-color-outline: #938F99;
     }
 
     /* --- 2. ベーススタイル --- */
@@ -33,22 +55,24 @@
       margin: 0;
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: var(--md-sys-color-background);
-      color: #1D1B20;
+      color: cubic-bezier;
+      color: var(--md-sys-color-primary);
+      transition: background-color var(--transition-speed), color var(--transition-speed);
+      padding: 2rem 1rem 5rem 1rem;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 2rem 1rem 6rem 1rem;
     }
 
     header {
       text-align: center;
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
     }
 
     header h1 {
-      font-size: 2.5rem;
+      font-size: 2.2rem;
       font-weight: 800;
-      color: var(--md-sys-color-primary);
       margin-bottom: 0.5rem;
     }
 
@@ -57,243 +81,319 @@
       font-size: 1rem;
     }
 
-    .container {
-      max-width: 800px;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 2.5rem;
+    /* --- 3. テーマ切り替えスイッチ --- */
+    .theme-switch-container {
+      margin-bottom: 3rem;
     }
 
-    /* --- 3. セクション（外枠）のスタイル --- */
-    .section-card {
-      background-color: var(--md-sys-color-surface);
-      border-radius: 28px; /* M3の特徴的な深い角丸 */
-      padding: 2rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    }
-
-    .section-card h2 {
-      font-size: 1.3rem;
-      margin-top: 0;
-      margin-bottom: 1.5rem;
-      color: var(--md-sys-color-secondary);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .demo-area {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      align-items: center;
-    }
-
-    /* --- 4. コンポーネントのスタイル --- */
-
-    /* 特徴1: 形状ライブラリとモーフィング（Shape Morph） */
-    .shape-box {
-      width: 100px;
-      height: 100px;
-      background-color: var(--md-sys-color-tertiary-container);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--md-sys-color-tertiary);
-      font-weight: bold;
-      transition: border-radius 0.5s var(--md-sys-motion-spring), transform 0.3s ease;
-      cursor: pointer;
-    }
-    /* それぞれ初期の形状を非対称などに設定 */
-    .shape-1 { border-radius: 40px 12px 40px 12px; }
-    .shape-2 { border-radius: 24px 24px 4px 24px; }
-    .shape-3 { border-radius: 50%; }
-
-    /* ホバーした時にグッと形が変わる（M3 Expressiveの楽しさを再現） */
-    .shape-box:hover {
-      border-radius: 24px;
-      transform: scale(1.05);
-    }
-
-    /* 特徴2: Split Button（分割ボタン） */
-    .split-button {
-      display: inline-flex;
-      border-radius: 20px; /* 特徴的なアシンメトリーな丸みに変化させる基礎 */
-      overflow: hidden;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    .split-main, .split-action {
-      background-color: var(--md-sys-color-primary);
-      color: var(--md-sys-color-on-primary);
+    .theme-btn {
+      background-color: var(--md-sys-color-primary-container);
+      color: var(--md-sys-color-on-primary-container);
       border: none;
-      padding: 0.75rem 1.2rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 24px;
       font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      transition: background-color 0.2s, border-radius 0.3s var(--md-sys-motion-spring);
+      transition: transform 0.2s var(--md-sys-motion-spring), background-color var(--transition-speed);
     }
 
-    .split-main {
-      border-radius: 24px 4px 4px 24px;
+    .theme-btn:hover {
+      transform: scale(1.05);
     }
 
-    .split-action {
-      border-radius: 4px 24px 24px 4px;
-      border-left: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 0.75rem 0.75rem;
-    }
-
-    .split-main:hover, .split-action:hover {
-      background-color: #513B8C;
-    }
-
-    /* クリック時にぷるんと動くリアクション用のクラス */
-    .bounce-effect {
-      animation: bounce 0.4s var(--md-sys-motion-spring);
-    }
-
-    @keyframes bounce {
-      0% { transform: scale(1); }
-      50% { transform: scale(0.92); }
-      100% { transform: scale(1); }
-    }
-
-    /* 特徴3: 進行状況（波形プログレス） */
-    .progress-container {
+    .container {
+      max-width: 1000px;
       width: 100%;
-      max-width: 300px;
-    }
-    .expressive-progress {
-      width: 100%;
-      height: 8px; /* 従来より少し太く存在感を持たせる */
-      background-color: var(--md-sys-color-surface-variant);
-      border-radius: 4px;
-      overflow: hidden;
-      position: relative;
-    }
-    .progress-bar {
-      width: 60%;
-      height: 100%;
-      background-color: var(--md-sys-color-primary);
-      border-radius: 4px;
-      animation: pulse-width 2s infinite ease-in-out;
-    }
-
-    @keyframes pulse-width {
-      0% { width: 30%; left: 0; }
-      50% { width: 70%; left: 15%; }
-      100% { width: 30%; left: 70%; }
-    }
-
-    /* 特徴4: Floating Toolbar（フローティングツールバー） */
-    .floating-toolbar {
-      position: fixed;
-      bottom: 24px;
-      background-color: var(--md-sys-color-surface-variant);
-      padding: 0.5rem 1rem;
-      border-radius: 32px; /* 完全なカプセル型 */
       display: flex;
-      gap: 0.5rem;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-      align-items: center;
-      z-index: 100;
+      flex-direction: column;
+      gap: 3rem;
     }
 
-    .toolbar-btn {
-      background: none;
+    .section-card {
+      background-color: var(--md-sys-color-surface);
+      border-radius: 28px;
+      padding: 2rem;
+      transition: background-color var(--transition-speed);
+    }
+
+    .section-card h2 {
+      font-size: 1.4rem;
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* 50個の要素を綺麗に並べるためのグリッド設定 */
+    .grid-area {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 1.2rem;
+    }
+
+    /* --- 4. 50個のUIパーツ用の個別スタイル --- */
+
+    /* コンポーネント共通のホバー効果（M3 Expressive質感） */
+    .interactive-item {
+      transition: border-radius var(--transition-speed) var(--md-sys-motion-spring), 
+                  transform 0.3s var(--md-sys-motion-spring), 
+                  background-color var(--transition-speed);
+      cursor: pointer;
+    }
+    .interactive-item:hover {
+      transform: scale(1.06) translateY(-4px);
+    }
+
+    /* カテゴリA: 形状ライブラリ（Shape 1〜12） */
+    .shape-item {
+      height: 100px;
+      background-color: var(--md-sys-color-primary-container);
+      color: var(--md-sys-color-on-primary-container);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      gap: 0.25rem;
+    }
+    /* さまざまな非対称・対称の角丸（Expressive形状マトリクス） */
+    .sh-1 { border-radius: 40px 8px 40px 8px; }
+    .sh-2 { border-radius: 8px 40px 8px 40px; }
+    .sh-3 { border-radius: 30px 30px 4px 30px; }
+    .sh-4 { border-radius: 4px 30px 30px 30px; }
+    .sh-5 { border-radius: 50% 20px 50% 20px; }
+    .sh-6 { border-radius: 24px; }
+    .sh-7 { border-radius: 40px 40px 40px 4px; }
+    .sh-8 { border-radius: 12px 48px 12px 12px; }
+    .sh-9 { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; } /* 有機的形状 */
+    .sh-10 { border-radius: 50%; }
+    .sh-11 { border-radius: 16px 40px 16px 40px; }
+    .sh-12 { border-radius: 32px 4px; }
+
+    .shape-item:hover { border-radius: 20px; } /* ホバー時に一斉にモーフィング */
+
+    /* カテゴリB: ボタン（Button 1〜12） */
+    .btn-item {
+      background-color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-on-primary);
       border: none;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
+      padding: 0.75rem;
+      font-weight: 600;
+      font-size: 0.8rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
-      color: var(--md-sys-color-secondary);
-      transition: background-color 0.3s, transform 0.2s;
+      gap: 0.4rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .btn-1 { border-radius: 24px 4px 4px 24px; }
+    .btn-2 { border-radius: 4px 24px 24px 4px; }
+    .btn-3 { border-radius: 20px; background-color: var(--md-sys-color-secondary); }
+    .btn-4 { border-radius: 32px; background-color: var(--md-sys-color-tertiary); }
+    .btn-5 { border-radius: 12px; outline: 2px solid var(--md-sys-color-outline); background: transparent; color: var(--md-sys-color-primary); }
+    .btn-6 { border-radius: 50%; width: 50px; height: 50px; margin: auto; }
+    /* スプリットボタン等の複合スタイル（7〜12は複製・バリエーション） */
+    .btn-7 { border-radius: 40px 12px; background-color: var(--md-sys-color-tertiary); }
+    .btn-8 { border-radius: 12px 40px; }
+    .btn-9 { border-radius: 16px; }
+    .btn-10 { border-radius: 0px 24px 24px 24px; }
+    .btn-11 { border-radius: 24px 0px 24px 24px; }
+    .btn-12 { border-radius: 24px 24px 24px 0px; }
+
+    /* カテゴリC: カラー＆アイコンカード（Card 1〜16） */
+    .card-item {
+      height: 90px;
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      text-align: center;
+      gap: 0.3rem;
+      border-radius: 18px;
+    }
+    .c-1 { background-color: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); }
+    .c-2 { background-color: var(--md-sys-color-tertiary-container); color: var(--md-sys-color-on-tertiary-container); }
+    .c-3 { background-color: var(--md-sys-color-surface-variant); color: var(--md-sys-color-primary); }
+    /* 以降、16個埋めるためのカラー＆アイコンマトリクス用スタイル */
+    .c-dark { background-color: rgba(0,0,0,0.05); color: var(--md-sys-color-outline); }
+    body.dark-theme .c-dark { background-color: rgba(255,255,255,0.05); }
+
+    /* カテゴリD: 進捗＆マイクロインジケータ（Indicator 1〜10） */
+    .indicator-item {
+      background: white;
+      border-radius: 16px;
+      padding: 1rem 0.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      height: 70px;
+    }
+    body.dark-theme .indicator-item { background: #2A2830; }
+
+    .progress-track {
+      width: 80%;
+      background-color: var(--md-sys-color-surface-variant);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .p-bar {
+      height: 100%;
+      background-color: var(--md-sys-color-primary);
+      border-radius: 10px;
+    }
+    /* 各種インジケータのアニメーション速度違い等 */
+    .p-fast { animation: moveBar 1.2s infinite ease-in-out; }
+    .p-slow { animation: moveBar 3s infinite ease-in-out; }
+    .p-step { animation: moveBar 2s infinite steps(4); }
+
+    @keyframes moveBar {
+      0% { width: 10%; transform: translateX(0%); }
+      50% { width: 40%; transform: translateX(100%); }
+      100% { width: 10%; transform: translateX(600%); }
     }
 
-    .toolbar-btn:hover {
-      background-color: var(--md-sys-color-primary-container);
-      color: var(--md-sys-color-primary);
-      transform: translateY(-4px);
-    }
-
-    .fab-trigger {
-      background-color: var(--md-sys-color-primary-container);
-      color: var(--md-sys-color-primary);
-      border-radius: 20px; /* 特徴的な四角に近い丸み */
+    /* クリック時のバウンスエフェクト */
+    .bounce { animation: clickBounce 0.3s var(--md-sys-motion-spring); }
+    @keyframes clickBounce {
+      0% { transform: scale(1); }
+      50% { transform: scale(0.9); }
+      100% { transform: scale(1); }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>M3 Expressive Preview</h1>
-    <p>Googleの新しいデザイン思想「感情に訴えかけるUI」を体感しよう</p>
+    <h1>Material 3 Expressive</h1>
+    <p>50の要素マトリクス & テーマスイッチ搭載ショールーム</p>
   </header>
+
+  <!-- テーマ切り替えボタン -->
+  <div class="theme-switch-container">
+    <button class="theme-btn" onclick="toggleTheme()">
+      <span class="material-symbols-outlined" id="theme-icon">dark_mode</span>
+      <span id="theme-text">ダークモードに切り替え</span>
+    </button>
+  </div>
 
   <div class="container">
 
-    <!-- セクション1: 形状変化 -->
+    <!-- セクション1: 形状ライブラリ (12個) -->
     <div class="section-card">
-      <h2><span class="material-symbols-outlines">category</span>1. Shape Library & Morph (ホバーしてみてね)</h2>
-      <p style="font-size: 0.9rem; color: var(--md-sys-outline); margin-top:-1rem; margin-bottom: 1.5rem;">
-        丸と四角を組み合わせたユニークなシルエット。触ると心地よく形を変えます。
-      </p>
-      <div class="demo-area">
-        <div class="shape-box shape-1">Brand</div>
-        <div class="shape-box shape-2">Card</div>
-        <div class="shape-box shape-3">Image</div>
+      <h2><span class="material-symbols-outlined">auto_awesome_motion</span>1. Shape Library (12 Elements)</h2>
+      <div class="grid-area">
+        <div class="shape-item interactive-item sh-1"><span>Shape 01</span><span class="material-symbols-outlined">star</span></div>
+        <div class="shape-item interactive-item sh-2"><span>Shape 02</span><span class="material-symbols-outlined">favorite</span></div>
+        <div class="shape-item interactive-item sh-3"><span>Shape 03</span><span class="material-symbols-outlined">shield</span></div>
+        <div class="shape-item interactive-item sh-4"><span>Shape 04</span><span class="material-symbols-outlined">cookie</span></div>
+        <div class="shape-item interactive-item sh-5"><span>Shape 05</span><span class="material-symbols-outlined">pentagon</span></div>
+        <div class="shape-item interactive-item sh-6"><span>Shape 06</span><span class="material-symbols-outlined">hexagon</span></div>
+        <div class="shape-item interactive-item sh-7"><span>Shape 07</span><span class="material-symbols-outlined">square_foot</span></div>
+        <div class="shape-item interactive-item sh-8"><span>Shape 08</span><span class="material-symbols-outlined">change_history</span></div>
+        <div class="shape-item interactive-item sh-9"><span>Shape 09</span><span class="material-symbols-outlined">spa</span></div>
+        <div class="shape-item interactive-item sh-10"><span>Shape 10</span><span class="material-symbols-outlined">circle</span></div>
+        <div class="shape-item interactive-item sh-11"><span>Shape 11</span><span class="material-symbols-outlined">token</span></div>
+        <div class="shape-item interactive-item sh-12"><span>Shape 12</span><span class="material-symbols-outlined">wb_cloudy</span></div>
       </div>
     </div>
 
-    <!-- セクション2: 新コンポーネント -->
+    <!-- セクション2: ボタンバリエーション (12個) -->
     <div class="section-card">
-      <h2><span class="material-symbols-outlined">smart_button</span>2. Expressive Components (クリックしてみてね)</h2>
-      <p style="font-size: 0.9rem; color: var(--md-sys-outline); margin-top:-1rem; margin-bottom: 1.5rem;">
-        新登場の「スプリットボタン」や、太さと存在感が増した「プログレスバー」です。
-      </p>
-      <div class="demo-area" style="gap: 3rem;">
-        <!-- 分割ボタン -->
-        <div class="split-button" id="mySplitButton">
-          <button class="split-main" onclick="triggerBounce()">ドキュメントを保存</button>
-          <button class="split-action" onclick="triggerBounce()"><span class="material-symbols-outlined">arrow_drop_down</span></button>
-        </div>
+      <h2><span class="material-symbols-outlined">smart_button</span>2. Expressive Buttons (12 Elements)</h2>
+      <div class="grid-area">
+        <button class="btn-item interactive-item btn-1" onclick="animateClick(this)">Button 01</button>
+        <button class="btn-item interactive-item btn-2" onclick="animateClick(this)">Button 02</button>
+        <button class="btn-item interactive-item btn-3" onclick="animateClick(this)"><span class="material-symbols-outlined">send</span>03</button>
+        <button class="btn-item interactive-item btn-4" onclick="animateClick(this)"><span class="material-symbols-outlined">add</span>04</button>
+        <button class="btn-item interactive-item btn-5" onclick="animateClick(this)">Button 05</button>
+        <button class="btn-item interactive-item btn-6" onclick="animateClick(this)"><span class="material-symbols-outlined">play_arrow</span></button>
+        <button class="btn-item interactive-item btn-7" onclick="animateClick(this)">Button 07</button>
+        <button class="btn-item interactive-item btn-8" onclick="animateClick(this)">Button 08</button>
+        <button class="btn-item interactive-item btn-9" onclick="animateClick(this)">Button 09</button>
+        <button class="btn-item interactive-item btn-10" onclick="animateClick(this)">Button 10</button>
+        <button class="btn-item interactive-item btn-11" onclick="animateClick(this)">Button 11</button>
+        <button class="btn-item interactive-item btn-12" onclick="animateClick(this)">Button 12</button>
+      </div>
+    </div>
 
-        <!-- 進捗インジケータ -->
-        <div class="progress-container">
-          <div class="expressive-progress">
-            <div class="progress-bar"></div>
-          </div>
-        </div>
+    <!-- セクション3: カラー＆アイコンカード (16個) -->
+    <div class="section-card">
+      <h2><span class="material-symbols-outlined">palette</span>3. Color & Icon Cards (16 Elements)</h2>
+      <div class="grid-area">
+        <div class="card-item interactive-item c-1"><span class="material-symbols-outlined">home</span>Card 01</div>
+        <div class="card-item interactive-item c-2"><span class="material-symbols-outlined">settings</span>Card 02</div>
+        <div class="card-item interactive-item c-3"><span class="material-symbols-outlined">person</span>Card 03</div>
+        <div class="card-item interactive-item c-dark"><span class="material-symbols-outlined">thumb_up</span>Card 04</div>
+        <div class="card-item interactive-item c-1"><span class="material-symbols-outlined">mail</span>Card 05</div>
+        <div class="card-item interactive-item c-2"><span class="material-symbols-outlined">notifications</span>Card 06</div>
+        <div class="card-item interactive-item c-3"><span class="material-symbols-outlined">chat</span>Card 07</div>
+        <div class="card-item interactive-item c-dark"><span class="material-symbols-outlined">photo_camera</span>Card 08</div>
+        <div class="card-item interactive-item c-1"><span class="material-symbols-outlined">palette</span>Card 09</div>
+        <div class="card-item interactive-item c-2"><span class="material-symbols-outlined">explore</span>Card 10</div>
+        <div class="card-item interactive-item c-3"><span class="material-symbols-outlined">shopping_cart</span>Card 11</div>
+        <div class="card-item interactive-item c-dark"><span class="material-symbols-outlined">map</span>Card 12</div>
+        <div class="card-item interactive-item c-1"><span class="material-symbols-outlined">schedule</span>Card 13</div>
+        <div class="card-item interactive-item c-2"><span class="material-symbols-outlined">work</span>Card 14</div>
+        <div class="card-item interactive-item c-3"><span class="material-symbols-outlined">build</span>Card 15</div>
+        <div class="card-item interactive-item c-dark"><span class="material-symbols-outlined">cloud</span>Card 16</div>
+      </div>
+    </div>
+
+    <!-- セクション4: 進捗＆インジケータ (10個) -->
+    <div class="section-card">
+      <h2><span class="material-symbols-outlined">hourglass_empty</span>4. Progress Indicators (10 Elements)</h2>
+      <div class="grid-area">
+        <!-- 10個の進捗バーバリエーション -->
+        <div class="indicator-item font-size-spec"><span>Ind 01 (Fast)</span><div class="progress-track" style="height: 10px;"><div class="p-bar p-fast"></div></div></div>
+        <div class="indicator-item"><span>Ind 02 (Slow)</span><div class="progress-track" style="height: 10px;"><div class="p-bar p-slow"></div></div></div>
+        <div class="indicator-item"><span>Ind 03 (Step)</span><div class="progress-track" style="height: 6px;"><div class="p-bar p-step"></div></div></div>
+        <div class="indicator-item"><span>Ind 04 (Thick)</span><div class="progress-track" style="height: 16px;"><div class="p-bar p-fast" style="background-color:var(--md-sys-color-tertiary);"></div></div></div>
+        <div class="indicator-item"><span>Ind 05 (Fixed)</span><div class="progress-track" style="height: 8px;"><div class="p-bar" style="width: 75%;"></div></div></div>
+        <div class="indicator-item"><span>Ind 06 (Fast)</span><div class="progress-track" style="height: 8px;"><div class="p-bar p-fast"></div></div></div>
+        <div class="indicator-item"><span>Ind 07 (Slow)</span><div class="progress-track" style="height: 8px;"><div class="p-bar p-slow"></div></div></div>
+        <div class="indicator-item"><span>Ind 08 (Step)</span><div class="progress-track" style="height: 8px;"><div class="p-bar p-step"></div></div></div>
+        <div class="indicator-item"><span>Ind 09 (Thick)</span><div class="progress-track" style="height: 12px;"><div class="p-bar p-fast"></div></div></div>
+        <div class="indicator-item"><span>Ind 10 (Fixed)</span><div class="progress-track" style="height: 8px;"><div class="p-bar" style="width: 40%; background-color:var(--md-sys-color-tertiary);"></div></div></div>
       </div>
     </div>
 
   </div>
 
-  <!-- 固定配置のフローティングツールバー -->
-  <div class="floating-toolbar">
-    <button class="toolbar-btn"><span class="material-symbols-outlined">edit</span></button>
-    <button class="toolbar-btn"><span class="material-symbols-outlined">share</span></button>
-    <button class="toolbar-btn"><span class="material-symbols-outlined">delete</span></button>
-    <button class="toolbar-btn fab-trigger"><span class="material-symbols-outlined">add</span></button>
-  </div>
-
-  <!-- --- 5. インタラクション用のJavaScript --- -->
+  <!-- --- 5. ロジック用のJavaScript --- -->
   <script>
-    function triggerBounce() {
-      const btn = document.getElementById('mySplitButton');
-      // 一度アニメーションクラスを外して、再度付与することで連続クリックに対応
-      btn.classList.remove('bounce-effect');
-      void btn.offsetWidth; // リフローを起こさせてアニメーションをリセット
-      btn.classList.add('bounce-effect');
+    // ダークモードの切り替え制御
+    function toggleTheme() {
+      const body = document.body;
+      const icon = document.getElementById('theme-icon');
+      const text = document.getElementById('theme-text');
+      
+      body.classList.toggle('dark-theme');
+      
+      if (body.classList.contains('dark-theme')) {
+        icon.textContent = 'light_mode';
+        text.textContent = 'ライトモードに切り替え';
+      } else {
+        icon.textContent = 'dark_mode';
+        text.textContent = 'ダークモードに切り替え';
+      }
+    }
+
+    // クリック時のバウンスアニメーション関数
+    function animateClick(element) {
+      element.classList.remove('bounce');
+      void element.offsetWidth; // リフローを発生させて再トリガー可能にする
+      element.add('bounce');
+      element.classList.add('bounce');
     }
   </script>
-
 </body>
 </html>
