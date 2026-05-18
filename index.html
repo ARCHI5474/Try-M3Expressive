@@ -2,9 +2,9 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>Material 3 Expressive Experience</title>
+<title>Material 3 Expressive Lab</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,21 +15,24 @@
 
 :root{
 
-  --bg:#071015;
+  --bg:#071016;
 
   --surface:
-    rgba(16,28,36,.72);
+    rgba(16,26,34,.72);
 
   --surface-2:
-    rgba(24,40,52,.58);
+    rgba(24,38,48,.62);
 
-  --primary:#69d5ff;
-  --primary-soft:#183748;
+  --primary:#6ad7ff;
 
-  --secondary:#b0c6d1;
+  --primary-soft:#153746;
 
-  --outline:
-    rgba(255,255,255,.08);
+  --text:#f5fbff;
+
+  --sub:#9fb6c1;
+
+  --line:
+    rgba(255,255,255,.06);
 
   --shadow:
     rgba(0,0,0,.35);
@@ -51,48 +54,56 @@ body{
 
   margin:0;
 
-  overflow-x:hidden;
+  background:
+    var(--bg);
 
-  background:var(--bg);
-
-  color:white;
+  color:var(--text);
 
   font-family:
     'Plus Jakarta Sans',
     sans-serif;
 
+  overflow-x:hidden;
+
 }
 
-/* Background */
+/* background */
 
 body::before{
 
   content:'';
 
   position:fixed;
-  inset:-30%;
+  inset:-20%;
 
   z-index:-2;
 
   background:
-    radial-gradient(circle at 20% 20%,
-      rgba(105,213,255,.12),
-      transparent 30%),
 
-    radial-gradient(circle at 80% 30%,
-      rgba(255,255,255,.04),
-      transparent 25%),
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(106,215,255,.14),
+      transparent 35%
+    ),
 
-    radial-gradient(circle at 50% 80%,
-      rgba(105,213,255,.08),
-      transparent 30%);
+    radial-gradient(
+      circle at 80% 30%,
+      rgba(255,255,255,.05),
+      transparent 25%
+    ),
+
+    radial-gradient(
+      circle at 50% 80%,
+      rgba(106,215,255,.08),
+      transparent 40%
+    );
 
   animation:
-    bgRotate 26s linear infinite;
+    ambient 24s linear infinite;
 
 }
 
-@keyframes bgRotate{
+@keyframes ambient{
 
   from{
     transform:rotate(0deg);
@@ -104,47 +115,124 @@ body::before{
 
 }
 
-/* Noise */
+/* topbar */
 
-body::after{
+.topbar{
 
-  content:'';
+  position:sticky;
 
-  position:fixed;
-  inset:0;
+  top:0;
 
-  z-index:-1;
+  z-index:999;
 
-  opacity:.03;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 
-  pointer-events:none;
+  padding:
+    1rem 1.2rem;
 
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+  backdrop-filter:
+    blur(18px)
+    saturate(180%);
+
+  background:
+    rgba(7,16,22,.58);
+
+  border-bottom:
+    1px solid var(--line);
 
 }
 
-/* Hero */
+.logo{
 
-.hero{
+  display:flex;
+  align-items:center;
+  gap:.7rem;
 
-  min-height:100vh;
+  font-weight:700;
+
+}
+
+.logo-badge{
+
+  width:40px;
+  height:40px;
+
+  border-radius:14px;
 
   display:flex;
   align-items:center;
   justify-content:center;
 
-  position:relative;
+  background:
+    linear-gradient(
+      135deg,
+      #6ad7ff,
+      #2ca9dc
+    );
 
-  padding:2rem;
+  color:#003347;
+
+}
+
+.top-actions{
+
+  display:flex;
+  gap:.7rem;
+
+}
+
+.action-btn{
+
+  width:42px;
+  height:42px;
+
+  border:none;
+
+  border-radius:14px;
+
+  background:
+    rgba(255,255,255,.05);
+
+  color:var(--sub);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  cursor:pointer;
+
+  transition:
+    .3s var(--spring);
+
+}
+
+.action-btn:hover{
+
+  background:
+    rgba(255,255,255,.1);
+
+  color:white;
+
+  transform:
+    translateY(-2px);
+
+}
+
+/* hero */
+
+.hero{
+
+  padding:
+    5rem 1.2rem 2rem;
 
 }
 
 .hero-inner{
 
-  width:min(1000px,100%);
-
-  text-align:center;
+  width:min(1300px,100%);
+  margin:auto;
 
 }
 
@@ -154,7 +242,8 @@ body::after{
   align-items:center;
   gap:.5rem;
 
-  padding:.6rem 1rem;
+  padding:
+    .6rem 1rem;
 
   border-radius:999px;
 
@@ -162,264 +251,252 @@ body::after{
     rgba(255,255,255,.05);
 
   border:
-    1px solid var(--outline);
+    1px solid var(--line);
 
-  backdrop-filter:
-    blur(12px)
-    saturate(160%);
-
-  color:var(--secondary);
-
-  margin-bottom:1.5rem;
+  color:var(--sub);
 
 }
 
 .hero h1{
 
-  margin:0;
+  margin:
+    1.6rem 0 1rem;
 
   font-size:
-    clamp(3rem,9vw,7rem);
+    clamp(3rem,8vw,6rem);
 
   line-height:.92;
-
-  font-weight:800;
 
   letter-spacing:-.06em;
 
 }
 
-.gradient{
-
-  background:
-    linear-gradient(
-      135deg,
-      #ffffff,
-      #69d5ff
-    );
-
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-
-}
-
 .hero p{
-
-  width:min(720px,100%);
-
-  margin:
-    2rem auto 0;
-
-  color:var(--secondary);
-
-  line-height:1.8;
-
-  font-size:
-    clamp(1rem,2vw,1.2rem);
-
-}
-
-/* Floating Panels */
-
-.float-layer{
-
-  position:absolute;
-  inset:0;
-
-  overflow:hidden;
-
-  pointer-events:none;
-
-}
-
-.float-card{
-
-  position:absolute;
-
-  background:
-    rgba(255,255,255,.04);
-
-  border:
-    1px solid rgba(255,255,255,.06);
-
-  backdrop-filter:
-    blur(20px)
-    saturate(160%);
-
-  border-radius:28px;
-
-  box-shadow:
-    0 24px 60px rgba(0,0,0,.2);
-
-  animation:
-    float 9s ease-in-out infinite;
-
-}
-
-.float-card:nth-child(1){
-
-  width:260px;
-  height:180px;
-
-  top:14%;
-  left:7%;
-
-}
-
-.float-card:nth-child(2){
-
-  width:180px;
-  height:180px;
-
-  top:18%;
-  right:8%;
-
-  animation-delay:-3s;
-
-}
-
-.float-card:nth-child(3){
-
-  width:320px;
-  height:140px;
-
-  bottom:10%;
-  left:18%;
-
-  animation-delay:-5s;
-
-}
-
-@keyframes float{
-
-  0%,100%{
-    transform:
-      translateY(0px)
-      rotate(0deg);
-  }
-
-  50%{
-    transform:
-      translateY(-16px)
-      rotate(.8deg);
-  }
-
-}
-
-/* Sections */
-
-.section{
-
-  width:min(1300px,100%);
-
-  margin:auto;
-
-  padding:
-    8rem 1.2rem;
-
-}
-
-.section-head{
-
-  margin-bottom:3rem;
-
-}
-
-.section-label{
-
-  color:var(--primary);
-
-  font-size:.85rem;
-
-  letter-spacing:.25em;
-
-  text-transform:uppercase;
-
-}
-
-.section-title{
-
-  font-size:
-    clamp(2rem,5vw,4rem);
-
-  margin:
-    .7rem 0 1rem;
-
-}
-
-.section-text{
-
-  color:var(--secondary);
-
-  line-height:1.8;
 
   max-width:700px;
 
+  color:var(--sub);
+
+  line-height:1.8;
+
+  font-size:1.05rem;
+
 }
 
-/* Grid */
+/* layout */
+
+.layout{
+
+  width:min(1300px,100%);
+  margin:auto;
+
+  display:grid;
+
+  grid-template-columns:
+    260px 1fr;
+
+  gap:1.5rem;
+
+  padding:
+    2rem 1.2rem 8rem;
+
+}
+
+/* sidebar */
+
+.sidebar{
+
+  position:sticky;
+
+  top:92px;
+
+  height:fit-content;
+
+  padding:1rem;
+
+  border-radius:28px;
+
+  background:
+    var(--surface);
+
+  border:
+    1px solid var(--line);
+
+  backdrop-filter:
+    blur(18px)
+    saturate(180%);
+
+}
+
+.sidebar-title{
+
+  font-size:.9rem;
+
+  color:var(--sub);
+
+  margin-bottom:1rem;
+
+}
+
+.nav{
+
+  display:flex;
+  flex-direction:column;
+
+  gap:.5rem;
+
+}
+
+.nav-item{
+
+  display:flex;
+  align-items:center;
+  gap:.8rem;
+
+  padding:
+    .9rem 1rem;
+
+  border-radius:18px;
+
+  color:var(--sub);
+
+  cursor:pointer;
+
+  transition:
+    .35s var(--spring);
+
+}
+
+.nav-item:hover{
+
+  background:
+    rgba(255,255,255,.06);
+
+  color:white;
+
+  transform:
+    translateX(4px);
+
+}
+
+/* content */
+
+.content{
+
+  display:flex;
+  flex-direction:column;
+
+  gap:2rem;
+
+}
+
+/* cards */
+
+.panel{
+
+  position:relative;
+
+  overflow:hidden;
+
+  border-radius:34px;
+
+  padding:1.4rem;
+
+  background:
+    var(--surface);
+
+  border:
+    1px solid var(--line);
+
+  backdrop-filter:
+    blur(18px)
+    saturate(180%);
+
+}
+
+.panel-head{
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  margin-bottom:1.2rem;
+
+}
+
+.panel-title{
+
+  font-size:1.1rem;
+  font-weight:700;
+
+}
+
+.panel-sub{
+
+  color:var(--sub);
+  font-size:.9rem;
+
+}
+
+/* grid */
 
 .grid{
 
   display:grid;
 
   grid-template-columns:
-    repeat(auto-fit,minmax(260px,1fr));
+    repeat(auto-fit,minmax(180px,1fr));
 
-  gap:1.5rem;
+  gap:1rem;
 
 }
 
-/* Experience Cards */
+/* component */
 
-.exp-card{
+.component{
 
   position:relative;
 
   overflow:hidden;
 
-  min-height:320px;
+  min-height:150px;
 
-  padding:1.8rem;
+  padding:1rem;
 
-  border-radius:32px;
+  border-radius:26px;
 
   background:
-    linear-gradient(
-      180deg,
-      rgba(255,255,255,.05),
-      rgba(255,255,255,.02)
-    );
+    rgba(255,255,255,.04);
 
   border:
-    1px solid rgba(255,255,255,.07);
+    1px solid rgba(255,255,255,.05);
 
-  backdrop-filter:
-    blur(18px)
-    saturate(180%);
-
-  transition:
-    transform .6s var(--spring),
-    border-radius .6s var(--spring),
-    background .4s ease;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
 
   cursor:pointer;
+
+  transition:
+    transform .5s var(--spring),
+    border-radius .5s var(--spring),
+    background .3s ease;
 
   transform-style:preserve-3d;
 
 }
 
-.exp-card:hover{
+.component:hover{
 
   transform:
-    translateY(-8px)
+    translateY(-6px)
     scale(1.02);
 
-  border-radius:42px;
+  border-radius:34px;
 
 }
 
-.exp-card::before{
+.component::before{
 
   content:'';
 
@@ -428,35 +505,35 @@ body::after{
 
   opacity:0;
 
-  transition:.5s ease;
+  transition:.4s ease;
 
   background:
     radial-gradient(
       circle at var(--x) var(--y),
-      rgba(255,255,255,.18),
+      rgba(255,255,255,.14),
       transparent 40%
     );
 
 }
 
-.exp-card:hover::before{
+.component:hover::before{
   opacity:1;
 }
 
-.exp-top{
+.component-top{
 
   display:flex;
-  align-items:center;
   justify-content:space-between;
+  align-items:flex-start;
 
 }
 
-.icon-wrap{
+.icon-box{
 
-  width:58px;
-  height:58px;
+  width:48px;
+  height:48px;
 
-  border-radius:20px;
+  border-radius:18px;
 
   display:flex;
   align-items:center;
@@ -465,7 +542,7 @@ body::after{
   background:
     linear-gradient(
       135deg,
-      rgba(105,213,255,.24),
+      rgba(106,215,255,.2),
       rgba(255,255,255,.04)
     );
 
@@ -473,48 +550,116 @@ body::after{
 
 }
 
-.exp-title{
+.tag{
 
-  margin-top:2rem;
+  font-size:.7rem;
 
-  font-size:1.5rem;
+  padding:
+    .35rem .55rem;
+
+  border-radius:999px;
+
+  background:
+    rgba(255,255,255,.05);
+
+  color:var(--sub);
+
+}
+
+.component-title{
+
+  margin-top:1.3rem;
 
   font-weight:700;
 
 }
 
-.exp-desc{
+.component-desc{
 
-  margin-top:1rem;
+  margin-top:.5rem;
 
-  color:var(--secondary);
+  color:var(--sub);
 
-  line-height:1.7;
+  font-size:.88rem;
+
+  line-height:1.6;
 
 }
 
-/* Interactive Bar */
+/* live elements */
 
-.exp-bar{
+.switch{
 
-  margin-top:2rem;
+  width:52px;
+  height:32px;
+
+  border-radius:999px;
+
+  background:
+    rgba(255,255,255,.08);
+
+  position:relative;
+
+  transition:
+    .35s var(--spring);
+
+}
+
+.switch::after{
+
+  content:'';
+
+  position:absolute;
+
+  top:4px;
+  left:4px;
+
+  width:24px;
+  height:24px;
+
+  border-radius:50%;
+
+  background:white;
+
+  transition:
+    .35s var(--spring);
+
+}
+
+.switch.active{
+
+  background:
+    #56d3ff;
+
+}
+
+.switch.active::after{
+
+  left:24px;
+
+  background:#00384b;
+
+}
+
+/* slider */
+
+.slider{
 
   width:100%;
-  height:10px;
+  height:8px;
 
   border-radius:999px;
 
   overflow:hidden;
 
   background:
-    rgba(255,255,255,.05);
+    rgba(255,255,255,.06);
 
 }
 
-.exp-fill{
+.slider-fill{
 
-  width:42%;
-
+  width:65%;
   height:100%;
 
   border-radius:999px;
@@ -522,222 +667,98 @@ body::after{
   background:
     linear-gradient(
       90deg,
-      #69d5ff,
-      #d6f5ff
+      #6ad7ff,
+      #d7f5ff
     );
 
-  animation:
-    move 2s infinite;
-
-}
-
-@keyframes move{
-
-  from{
-    transform:translateX(-120%);
-  }
-
-  to{
-    transform:translateX(320%);
-  }
-
-}
-
-/* Showcase */
-
-.showcase{
-
-  margin-top:3rem;
-
-  display:grid;
-
-  grid-template-columns:
-    1.4fr .8fr;
-
-  gap:1.5rem;
-
-}
-
-.big-panel{
-
-  min-height:520px;
-
-  position:relative;
-
-  overflow:hidden;
-
-  border-radius:42px;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255,255,255,.06),
-      rgba(255,255,255,.03)
-    );
-
-  border:
-    1px solid rgba(255,255,255,.08);
-
-  backdrop-filter:
-    blur(18px)
-    saturate(180%);
-
-  padding:2rem;
-
-}
-
-.panel-glow{
-
-  position:absolute;
-
-  width:420px;
-  height:420px;
-
-  border-radius:50%;
-
-  background:
-    radial-gradient(circle,
-      rgba(105,213,255,.24),
-      transparent 70%);
-
-  filter:blur(40px);
-
-  top:-120px;
-  right:-120px;
-
-}
-
-.ui-window{
-
-  position:absolute;
-
-  inset:120px 40px 40px;
-
-  border-radius:30px;
-
-  overflow:hidden;
-
-  border:
-    1px solid rgba(255,255,255,.08);
-
-  background:
-    rgba(8,16,22,.7);
-
-  backdrop-filter:
-    blur(16px);
-
-}
-
-.ui-topbar{
-
-  height:64px;
-
-  display:flex;
-  align-items:center;
-
-  padding:0 1.2rem;
-
-  border-bottom:
-    1px solid rgba(255,255,255,.05);
-
-}
-
-.dot{
-
-  width:10px;
-  height:10px;
-
-  border-radius:50%;
-
-  background:
-    rgba(255,255,255,.2);
-
-  margin-right:.5rem;
-
-}
-
-.ui-content{
-
-  padding:1.5rem;
-
-}
-
-.ui-line{
-
-  height:18px;
-
-  border-radius:999px;
-
-  margin-bottom:1rem;
-
-  background:
-    rgba(255,255,255,.05);
-
-}
-
-.ui-line.large{
-  width:100%;
-}
-
-.ui-line.mid{
-  width:70%;
-}
-
-.ui-line.small{
-  width:45%;
-}
-
-/* Side Cards */
-
-.side-stack{
-
-  display:flex;
-  flex-direction:column;
-
-  gap:1.5rem;
-
-}
-
-.side-card{
-
-  flex:1;
-
-  padding:1.5rem;
-
-  border-radius:32px;
-
-  background:
-    rgba(255,255,255,.04);
-
-  border:
-    1px solid rgba(255,255,255,.06);
-
-  backdrop-filter:
-    blur(18px)
-    saturate(180%);
-
-  transition:
-    transform .4s var(--spring);
-
-}
-
-.side-card:hover{
-  transform:translateY(-6px);
 }
 
 /* FAB */
 
-.fab{
+.fab-wrap{
 
   position:fixed;
 
   right:24px;
   bottom:24px;
 
-  z-index:100;
+  z-index:9999;
 
-  width:68px;
-  height:68px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+
+  gap:12px;
+
+}
+
+.fab-menu{
+
+  display:flex;
+  flex-direction:column;
+
+  gap:12px;
+
+  opacity:0;
+
+  transform:
+    translateY(10px)
+    scale(.9);
+
+  pointer-events:none;
+
+  transition:
+    .4s var(--spring);
+
+}
+
+.fab-wrap.active .fab-menu{
+
+  opacity:1;
+
+  transform:
+    translateY(0)
+    scale(1);
+
+  pointer-events:auto;
+
+}
+
+.fab-item{
+
+  display:flex;
+  align-items:center;
+  gap:.7rem;
+
+  padding:
+    1rem 1.2rem;
+
+  border:none;
+
+  border-radius:24px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #7edfff,
+      #45c7ff
+    );
+
+  color:#00384c;
+
+  font-weight:700;
+
+  cursor:pointer;
+
+  box-shadow:
+    0 18px 40px rgba(0,0,0,.35);
+
+}
+
+.fab{
+
+  width:72px;
+  height:72px;
 
   border:none;
 
@@ -746,72 +767,158 @@ body::after{
   background:
     linear-gradient(
       135deg,
-      #7edbff,
-      #44c7ff
+      #7edfff,
+      #45c7ff
     );
 
-  color:#00384d;
+  color:#00384c;
 
   display:flex;
   align-items:center;
   justify-content:center;
 
+  cursor:pointer;
+
   box-shadow:
-    0 20px 50px rgba(0,0,0,.35);
+    0 24px 60px rgba(0,0,0,.4);
+
+  transition:
+    .45s var(--spring);
+
+}
+
+.fab span{
+
+  transition:
+    .45s var(--spring);
+
+}
+
+.fab-wrap.active .fab{
+
+  transform:
+    rotate(45deg)
+    scale(.92);
+
+}
+
+/* dialog */
+
+.dialog{
+
+  position:fixed;
+  inset:0;
+
+  z-index:99999;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:
+    rgba(0,0,0,.6);
+
+  backdrop-filter:
+    blur(16px);
+
+  opacity:0;
+
+  pointer-events:none;
+
+  transition:.3s ease;
+
+}
+
+.dialog.open{
+
+  opacity:1;
+
+  pointer-events:auto;
+
+}
+
+.dialog-box{
+
+  width:min(520px,90%);
+
+  padding:2rem;
+
+  border-radius:36px;
+
+  background:
+    rgba(16,26,34,.92);
+
+  border:
+    1px solid rgba(255,255,255,.08);
+
+  transform:
+    translateY(30px)
+    scale(.92);
+
+  transition:
+    .45s var(--spring);
+
+}
+
+.dialog.open .dialog-box{
+
+  transform:
+    translateY(0)
+    scale(1);
+
+}
+
+.dialog h2{
+
+  margin-top:0;
+
+}
+
+.dialog p{
+
+  color:var(--sub);
+
+  line-height:1.8;
+
+}
+
+.close-btn{
+
+  margin-top:1rem;
+
+  padding:
+    .9rem 1.2rem;
+
+  border:none;
+
+  border-radius:18px;
+
+  background:
+    #6ad7ff;
+
+  color:#00384c;
+
+  font-weight:700;
 
   cursor:pointer;
 
-  transition:
-    transform .35s var(--spring);
-
 }
 
-.fab:hover{
-
-  transform:
-    scale(1.08)
-    rotate(6deg);
-
-}
-
-/* Footer */
-
-footer{
-
-  padding:
-    6rem 1rem 3rem;
-
-  text-align:center;
-
-  color:var(--secondary);
-
-}
-
-/* Responsive */
+/* responsive */
 
 @media(max-width:980px){
 
-  .showcase{
+  .layout{
 
     grid-template-columns:1fr;
 
   }
 
-}
+  .sidebar{
 
-@media(max-width:700px){
+    position:relative;
+    top:auto;
 
-  .hero{
-    min-height:auto;
-    padding:8rem 1.2rem;
-  }
-
-  .float-card{
-    display:none;
-  }
-
-  .section{
-    padding:5rem 1rem;
   }
 
 }
@@ -821,42 +928,66 @@ footer{
 
 <body>
 
-<!-- HERO -->
+<div class="topbar">
 
-<section class="hero">
+  <div class="logo">
 
-  <div class="float-layer">
+    <div class="logo-badge">
 
-    <div class="float-card"></div>
-    <div class="float-card"></div>
-    <div class="float-card"></div>
+      <span class="material-symbols-rounded">
+        auto_awesome
+      </span>
+
+    </div>
+
+    Expressive Lab
 
   </div>
+
+  <div class="top-actions">
+
+    <button class="action-btn">
+      <span class="material-symbols-rounded">
+        search
+      </span>
+    </button>
+
+    <button class="action-btn">
+      <span class="material-symbols-rounded">
+        dark_mode
+      </span>
+    </button>
+
+  </div>
+
+</div>
+
+<section class="hero">
 
   <div class="hero-inner">
 
     <div class="hero-badge">
 
       <span class="material-symbols-rounded">
-        auto_awesome
+        animation
       </span>
 
-      Material 3 Expressive
+      Material 3 Expressive System
 
     </div>
 
     <h1>
 
-      Designed<br>
-      for <span class="gradient">Experience</span>
+      Interactive<br>
+      UI Playground
 
     </h1>
 
     <p>
 
-      A spatial interface concept focused on motion,
-      atmosphere, depth, and interaction.
-      Built to feel alive instead of static.
+      A tactile component showroom focused on motion,
+      depth, transitions, and immersive interaction.
+      Designed to feel responsive and alive.
 
     </p>
 
@@ -864,231 +995,297 @@ footer{
 
 </section>
 
-<!-- EXPERIENCE -->
+<div class="layout">
 
-<section class="section">
+  <aside class="sidebar">
 
-  <div class="section-head">
-
-    <div class="section-label">
-      Interactive System
+    <div class="sidebar-title">
+      Components
     </div>
 
-    <div class="section-title">
-      Motion feels natural.
+    <div class="nav">
+
+      <div class="nav-item">
+        <span class="material-symbols-rounded">
+          widgets
+        </span>
+        Dynamic Cards
+      </div>
+
+      <div class="nav-item">
+        <span class="material-symbols-rounded">
+          toggle_on
+        </span>
+        Controls
+      </div>
+
+      <div class="nav-item">
+        <span class="material-symbols-rounded">
+          touch_app
+        </span>
+        Interactions
+      </div>
+
+      <div class="nav-item">
+        <span class="material-symbols-rounded">
+          palette
+        </span>
+        Visual System
+      </div>
+
     </div>
 
-    <div class="section-text">
+  </aside>
 
-      Every element reacts with subtle depth,
-      soft lighting, and fluid transitions to create
-      a calm and immersive interface experience.
+  <main class="content">
 
-    </div>
+    <section class="panel">
+
+      <div class="panel-head">
+
+        <div>
+
+          <div class="panel-title">
+            Dynamic Components
+          </div>
+
+          <div class="panel-sub">
+            Hover and interact with elements
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="grid">
+
+        <div class="component interactive">
+
+          <div class="component-top">
+
+            <div class="icon-box">
+
+              <span class="material-symbols-rounded">
+                dashboard
+              </span>
+
+            </div>
+
+            <div class="tag">
+              Live
+            </div>
+
+          </div>
+
+          <div>
+
+            <div class="component-title">
+              Adaptive Dashboard
+            </div>
+
+            <div class="component-desc">
+
+              Responsive glass layout
+              with fluid interaction states.
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="component interactive">
+
+          <div class="component-top">
+
+            <div class="icon-box">
+
+              <span class="material-symbols-rounded">
+                toggle_on
+              </span>
+
+            </div>
+
+            <div class="switch active"></div>
+
+          </div>
+
+          <div>
+
+            <div class="component-title">
+              Dynamic Toggle
+            </div>
+
+            <div class="component-desc">
+
+              Soft spring physics and
+              spatial feedback.
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="component interactive">
+
+          <div class="component-top">
+
+            <div class="icon-box">
+
+              <span class="material-symbols-rounded">
+                tune
+              </span>
+
+            </div>
+
+            <div class="tag">
+              Motion
+            </div>
+
+          </div>
+
+          <div>
+
+            <div class="component-title">
+              Expressive Slider
+            </div>
+
+            <div class="component-desc">
+
+              Reactive visual movement
+              with layered lighting.
+
+            </div>
+
+            <div class="slider">
+
+              <div class="slider-fill"></div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="component interactive">
+
+          <div class="component-top">
+
+            <div class="icon-box">
+
+              <span class="material-symbols-rounded">
+                blur_on
+              </span>
+
+            </div>
+
+            <div class="tag">
+              Glass
+            </div>
+
+          </div>
+
+          <div>
+
+            <div class="component-title">
+              Frosted Surface
+            </div>
+
+            <div class="component-desc">
+
+              Layered translucent UI
+              inspired by spatial systems.
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+<div class="fab-wrap" id="fabWrap">
+
+  <div class="fab-menu">
+
+    <button class="fab-item">
+
+      <span class="material-symbols-rounded">
+        image
+      </span>
+
+      Media
+
+    </button>
+
+    <button class="fab-item">
+
+      <span class="material-symbols-rounded">
+        mic
+      </span>
+
+      Voice
+
+    </button>
+
+    <button class="fab-item">
+
+      <span class="material-symbols-rounded">
+        draw
+      </span>
+
+      Sketch
+
+    </button>
 
   </div>
 
-  <div class="grid">
+  <button class="fab" id="fab">
 
-    <div class="exp-card">
+    <span class="material-symbols-rounded">
+      add
+    </span>
 
-      <div class="exp-top">
+  </button>
 
-        <div class="icon-wrap">
+</div>
 
-          <span class="material-symbols-rounded">
-            animation
-          </span>
+<div class="dialog" id="dialog">
 
-        </div>
+  <div class="dialog-box">
 
-      </div>
+    <h2 id="dialogTitle">
+      Component
+    </h2>
 
-      <div class="exp-title">
-        Adaptive Motion
-      </div>
+    <p id="dialogText">
 
-      <div class="exp-desc">
+      Interactive component description.
 
-        Smooth spring animations respond naturally
-        to movement and interaction.
+    </p>
 
-      </div>
+    <button class="close-btn" id="closeBtn">
 
-      <div class="exp-bar">
-        <div class="exp-fill"></div>
-      </div>
+      Close
 
-    </div>
-
-    <div class="exp-card">
-
-      <div class="exp-top">
-
-        <div class="icon-wrap">
-
-          <span class="material-symbols-rounded">
-            blur_on
-          </span>
-
-        </div>
-
-      </div>
-
-      <div class="exp-title">
-        Glass Surfaces
-      </div>
-
-      <div class="exp-desc">
-
-        Layered translucent materials create depth
-        without overwhelming the interface.
-
-      </div>
-
-      <div class="exp-bar">
-        <div class="exp-fill"></div>
-      </div>
-
-    </div>
-
-    <div class="exp-card">
-
-      <div class="exp-top">
-
-        <div class="icon-wrap">
-
-          <span class="material-symbols-rounded">
-            light_mode
-          </span>
-
-        </div>
-
-      </div>
-
-      <div class="exp-title">
-        Dynamic Lighting
-      </div>
-
-      <div class="exp-desc">
-
-        Subtle glow effects and reactive highlights
-        enhance focus and hierarchy.
-
-      </div>
-
-      <div class="exp-bar">
-        <div class="exp-fill"></div>
-      </div>
-
-    </div>
+    </button>
 
   </div>
 
-</section>
-
-<!-- SHOWCASE -->
-
-<section class="section">
-
-  <div class="section-head">
-
-    <div class="section-label">
-      Spatial UI
-    </div>
-
-    <div class="section-title">
-      Built around atmosphere.
-    </div>
-
-  </div>
-
-  <div class="showcase">
-
-    <div class="big-panel">
-
-      <div class="panel-glow"></div>
-
-      <div class="ui-window">
-
-        <div class="ui-topbar">
-
-          <div class="dot"></div>
-          <div class="dot"></div>
-          <div class="dot"></div>
-
-        </div>
-
-        <div class="ui-content">
-
-          <div class="ui-line large"></div>
-          <div class="ui-line mid"></div>
-          <div class="ui-line small"></div>
-
-          <br>
-
-          <div class="ui-line large"></div>
-          <div class="ui-line mid"></div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="side-stack">
-
-      <div class="side-card">
-
-        <h3>Reactive Depth</h3>
-
-        <p>
-
-          Elements subtly shift and respond
-          to cursor movement.
-
-        </p>
-
-      </div>
-
-      <div class="side-card">
-
-        <h3>Quiet Visual Design</h3>
-
-        <p>
-
-          Soft gradients and restrained motion
-          reduce visual fatigue.
-
-        </p>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-<button class="fab">
-
-  <span class="material-symbols-rounded">
-    add
-  </span>
-
-</button>
-
-<footer>
-
-  Material 3 Expressive Experience Concept
-
-</footer>
+</div>
 
 <script>
 
-/* Interactive Glow */
+/* glow */
 
-document.querySelectorAll('.exp-card')
+document.querySelectorAll('.interactive')
 .forEach(card=>{
 
   card.addEventListener('mousemove',e=>{
@@ -1109,68 +1306,71 @@ document.querySelectorAll('.exp-card')
 
 });
 
-/* Parallax */
+/* switch */
 
-const cards =
-  document.querySelectorAll('.exp-card,.side-card');
+document.querySelectorAll('.switch')
+.forEach(sw=>{
 
-document.addEventListener('mousemove',e=>{
+  sw.addEventListener('click',()=>{
 
-  cards.forEach(card=>{
-
-    const rect =
-      card.getBoundingClientRect();
-
-    const x =
-      e.clientX - (rect.left + rect.width / 2);
-
-    const y =
-      e.clientY - (rect.top + rect.height / 2);
-
-    if(
-      Math.abs(x) < 300 &&
-      Math.abs(y) < 300
-    ){
-
-      card.style.transform =
-      `
-      rotateX(${(y / rect.height) * -5}deg)
-      rotateY(${(x / rect.width) * 5}deg)
-      translateY(-4px)
-      `;
-
-    }else{
-
-      card.style.transform = '';
-
-    }
+    sw.classList.toggle('active');
 
   });
 
 });
 
-/* FAB Scroll Motion */
+/* fab */
 
-let lastScroll = window.scrollY;
+const fabWrap =
+  document.getElementById('fabWrap');
 
-window.addEventListener('scroll',()=>{
+document.getElementById('fab')
+.addEventListener('click',()=>{
 
-  const fab =
-    document.querySelector('.fab');
+  fabWrap.classList.toggle('active');
 
-  if(window.scrollY > lastScroll){
+});
 
-    fab.style.transform =
-      'scale(.9)';
+/* dialog */
 
-  }else{
+const dialog =
+  document.getElementById('dialog');
 
-    fab.style.transform =
-      'scale(1)';
+document.querySelectorAll('.component')
+.forEach(card=>{
+
+  card.addEventListener('click',()=>{
+
+    document.getElementById('dialogTitle')
+    .textContent =
+      card.querySelector('.component-title')
+      .textContent;
+
+    document.getElementById('dialogText')
+    .textContent =
+      card.querySelector('.component-desc')
+      .textContent;
+
+    dialog.classList.add('open');
+
+  });
+
+});
+
+document.getElementById('closeBtn')
+.addEventListener('click',()=>{
+
+  dialog.classList.remove('open');
+
+});
+
+dialog.addEventListener('click',e=>{
+
+  if(e.target === dialog){
+
+    dialog.classList.remove('open');
 
   }
-
-  lastScroll = window.scrollY;
 
 });
 
