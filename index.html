@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Material 3 Expressive - Ultra Responsive Showroom</title>
+  <title>Material 3 Expressive - Fixed UX Showroom</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet">
@@ -46,13 +46,13 @@
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: var(--md-sys-color-background);
       color: var(--md-sys-color-secondary);
-      padding: 1rem 0.75rem 8rem 0.75rem; /* スマホ用にパディングを最適化 */
+      padding: 1rem 0.75rem 9rem 0.75rem;
       display: flex;
       flex-direction: column;
       align-items: center;
       overflow-x: hidden;
       perspective: 1000px;
-      -webkit-tap-highlight-color: transparent; /* スマホのデフォルトのタップ青背景を無効化 */
+      -webkit-tap-highlight-color: transparent;
     }
 
     body::before {
@@ -80,11 +80,11 @@
 
     .container { max-width: 1240px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
     
-    /* --- ★レスポンシブ対応カード枠 --- */
+    /* セクションカード */
     .section-card { 
       background-color: var(--md-sys-color-surface); 
       border-radius: 28px; 
-      padding: 1.25rem; /* スマホではコンパクトに */
+      padding: 1.25rem;
       backdrop-filter: blur(16px); 
       border: 1px solid rgba(255,255,255,0.04);
       box-shadow: 0 8px 24px rgba(0,0,0,0.15);
@@ -93,16 +93,9 @@
     }
 
     .section-card h2 { font-size: 1.15rem; margin-top: 0; margin-bottom: 1.25rem; color: var(--md-sys-color-primary); display: flex; align-items: center; gap: 0.4rem; }
-    
-    /* --- ★最強のレスポンシブ・グリッド設計 --- */
-    .grid-area { 
-      display: grid; 
-      /* minmax(140px, 1fr) にすることで、画面幅が非常に狭いスマホ（横幅320px等）でも、2列が崩れずに綺麗に収まるよう自動調整 */
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
-      gap: 0.75rem; 
-    }
+    .grid-area { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem; }
 
-    /* --- 3. 3Dホバー ＆ リップルコア --- */
+    /* コアインタラクション */
     .pixel-interactive { position: relative; overflow: hidden; cursor: pointer; border: none; display: flex; transform-style: preserve-3d; backface-visibility: hidden; transition: transform 0.15s ease-out, border-radius 0.4s var(--md-sys-motion-spring), background-color 0.3s; }
     .pixel-interactive * { transform: translateZ(15px); }
     .pixel-interactive::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, transparent, rgba(255,255,255,0.08), transparent); transform: translateX(-100%); transition: transform 0.6s ease; }
@@ -112,8 +105,8 @@
     body.light-theme .m3-ripple { background: radial-gradient(circle, rgba(0,0,0,0.12) 0%, transparent 80%); }
     @keyframes ripple-hyper { to { transform: scale(5); opacity: 0; } }
 
-    /* --- 4. ユニークパーツデザイン（スマホの押しやすさを担保） --- */
-    .catalog-item { padding: 1rem 0.5rem; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-size: 0.75rem; font-weight: 600; gap: 0.4rem; min-height: 95px; /* スマホのタッチターゲット（48dp以上）を余裕でクリア */ box-sizing: border-box; border-radius: 18px; background-color: var(--md-sys-color-surface-variant); border: 1px solid rgba(255,255,255,0.02); }
+    /* 各種パーツ設計 */
+    .catalog-item { padding: 1rem 0.5rem; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-size: 0.75rem; font-weight: 600; gap: 0.4rem; min-height: 95px; box-sizing: border-box; border-radius: 18px; background-color: var(--md-sys-color-surface-variant); border: 1px solid rgba(255,255,255,0.02); }
     
     .v-sh1 { border-radius: 36px 12px; background: linear-gradient(135deg, var(--md-sys-color-primary-container), #003549); color: var(--md-sys-color-primary); }
     .v-sh2 { border-radius: 24px 24px 4px 24px; background-color: var(--md-sys-color-secondary-container); }
@@ -150,38 +143,89 @@
     .pixel-switch.active::after { left: 23px; background-color: #002230; }
     .pixel-switch.active:active::after { left: 17px; }
 
-    /* --- ふわっと浮き出るダイアログ（モバイル・レスポンシブ版） --- */
-    .m3-dialog-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px); z-index: 5000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; padding: 1rem; box-sizing: border-box; }
+    /* --- ★修正：表示バグを完全攻略したダイアログ設計 --- */
+    .m3-dialog-overlay { 
+      position: fixed; 
+      top: 0; left: 0; 
+      width: 100vw; height: 100vh; 
+      background-color: rgba(0, 0, 0, 0.7); 
+      backdrop-filter: blur(12px); 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      opacity: 0; 
+      pointer-events: none; 
+      transition: opacity 0.3s ease; 
+      padding: 1rem; 
+      box-sizing: border-box; 
+      
+      /* 強力なZ軸の最前面配置と、3D空間スタックのフラット化（これによって裏に隠れなくなります） */
+      z-index: 99999 !important; 
+      transform: translateZ(999px);
+    }
+    
     .m3-dialog-overlay.open { opacity: 1; pointer-events: auto; }
-    .m3-dialog-window { background-color: #1a2c36; border: 1px solid rgba(255,255,255,0.1); width: 100%; max-width: 380px; padding: 1.75rem; border-radius: 28px; box-shadow: 0 16px 40px rgba(0,0,0,0.5); color: #edf2f7; text-align: center; transform: scale(0.8) translateY(40px); transition: transform 0.5s var(--md-sys-motion-spring); box-sizing: border-box; }
-    body.light-theme .m3-dialog-window { background-color: #ffffff; color: #1a2c36; }
+    
+    .m3-dialog-window { 
+      background-color: #1a2c36; 
+      border: 1px solid rgba(255,255,255,0.12); 
+      width: 100%; 
+      max-width: 400px; 
+      padding: 2rem; 
+      border-radius: 32px; 
+      box-shadow: 0 24px 60px rgba(0,0,0,0.6); 
+      color: #edf2f7; 
+      text-align: center; 
+      transform: scale(0.7) translateY(60px); 
+      transition: transform 0.45s var(--md-sys-motion-spring); 
+      box-sizing: border-box; 
+    }
+    body.light-theme .m3-dialog-window { background-color: #ffffff; color: #1a2c36; box-shadow: 0 24px 60px rgba(0,0,0,0.15); }
     .m3-dialog-overlay.open .m3-dialog-window { transform: scale(1) translateY(0); }
-    .m3-dialog-window h3 { margin-top: 0; font-size: 1.3rem; color: var(--md-sys-color-primary); display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
-    .m3-dialog-window p { font-size: 0.85rem; color: var(--md-sys-color-secondary); line-height: 1.5; margin: 1.25rem 0; text-align: left; }
-    .m3-dialog-close-btn { background-color: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); border: none; padding: 0.7rem 1.5rem; border-radius: 20px; font-weight: bold; cursor: pointer; transition: transform 0.2s; font-size: 0.85rem; }
+    .m3-dialog-window h3 { margin-top: 0; font-size: 1.4rem; color: var(--md-sys-color-primary); display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+    .m3-dialog-window p { font-size: 0.9rem; color: var(--md-sys-color-secondary); line-height: 1.6; margin: 1.5rem 0; text-align: left; }
+    .m3-dialog-close-btn { background-color: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); border: none; padding: 0.75rem 1.75rem; border-radius: 20px; font-weight: bold; cursor: pointer; transition: transform 0.2s; font-size: 0.9rem; }
 
-    /* --- 5. Dynamic FAB（モバイルレスポンシブ配置） --- */
-    .fab-group { position: fixed; bottom: 16px; right: 16px; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; z-index: 1000; }
-    .fab-menu-item { display: flex; align-items: center; gap: 10px; background: linear-gradient(135deg, #00beff, #008cb3); color: #002230; padding: 12px 24px; border-radius: 24px 24px 4px 24px; font-weight: 800; font-size: 0.9rem; opacity: 0; transform: scale(0) translateY(30px); pointer-events: none; transition: all 0.4s var(--md-sys-motion-spring); box-shadow: 0 6px 16px rgba(0,0,0,0.3); }
-    .fab-trigger { width: 58px; height: 58px; background: linear-gradient(135deg, #83d5ff, #3ec1ff); color: #003549; border-radius: 50%; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
-    .fab-trigger span { font-size: 1.8rem; transition: transform 0.3s var(--md-sys-motion-spring); }
+    /* --- ★修正：ひと回り大きく＆画面下に常時追従（fixed）するFAB --- */
+    .fab-group { 
+      position: fixed; 
+      bottom: 24px; 
+      right: 24px; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: flex-end; 
+      gap: 12px; 
+      z-index: 50000; /* ダイアログのすぐ下に配置 */
+    }
+    
+    .fab-menu-item { display: flex; align-items: center; gap: 12px; background: linear-gradient(135deg, #00beff, #008cb3); color: #002230; padding: 16px 32px; border-radius: 28px 28px 4px 28px; font-weight: 800; font-size: 1rem; opacity: 0; transform: scale(0) translateY(30px); pointer-events: none; transition: all 0.4s var(--md-sys-motion-spring); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+    
+    /* プラスボタン本体のサイズを大きく最適化（64px → 76px） */
+    .fab-trigger { 
+      width: 76px; 
+      height: 76px; 
+      background: linear-gradient(135deg, #83d5ff, #3ec1ff); 
+      color: #003549; 
+      border-radius: 50%; 
+      align-items: center; 
+      justify-content: center; 
+      box-shadow: 0 10px 28px rgba(0,0,0,0.4); 
+      transition: transform 0.3s var(--md-sys-motion-spring), background-color 0.3s;
+    }
+    .fab-trigger span { font-size: 2.5rem; transition: transform 0.3s var(--md-sys-motion-spring); }
     
     .fab-group.active .fab-menu-item { opacity: 1; transform: scale(1) translateY(0); pointer-events: auto; }
     .fab-group.active .fab-trigger { background: var(--md-sys-color-surface-variant); color: var(--md-sys-color-primary); transform: scale(0.9); }
     .fab-group.active .fab-trigger span { transform: rotate(135deg); }
 
-    /* PC大画面向けの最適化（セクションごとの余白や文字調整） */
-    @min-width: 768px {
-      body { padding: 2rem 1.5rem 7rem 1.5rem; }
+    /* レスポンシブ */
+    @media (min-width: 768px) {
+      body { padding: 2rem 1.5rem 8rem 1.5rem; }
       header h1 { font-size: 2.5rem; }
       header p { font-size: 0.95rem; }
       .section-card { padding: 2rem; }
-      .section-card h2 { font-size: 1.3rem; }
       .grid-area { gap: 1.2rem; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
       .catalog-item { font-size: 0.8rem; min-height: 90px; }
-      .fab-group { bottom: 24px; right: 24px; gap: 14px; }
-      .fab-trigger { width: 68px; height: 68px; }
-      .fab-menu-item { padding: 15px 30px; font-size: 1rem; }
     }
   </style>
 </head>
@@ -189,7 +233,7 @@
 
   <header>
     <h1>Material 3 Expressive</h1>
-    <p>ウルトラ・レスポンシブ仕様：120 独立コンポーネント・エクスプレッシブ・ショールーム</p>
+    <p>バグフィックス完全版：追従型特大FAB ＆ 最前面ダイアログウィンドウ</p>
   </header>
 
   <div class="theme-switch-container">
@@ -242,7 +286,7 @@
   </div>
 
   <script>
-    // 122個の厳選データレンダリング
+    // レンダリングデータ群
     const shapesData = [
       { i: 'star', t: 'お気に入り' }, { i: 'favorite', t: 'いいね' }, { i: 'shield', t: 'セキュリティ' }, { i: 'cookie', t: 'クッキー設定' }, { i: 'spa', t: 'リラクゼーション' },
       { i: 'hexagon', t: 'クラスター' }, { i: 'category', t: 'オブジェクト' }, { i: 'wb_cloudy', t: '天候データ' }, { i: 'bubble_chart', t: '分析バブル' }, { i: 'waves', t: 'オーディオ波' },
@@ -252,17 +296,15 @@
     ];
     const sec1 = document.getElementById('sec-1');
     shapesData.forEach((d, index) => {
-      const shClass = ['v-sh1', 'v-sh2', 'v-sh3', 'v-sh4', 'v-sh5'][index % 5];
-      sec1.innerHTML += `<div class="catalog-item pixel-interactive ${shClass}" onclick="openM3Dialog('${d.t}', 'Material 3 Expressive独自のアシンメトリーなシルエットを持つ【${d.t}】のコンポーネント表現です。')"><span class="material-symbols-outlined">${d.i}</span><span>${String(index+1).padStart(2,'0')}. ${d.t}</span></div>`;
+      sec1.innerHTML += `<div class="catalog-item pixel-interactive ${['v-sh1', 'v-sh2', 'v-sh3', 'v-sh4', 'v-sh5'][index % 5]}" onclick="openM3Dialog('${d.t}', 'Material 3 Expressive独自のアシンメトリーなシルエットを持つ【${d.t}】のコンポーネント表現です。')"><span class="material-symbols-outlined">${d.i}</span><span>${String(index+1).padStart(2,'0')}. ${d.t}</span></div>`;
     });
 
     const buttonStyles = ['v-btn-filled', 'v-btn-tonal', 'v-btn-elevated', 'v-btn-outlined', 'v-btn-split-l', 'v-btn-split-r'];
     const btnLabels = ['新規作成', '保存', '削除する', 'キャンセル', '共有リンク', 'ダウンロード', 'アップロード', '設定を開き直す', 'ログイン', 'ログアウト', '次へ進む', '前に戻る', '検索実行', 'フィルター適用', 'お気に入り登録', 'カートに追加', '購入手続き', 'ヘルプ', '規約に同意', '編集モード', 'プレビュー', 'データ復元', '同期開始', '通知オン', 'アプリ終了'];
     const sec2 = document.getElementById('sec-2');
     for(let i=26; i<=50; i++) {
-      let styleCls = buttonStyles[(i-26) % buttonStyles.length];
       let label = btnLabels[i-26];
-      sec2.innerHTML += `<button class="pixel-interactive catalog-item ${styleCls}" onclick="openM3Dialog('ボタン: ${label}', 'アクションを実行するためのボタンスタイルです。Pixel特有のリップル波紋と、深い押し込みの物理フィードバックが統合されています。')"><span>#${i} ${label}</span></button>`;
+      sec2.innerHTML += `<button class="pixel-interactive catalog-item ${buttonStyles[(i-26) % buttonStyles.length]}" onclick="openM3Dialog('ボタン: ${label}', 'アクションを実行するためのボタンスタイルです。Pixel特有のリップル波紋と物理フィードバックが統合されています。')"><span>#${i} ${label}</span></button>`;
     }
 
     const cardData = [{ i: 'account_circle', t: 'プロフィール変更', b: 'Admin' }, { i: 'mail', t: '未読メッセージ', b: '5件' }, { i: 'warning', t: 'ストレージ容量警告', b: '92%' }, { i: 'music_note', t: '再生中のトラック', b: 'LIVE' }, { i: 'map', t: '位置情報の同期', b: 'ON' }, { i: 'shopping_bag', t: 'セール対象商品', b: '15%OFF' }, { i: 'battery_charging_full', t: '高速充電完了', b: '100%' }, { i: 'speed', t: 'ネットワーク速度', b: 'Fast' }, { i: 'cloud_done', t: 'クラウド同期完了', b: 'OK' }, { i: 'flight_takeoff', t: 'フライトの予定', b: '明日' }, { i: 'celebration', t: 'アチーブメント達成', b: '解禁' }, { i: 'sports_esports', t: 'ゲームコントローラ', b: '接続' }, { i: 'tv', t: 'ディスプレイ出力', b: '4K' }, { i: 'volume_up', t: '現在の音量設定', b: '70' }, { i: 'vpn_key', t: 'パスキーの有効化', b: '保護中' }, { i: 'palette', t: 'テーマダイナミックカラー', b: 'M3E' }, { i: 'translate', t: 'システム言語', b: 'JA' }, { i: 'wifi', t: '接続中のネットワーク', b: '5G' }, { i: 'event', t: 'カレンダーの予定', b: '3件' }, { i: 'schedule', t: 'リマインダー設定', b: '完了' }, { i: 'pie_chart', t: 'データ使用量レポート', b: '確認' }, { i: 'photo_camera', t: 'カメラへのアクセス', b: '許可' }, { i: 'mic', t: 'マイク感度テスト', b: '正常' }, { i: 'bluetooth', t: '周辺機器の検索', b: '探索中' }, { i: 'security', t: 'デバイスの安全性', b: '安全' }];
@@ -287,7 +329,7 @@
     const chipIcons = ['filter_list', 'sell', 'done', 'location_on', 'alarm', 'bookmark', 'star', 'cached'];
     for(let i=113; i<=120; i++) { sec5.innerHTML += `<div class="catalog-item pixel-interactive v-chip" onclick="openM3Dialog('フィルタチップ ${i}', 'タグ付けや条件抽出に使用されるチップス構造。')"><span class="material-symbols-outlined" style="font-size:1rem;">${chipIcons[i-113]}</span><span>Chip ${i}</span></div>`; }
 
-    /* --- ロジックコア --- */
+    /* ダイアログ制御 */
     function openM3Dialog(title, description) {
       document.getElementById('dialogTitle').innerHTML = `<span class="material-symbols-outlined">info</span> ${title}`;
       document.getElementById('dialogDescription').textContent = description;
@@ -295,10 +337,11 @@
     }
     function closeM3Dialog(event) { if (event.target.id === 'customDialogOverlay') document.getElementById('customDialogOverlay').classList.remove('open'); }
 
-    /* ★レスポンシブ・インタラクション：スマホ等のタッチ端末では傾き(ジャイロ)を無効化してスクロールを快適に */
+    /* 3Dホバー（PCのみ） */
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     if (!isTouchDevice) {
       document.addEventListener('mousemove', function(e) {
+        if(document.getElementById('customDialogOverlay').classList.contains('open')) return; // ダイアログ開いてる時は無効
         const cards = document.querySelectorAll('.pixel-interactive');
         cards.forEach(card => {
           const rect = card.getBoundingClientRect();
@@ -312,7 +355,7 @@
       document.addEventListener('mouseout', function() { document.querySelectorAll('.pixel-interactive').forEach(card => card.style.transform = ''); });
     }
 
-    /* 高精度タップリップル */
+    /* リップル */
     document.addEventListener('click', function(e) {
       if (e.target.closest('.pixel-switch')) return;
       const target = e.target.closest('.pixel-interactive');
