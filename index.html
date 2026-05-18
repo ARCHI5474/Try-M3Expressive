@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Material 3 Expressive - 120 Unique Components</title>
+  <title>Material 3 Expressive - Dynamic Hyper Animation Showroom</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet">
 
   <style>
-    /* --- 1. トークン定義（デフォルト：ダークモード） --- */
+    /* --- 1. トークン定義 ＆ オーガニック流体アニメーション背景 --- */
     :root {
-      --md-sys-color-background: #0b151a;
-      --md-sys-color-surface: #11222b;
-      --md-sys-color-surface-variant: #1c3542;
+      --md-sys-color-background: #060d11;
+      --md-sys-color-surface: rgba(17, 34, 43, 0.75);
+      --md-sys-color-surface-variant: rgba(28, 53, 66, 0.6);
       --md-sys-color-primary: #5fd3ff; 
       --md-sys-color-on-primary: #003549;
       --md-sys-color-primary-container: #004d69;
@@ -22,17 +22,17 @@
       --md-sys-color-tertiary: #ffb4a2;
       --md-sys-color-tertiary-container: #7d2b17;
       --md-sys-color-error: #ffb4ab;
-      --md-sys-color-error-container: #8c1d18;
       --md-sys-color-outline: #8b9296;
 
-      --md-sys-motion-spring: cubic-bezier(0.2, 0.9, 0.1, 1.2);
-      --md-sys-motion-ripple: cubic-bezier(0.1, 0.8, 0.1, 1);
+      /* 強烈に弾むバネのイージング */
+      --md-sys-motion-spring: cubic-bezier(0.43, 1.95, 0.22, 0.75);
+      --md-sys-motion-ripple: cubic-bezier(0, 0.7, 0.1, 1);
     }
 
     body.light-theme {
-      --md-sys-color-background: #f7fafc;
-      --md-sys-color-surface: #edf2f7;
-      --md-sys-color-surface-variant: #e2e8f0;
+      --md-sys-color-background: #f0f4f8;
+      --md-sys-color-surface: rgba(237, 242, 247, 0.85);
+      --md-sys-color-surface-variant: rgba(222, 228, 233, 0.7);
       --md-sys-color-primary: #00668b;
       --md-sys-color-on-primary: #ffffff;
       --md-sys-color-primary-container: #c2e8ff;
@@ -40,126 +40,151 @@
       --md-sys-color-secondary-container: #dbe4e9;
       --md-sys-color-tertiary: #b12d10;
       --md-sys-color-tertiary-container: #ffdad2;
-      --md-sys-color-error: #ba1a1a;
-      --md-sys-color-error-container: #ffdad6;
-      --md-sys-color-outline: #70787d;
     }
 
-    /* --- 2. ベーススタイル --- */
     body {
       margin: 0;
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: var(--md-sys-color-background);
       color: var(--md-sys-color-secondary);
-      transition: background-color 0.35s, color 0.35s;
       padding: 2rem 1rem 7rem 1rem;
       display: flex;
       flex-direction: column;
       align-items: center;
+      overflow-x: hidden;
+      perspective: 1000px; /* 3D空間の奥行きを定義 */
     }
 
-    header { text-align: center; margin-bottom: 1.5rem; max-width: 600px; }
-    header h1 { font-size: 2.2rem; font-weight: 800; color: var(--md-sys-color-primary); margin-bottom: 0.5rem; }
-    header p { color: var(--md-sys-color-outline); font-size: 0.95rem; }
-    .theme-btn { background-color: var(--md-sys-color-surface-variant); color: var(--md-sys-color-primary); border: none; padding: 0.75rem 1.5rem; border-radius: 24px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2.5rem; }
+    /* アニメーションまみれの動く背景グラデーション */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%; left: -50%; width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(95,211,255,0.08) 0%, transparent 40%),
+                  radial-gradient(circle, rgba(255,180,162,0.05) 50%, transparent 100%);
+      animation: fluidBg 20s linear infinite;
+      z-index: -1;
+    }
+    @keyframes fluidBg {
+      0% { transform: rotate(0deg) translate(0, 0); }
+      50% { transform: rotate(180deg) translate(-50px, 50px); }
+      100% { transform: rotate(360deg) translate(0, 0); }
+    }
 
-    .container { max-width: 1200px; width: 100%; display: flex; flex-direction: column; gap: 2.5rem; }
-    .section-card { background-color: var(--md-sys-color-surface); border-radius: 28px; padding: 2rem; }
-    .section-card h2 { font-size: 1.3rem; margin-top: 0; margin-bottom: 1.5rem; color: var(--md-sys-color-primary); display: flex; align-items: center; gap: 0.5rem; }
-    .grid-area { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; }
+    header { text-align: center; margin-bottom: 1.5rem; animation: fadeInUp 0.8s var(--md-sys-motion-spring); }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    
+    header h1 { font-size: 2.5rem; font-weight: 800; color: var(--md-sys-color-primary); text-shadow: 0 0 20px rgba(95,211,255,0.2); }
+    
+    .theme-btn { background-color: var(--md-sys-color-surface-variant); color: var(--md-sys-color-primary); border: none; padding: 0.75rem 1.5rem; border-radius: 24px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2.5rem; backdrop-filter: blur(10px); transition: all 0.3s; }
+    .theme-btn:hover { background-color: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); transform: scale(1.1); }
 
-    /* --- 3. コアインタラクション --- */
-    .pixel-interactive { position: relative; overflow: hidden; cursor: pointer; border: none; display: flex; transition: all 0.3s var(--md-sys-motion-spring); }
-    .pixel-interactive:active { transform: scale(0.94) !important; }
+    .container { max-width: 1200px; width: 100%; display: flex; flex-direction: column; gap: 3rem; }
+    
+    /* カードセクションも浮遊するアニメーション */
+    .section-card { 
+      background-color: var(--md-sys-color-surface); 
+      border-radius: 32px; 
+      padding: 2rem; 
+      backdrop-filter: blur(16px); 
+      border: 1px solid rgba(255,255,255,0.05);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transform-style: preserve-3d;
+    }
 
-    .m3-ripple { position: absolute; border-radius: 50%; background-color: rgba(255, 255, 255, 0.22); pointer-events: none; transform: scale(0); animation: ripple-out 0.45s var(--md-sys-motion-ripple) forwards; }
-    body.light-theme .m3-ripple { background-color: rgba(0, 0, 0, 0.1); }
-    @keyframes ripple-out { to { transform: scale(5); opacity: 0; } }
+    .section-card h2 { font-size: 1.4rem; margin-top: 0; margin-bottom: 1.5rem; color: var(--md-sys-color-primary); display: flex; align-items: center; gap: 0.5rem; }
+    .grid-area { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.2rem; }
+
+    /* --- 3. 3Dホバー ＆ ハイパー・リップルコア --- */
+    .pixel-interactive { 
+      position: relative; 
+      overflow: hidden; 
+      cursor: pointer; 
+      border: none; 
+      display: flex; 
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      transition: transform 0.15s ease-out, border-radius 0.4s var(--md-sys-motion-spring), background-color 0.3s; 
+    }
+    
+    /* 要素内のアイコンなどをさらに立体的に飛び出させる(3D効果) */
+    .pixel-interactive * {
+      transform: translateZ(20px);
+    }
+
+    /* ネオンバックライト効果 */
+    .pixel-interactive::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+      transform: translateX(-100%); transition: transform 0.6s ease;
+    }
+    .pixel-interactive:hover::before { transform: translateX(100%); }
+
+    /* リアルな超滑らかリップル */
+    .m3-ripple { 
+      position: absolute; border-radius: 50%; 
+      background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.05) 70%, transparent 100%);
+      pointer-events: none; transform: scale(0); 
+      animation: ripple-hyper 0.6s var(--md-sys-motion-ripple) forwards; 
+    }
+    body.light-theme .m3-ripple { background: radial-gradient(circle, rgba(0,0,0,0.15) 0%, transparent 80%); }
+    @keyframes ripple-hyper { to { transform: scale(6); opacity: 0; } }
 
     /* --- 4. ユニークパーツデザイン --- */
-    .catalog-item { padding: 1rem; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-size: 0.8rem; font-weight: 600; gap: 0.4rem; min-height: 85px; box-sizing: border-box; border-radius: 16px; background-color: var(--md-sys-color-surface-variant); }
+    .catalog-item { padding: 1.2rem; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-size: 0.8rem; font-weight: 600; gap: 0.5rem; min-height: 90px; box-sizing: border-box; border-radius: 20px; background-color: var(--md-sys-color-surface-variant); border: 1px solid rgba(255,255,255,0.03); }
     
-    .v-sh1 { border-radius: 40px 8px; background-color: var(--md-sys-color-primary-container); color: var(--md-sys-color-primary); }
-    .v-sh2 { border-radius: 24px 24px 4px 24px; background-color: var(--md-sys-color-secondary-container); }
-    .v-sh3 { border-radius: 40px 40px 4px 4px; background-color: var(--md-sys-color-tertiary-container); color: var(--md-sys-color-tertiary); }
-    .v-sh4 { border-radius: 50% 20%; outline: 1px dashed var(--md-sys-color-outline); background: transparent; }
+    .v-sh1 { border-radius: 48px 12px; background: linear-gradient(135deg, var(--md-sys-color-primary-container), #003549); color: var(--md-sys-color-primary); }
+    .v-sh2 { border-radius: 28px 28px 4px 28px; background-color: var(--md-sys-color-secondary-container); }
+    .v-sh3 { border-radius: 48px 48px 4px 4px; background-color: var(--md-sys-color-tertiary-container); color: var(--md-sys-color-tertiary); }
+    .v-sh4 { border-radius: 50% 20%; border: 1.5px dashed var(--md-sys-color-outline); background: transparent; }
     .v-sh5 { border-radius: 30% 70% 70% 30% / 50%; background-color: var(--md-sys-color-error-container); color: var(--md-sys-color-error); }
+    .catalog-item:hover { border-radius: 28px; }
 
-    .v-btn-filled { background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); border-radius: 24px; }
-    .v-btn-tonal { background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-secondary); border-radius: 12px; }
-    .v-btn-elevated { background: var(--md-sys-color-surface); box-shadow: 0 4px 10px rgba(0,0,0,0.3); border-radius: 20px; }
-    .v-btn-outlined { border: 2px solid var(--md-sys-color-primary); background: transparent; color: var(--md-sys-color-primary); border-radius: 16px; }
-    .v-btn-split-l { border-radius: 24px 4px 4px 24px; background: var(--md-sys-color-tertiary); color: #000; }
-    .v-btn-split-r { border-radius: 4px 24px 24px 4px; background: var(--md-sys-color-tertiary-container); color: var(--md-sys-color-tertiary); }
+    .v-btn-filled { background: linear-gradient(90deg, var(--md-sys-color-primary), #00a2ff); color: var(--md-sys-color-on-primary); border-radius: 28px; }
+    .v-btn-tonal { background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-secondary); border-radius: 16px; }
+    .v-btn-elevated { background: var(--md-sys-color-surface-variant); box-shadow: 0 8px 20px rgba(0,0,0,0.4); border-radius: 24px; }
+    .v-btn-outlined { border: 2px solid var(--md-sys-color-primary); background: transparent; color: var(--md-sys-color-primary); border-radius: 20px; }
+    .v-btn-split-l { border-radius: 28px 6px 6px 28px; background: var(--md-sys-color-tertiary); color: #000; }
+    .v-btn-split-r { border-radius: 6px 28px 28px 6px; background: var(--md-sys-color-tertiary-container); color: var(--md-sys-color-tertiary); }
 
-    .v-card-pro { align-items: flex-start; text-align: left; border-radius: 24px; background: linear-gradient(135deg, var(--md-sys-color-surface-variant), var(--md-sys-color-surface)); }
-    .v-badge { background: var(--md-sys-color-error); color: white; font-size: 0.65rem; padding: 2px 6px; border-radius: 8px; font-weight: bold; }
+    .v-card-pro { align-items: flex-start; text-align: left; border-radius: 24px; background: linear-gradient(145deg, var(--md-sys-color-surface-variant), rgba(10,20,30,0.8)); }
+    .v-badge { background: var(--md-sys-color-error); color: white; font-size: 0.65rem; padding: 3px 8px; border-radius: 10px; font-weight: bold; animation: pulseBadge 2s infinite; }
+    @keyframes pulseBadge { 0%, 100% { transform: scale(1) translateZ(20px); } 50% { transform: scale(1.1) translateZ(20px); box-shadow: 0 0 10px var(--md-sys-color-error); } }
     
-    .v-track { width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; position: relative; margin-top: 4px; }
-    .v-bar { height: 100%; background: var(--md-sys-color-primary); position: absolute; border-radius: 4px; }
-    .v-bar-wave { width: 40%; animation: waveMove 1.5s infinite ease-in-out; }
-    .v-bar-step { width: 25%; animation: waveMove 2.5s infinite steps(4); background: var(--md-sys-color-tertiary); }
-    @keyframes waveMove { 0% { left: -40%; } 100% { left: 100%; } }
+    .v-track { width: 100%; height: 10px; background: rgba(255,255,255,0.08); border-radius: 6px; overflow: hidden; position: relative; margin-top: 4px; }
+    .v-bar { height: 100%; background: linear-gradient(90deg, var(--md-sys-color-primary), #a2e5ff); position: absolute; border-radius: 6px; }
+    .v-bar-wave { width: 45%; animation: waveMove 1.2s infinite cubic-bezier(0.4, 0, 0.2, 1); }
+    .v-bar-step { width: 30%; animation: waveMove 2.2s infinite steps(5); background: var(--md-sys-color-tertiary); }
+    @keyframes waveMove { 0% { left: -50%; } 100% { left: 100%; } }
 
-    .v-circle-load { width: 24px; height: 24px; border: 3px solid rgba(255,255,255,0.1); border-top-color: var(--md-sys-color-primary); border-radius: 50%; animation: spin 1s infinite linear; }
+    .v-circle-load { width: 28px; height: 28px; border: 3px solid rgba(255,255,255,0.05); border-top-color: var(--md-sys-color-primary); border-radius: 50%; animation: spin 0.8s infinite cubic-bezier(0.5, 0, 0.5, 1); }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    .v-chip { height: 36px; border-radius: 10px; border: 1px solid var(--md-sys-color-outline); flex-direction: row; padding: 0 0.8rem; }
-    .v-chip:hover { border-radius: 20px; background: var(--md-sys-color-primary-container); color: var(--md-sys-color-primary); }
+    .v-chip { height: 40px; border-radius: 12px; border: 1px solid var(--md-sys-color-outline); flex-direction: row; padding: 0 1rem; }
+    .v-chip:hover { border-radius: 24px; background: var(--md-sys-color-primary-container); color: var(--md-sys-color-primary); box-shadow: 0 0 15px rgba(95,211,255,0.3); }
 
-    /* --- ★スクショ再現：Pixel風 M3Eリアルスイッチの設計 --- */
-    .pixel-switch {
-      width: 52px;
-      height: 32px;
-      border-radius: 16px;
-      background-color: var(--md-sys-color-surface-variant); /* 初期OFF色 */
-      border: 2px solid var(--md-sys-color-outline);
-      position: relative;
-      transition: background-color 0.25s var(--md-sys-motion-spring), border-color 0.25s;
-      cursor: pointer;
-    }
+    /* --- リアル・Pixelスイッチ --- */
+    .pixel-switch { width: 54px; height: 32px; border-radius: 16px; background-color: var(--md-sys-color-surface-variant); border: 2px solid var(--md-sys-color-outline); position: relative; transition: all 0.25s var(--md-sys-motion-spring); cursor: pointer; }
+    .pixel-switch::after { content: ''; position: absolute; top: 4px; left: 4px; width: 20px; height: 20px; border-radius: 50%; background-color: var(--md-sys-color-outline); transition: left 0.3s var(--md-sys-motion-spring), width 0.15s ease, background-color 0.25s; }
+    .pixel-switch:active::after { width: 28px; }
+    .pixel-switch.active { background-color: #00beff; border-color: transparent; box-shadow: 0 0 15px rgba(0,190,255,0.4); }
+    .pixel-switch.active::after { left: 26px; background-color: #002230; }
+    .pixel-switch.active:active::after { left: 18px; }
+
+    /* --- 5. Dynamic FAB（弾むポップアップ） --- */
+    .fab-group { position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; align-items: flex-end; gap: 14px; z-index: 1000; }
+    .fab-menu-item { display: flex; align-items: center; gap: 12px; background: linear-gradient(135deg, #00beff, #008cb3); color: #002230; padding: 15px 30px; border-radius: 28px 28px 4px 28px; font-weight: 800; opacity: 0; transform: scale(0) translateY(40px); pointer-events: none; transition: all 0.4s var(--md-sys-motion-spring); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+    .fab-trigger { width: 68px; height: 68px; background: linear-gradient(135deg, #83d5ff, #3ec1ff); color: #003549; border-radius: 50%; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+    .fab-trigger span { font-size: 2.2rem; transition: transform 0.3s var(--md-sys-motion-spring); }
     
-    /* スイッチ内の丸ノブ */
-    .pixel-switch::after {
-      content: '';
-      position: absolute;
-      top: 4px;
-      left: 4px;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background-color: var(--md-sys-color-outline);
-      /* 横にむにゅっと伸びながら動く設定 */
-      transition: left 0.25s var(--md-sys-motion-spring), 
-                  width 0.15s ease, 
-                  background-color 0.25s;
-    }
-
-    /* 押している間、ノブが横に少しびよんと伸びる（Expressive特有の挙動） */
-    .pixel-switch:active::after {
-      width: 26px;
-    }
-
-    /* 【ON状態】スクショ1枚目の水色背景 */
-    .pixel-switch.active {
-      background-color: #00beff; /* スクショの鮮やかな水色 */
-      border-color: transparent;
-    }
-    .pixel-switch.active::after {
-      left: 24px;
-      background-color: #002230; /* 内側の濃い色ノブ */
-    }
-    /* 押された状態で右側にあるとき、左に伸びるように調整 */
-    .pixel-switch.active:active::after {
-      left: 18px; 
-    }
-
-    /* --- 5. Dynamic FAB --- */
-    .fab-group { position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; z-index: 1000; }
-    .fab-menu-item { display: flex; align-items: center; gap: 12px; background-color: #00beff; color: #002230; padding: 14px 28px; border-radius: 28px 28px 4px 28px; font-weight: bold; opacity: 0; transform: scale(0.4) translateY(20px); pointer-events: none; transition: all 0.3s var(--md-sys-motion-spring); }
-    .fab-trigger { width: 64px; height: 64px; background-color: #83d5ff; color: #003549; border-radius: 50%; align-items: center; justify-content: center; box-shadow: 0 6px 16px rgba(0,0,0,0.4); }
-    .fab-trigger span { font-size: 2rem; transition: transform 0.25s ease; }
+    /* FAB展開時の時間差（スタッガー）アニメーション */
     .fab-group.active .fab-menu-item { opacity: 1; transform: scale(1) translateY(0); pointer-events: auto; }
-    .fab-group.active .fab-trigger { background-color: var(--md-sys-color-surface-variant); color: var(--md-sys-color-primary); }
+    .fab-group.active .fab-menu-item:nth-child(1) { transition-delay: 0.0s; }
+    .fab-group.active .fab-menu-item:nth-child(2) { transition-delay: 0.05s; }
+    .fab-group.active .fab-menu-item:nth-child(3) { transition-delay: 0.1s; }
+    .fab-group.active .fab-menu-item:nth-child(4) { transition-delay: 0.15s; }
+    .fab-group.active .fab-menu-item:nth-child(5) { transition-delay: 0.2s; }
+    .fab-group.active .fab-trigger { background: var(--md-sys-color-surface-variant); color: var(--md-sys-color-primary); transform: scale(0.9); }
     .fab-group.active .fab-trigger span { transform: rotate(135deg); }
   </style>
 </head>
@@ -167,7 +192,7 @@
 
   <header>
     <h1>Material 3 Expressive</h1>
-    <p>120個の重複なき完全独立コンポーネント・マスターショールーム（Pixelスイッチ搭載）</p>
+    <p>【ハイパーアニメーション仕様】3Dパララックス ＆ 流体モーションショールーム</p>
   </header>
 
   <div class="theme-switch-container">
@@ -189,36 +214,30 @@
   </div>
 
   <div class="container">
-
     <div class="section-card">
-      <h2><span class="material-symbols-outlined">auto_awesome_motion</span>1. Unique Shapes & Symbols (01-25)</h2>
+      <h2><span class="material-symbols-outlined">auto_awesome_motion</span>1. 3D Shape Library (01-25)</h2>
       <div class="grid-area" id="sec-1"></div>
     </div>
-
     <div class="section-card">
-      <h2><span class="material-symbols-outlined">smart_button</span>2. Action UI & Variant Buttons (26-50)</h2>
+      <h2><span class="material-symbols-outlined">smart_button</span>2. Hyper-Feedback Buttons (26-50)</h2>
       <div class="grid-area" id="sec-2"></div>
     </div>
-
     <div class="section-card">
-      <h2><span class="material-symbols-outlined">assigned_turned_in</span>3. Unique Contextual Cards (51-75)</h2>
+      <h2><span class="material-symbols-outlined">assigned_turned_in</span>3. Parallax Contextual Cards (51-75)</h2>
       <div class="grid-area" id="sec-3"></div>
     </div>
-
     <div class="section-card">
-      <h2><span class="material-symbols-outlined">playback_speed</span>4. Micro Indicators & Feedbacks (76-100)</h2>
+      <h2><span class="material-symbols-outlined">playback_speed</span>4. Fluid Progress Indicators (76-100)</h2>
       <div class="grid-area" id="sec-4"></div>
     </div>
-
     <div class="section-card">
-      <h2><span class="material-symbols-outlined">tune</span>5. Expressive Controls & Chips (101-120)</h2>
+      <h2><span class="material-symbols-outlined">tune</span>5. Interactive Switches & Chips (101-120)</h2>
       <div class="grid-area" id="sec-5"></div>
     </div>
-
   </div>
 
   <script>
-    // セクション1：形状とシンボル (1〜25)
+    // 122個のパーツをレンダリングするロジック群（中身の重複排除は完全継承）
     const shapesData = [
       { i: 'star', t: 'お気に入り' }, { i: 'favorite', t: 'いいね' }, { i: 'shield', t: 'セキュリティ' }, { i: 'cookie', t: 'クッキー設定' }, { i: 'spa', t: 'リラクゼーション' },
       { i: 'hexagon', t: 'クラスター' }, { i: 'category', t: 'オブジェクト' }, { i: 'wb_cloudy', t: '天候データ' }, { i: 'bubble_chart', t: '分析バブル' }, { i: 'waves', t: 'オーディオ波' },
@@ -232,99 +251,66 @@
       sec1.innerHTML += `<div class="catalog-item pixel-interactive ${shClass}"><span class="material-symbols-outlined">${d.i}</span><span>${String(index+1).padStart(2,'0')}. ${d.t}</span></div>`;
     });
 
-    // セクション2：ボタン・アクション (26〜50)
     const buttonStyles = ['v-btn-filled', 'v-btn-tonal', 'v-btn-elevated', 'v-btn-outlined', 'v-btn-split-l', 'v-btn-split-r'];
-    const btnLabels = [
-      '新規作成', '保存', '削除する', 'キャンセル', '共有リンク', 'ダウンロード', 'アップロード', '設定を開き直す',
-      'ログイン', 'ログアウト', '次へ進む', '前に戻る', '検索実行', 'フィルター適用', 'お気に入り登録', 'カートに追加',
-      '購入手続き', 'ヘルプ', '規約に同意', '編集モード', 'プレビュー', 'データ復元', '同期開始', '通知オン', 'アプリ終了'
-    ];
+    const btnLabels = ['新規作成', '保存', '削除する', 'キャンセル', '共有リンク', 'ダウンロード', 'アップロード', '設定を開き直す', 'ログイン', 'ログアウト', '次へ進む', '前に戻る', '検索実行', 'フィルター適用', 'お気に入り登録', 'カートに追加', '購入手続き', 'ヘルプ', '規約に同意', '編集モード', 'プレビュー', 'データ復元', '同期開始', '通知オン', 'アプリ終了'];
     const sec2 = document.getElementById('sec-2');
     for(let i=26; i<=50; i++) {
       let styleCls = buttonStyles[(i-26) % buttonStyles.length];
-      let label = btnLabels[i-26];
-      sec2.innerHTML += `<button class="pixel-interactive catalog-item ${styleCls}"><span>#${i} ${label}</span></button>`;
+      sec2.innerHTML += `<button class="pixel-interactive catalog-item ${styleCls}"><span>#${i} ${btnLabels[i-26]}</span></button>`;
     }
 
-    // セクション3：カード (51〜75)
-    const cardData = [
-      { i: 'account_circle', t: 'プロフィール変更', b: 'Admin' }, { i: 'mail', t: '未読メッセージ', b: '5件' }, { i: 'warning', t: 'ストレージ容量警告', b: '92%' },
-      { i: 'music_note', t: '再生中のトラック', b: 'LIVE' }, { i: 'map', t: '位置情報の同期', b: 'ON' }, { i: 'shopping_bag', t: 'セール対象商品', b: '15%OFF' },
-      { i: 'battery_charging_full', t: '高速充電完了', b: '100%' }, { i: 'speed', t: 'ネットワーク速度', b: 'Fast' }, { i: 'cloud_done', t: 'クラウド同期完了', b: 'OK' },
-      { i: 'flight_takeoff', t: 'フライトの予定', b: '明日' }, { i: 'celebration', t: 'アチーブメント達成', b: '解禁' }, { i: 'sports_esports', t: 'ゲームコントローラ', b: '接続' },
-      { i: 'tv', t: 'ディスプレイ出力', b: '4K' }, { i: 'volume_up', t: '現在の音量設定', b: '70' }, { i: 'vpn_key', t: 'パスキーの有効化', b: '保護中' },
-      { i: 'palette', t: 'テーマダイナミックカラー', b: 'M3E' }, { i: 'translate', t: 'システム言語', b: 'JA' }, { i: 'wifi', t: '接続中のネットワーク', b: '5G' },
-      { i: 'event', t: 'カレンダーの予定', b: '3件' }, { i: 'schedule', t: 'リマインダー設定', b: '完了' }, { i: 'pie_chart', t: 'データ使用量レポート', b: '確認' },
-      { i: 'photo_camera', t: 'カメラへのアクセス', b: '許可' }, { i: 'mic', t: 'マイク感度テスト', b: '正常' }, { i: 'bluetooth', t: '周辺機器の検索', b: '探索中' },
-      { i: 'security', t: 'デバイスの安全性', b: '安全' }
-    ];
+    const cardData = [{ i: 'account_circle', t: 'プロフィール変更', b: 'Admin' }, { i: 'mail', t: '未読メッセージ', b: '5件' }, { i: 'warning', t: 'ストレージ容量警告', b: '92%' }, { i: 'music_note', t: '再生中のトラック', b: 'LIVE' }, { i: 'map', t: '位置情報の同期', b: 'ON' }, { i: 'shopping_bag', t: 'セール対象商品', b: '15%OFF' }, { i: 'battery_charging_full', t: '高速充電完了', b: '100%' }, { i: 'speed', t: 'ネットワーク速度', b: 'Fast' }, { i: 'cloud_done', t: 'クラウド同期完了', b: 'OK' }, { i: 'flight_takeoff', t: 'フライトの予定', b: '明日' }, { i: 'celebration', t: 'アチーブメント達成', b: '解禁' }, { i: 'sports_esports', t: 'ゲームコントローラ', b: '接続' }, { i: 'tv', t: 'ディスプレイ出力', b: '4K' }, { i: 'volume_up', t: '現在の音量設定', b: '70' }, { i: 'vpn_key', t: 'パスキーの有効化', b: '保護中' }, { i: 'palette', t: 'テーマダイナミックカラー', b: 'M3E' }, { i: 'translate', t: 'システム言語', b: 'JA' }, { i: 'wifi', t: '接続中のネットワーク', b: '5G' }, { i: 'event', t: 'カレンダーの予定', b: '3件' }, { i: 'schedule', t: 'リマインバー設定', b: '完了' }, { i: 'pie_chart', t: 'データ使用量レポート', b: '確認' }, { i: 'photo_camera', t: 'カメラへのアクセス', b: '許可' }, { i: 'mic', t: 'マイク感度テスト', b: '正常' }, { i: 'bluetooth', t: '周辺機器の検索', b: '探索中' }, { i: 'security', t: 'デバイスの安全性', b: '安全' }];
     const sec3 = document.getElementById('sec-3');
     cardData.forEach((d, index) => {
-      sec3.innerHTML += `
-        <div class="catalog-item pixel-interactive v-card-pro">
-          <span class="material-symbols-outlined" style="color:var(--md-sys-color-primary);">${d.i}</span>
-          <div style="font-size:0.7rem; margin-top:4px;">#${index+51} ${d.t}</div>
-          <span class="v-badge" style="margin-top:4px;">${d.b}</span>
-        </div>`;
+      sec3.innerHTML += `<div class="catalog-item pixel-interactive v-card-pro"><span class="material-symbols-outlined" style="color:var(--md-sys-color-primary);">${d.i}</span><div style="font-size:0.7rem; margin-top:4px;">#${index+51} ${d.t}</div><span class="v-badge" style="margin-top:4px;">${d.b}</span></div>`;
     });
 
-    // セクション4：インジケータ (76〜100)
     const sec4 = document.getElementById('sec-4');
     for(let i=76; i<=100; i++) {
-      if(i % 4 === 0) {
-        sec4.innerHTML += `<div class="catalog-item"><span>#${i} 円形ローダー</span><div class="v-circle-load"></div></div>`;
-      } else if(i % 4 === 1) {
-        sec4.innerHTML += `<div class="catalog-item"><span>#${i} 波形プログレス</span><div class="v-track"><div class="v-bar v-bar-wave"></div></div></div>`;
-      } else if(i % 4 === 2) {
-        sec4.innerHTML += `<div class="catalog-item"><span>#${i} ステップロード</span><div class="v-track"><div class="v-bar v-bar-step"></div></div></div>`;
-      } else {
-        sec4.innerHTML += `<div class="catalog-item pixel-interactive" style="border-radius:30px;"><span>#${i} タップ完了</span><span class="material-symbols-outlined" style="color:green">check_circle</span></div>`;
-      }
+      if(i % 4 === 0) sec4.innerHTML += `<div class="catalog-item"><span>#${i} 円形ローダー</span><div class="v-circle-load"></div></div>`;
+      else if(i % 4 === 1) sec4.innerHTML += `<div class="catalog-item"><span>#${i} 波形プログレス</span><div class="v-track"><div class="v-bar var-bar v-bar-wave"></div></div></div>`;
+      else if(i % 4 === 2) sec4.innerHTML += `<div class="catalog-item"><span>#${i} ステップロード</span><div class="v-track"><div class="v-bar var-bar v-bar-step"></div></div></div>`;
+      else sec4.innerHTML += `<div class="catalog-item pixel-interactive" style="border-radius:30px;"><span>#${i} タップ完了</span><span class="material-symbols-outlined" style="color:var(--md-sys-color-primary)">check_circle</span></div>`;
     }
 
-    // セクション5：新世代ExpressiveUI ＆ スクショのリアルスイッチ (101〜120)
     const sec5 = document.getElementById('sec-5');
-    
-    // 101〜102：【スクショ再現】動くリアルPixelスイッチ！
-    sec5.innerHTML += `
-      <div class="catalog-item" style="gap:8px;">
-        <span>#101 スイッチ (初期ON)</span>
-        <div class="pixel-switch active" onclick="this.classList.toggle('active')"></div>
-      </div>
-    `;
-    sec5.innerHTML += `
-      <div class="catalog-item" style="gap:8px;">
-        <span>#102 スイッチ (初期OFF)</span>
-        <div class="pixel-switch" onclick="this.classList.toggle('active')"></div>
-      </div>
-    `;
-
-    // 103〜106：セグメントタブ
+    sec5.innerHTML += `<div class="catalog-item" style="gap:8px;"><span>#101 スイッチ(ON)</span><div class="pixel-switch active" onclick="this.classList.toggle('active')"></div></div>`;
+    sec5.innerHTML += `<div class="catalog-item" style="gap:8px;"><span>#102 スイッチ(OFF)</span><div class="pixel-switch" onclick="this.classList.toggle('active')"></div></div>`;
     for(let i=103; i<=106; i++) { sec5.innerHTML += `<div class="catalog-item pixel-interactive v-chip" style="background:var(--md-sys-color-secondary-container)"><span>Tab ${i}</span></div>`; }
-    // 107-112：スライダー
-    for(let i=107; i<=112; i++) {
-      sec5.innerHTML += `
-        <div class="catalog-item slider-mock-item pixel-interactive">
-          <span>Slider ${i}</span>
-          <div class="slider-pill"><div class="slider-fill" style="width:${(i-100)*12}%"></div></div>
-        </div>`;
-    }
-    // 113-120：チップス
+    for(let i=107; i<=112; i++) { sec5.innerHTML += `<div class="catalog-item slider-mock-item pixel-interactive"><span>Slider ${i}</span><div class="slider-pill"><div class="slider-fill" style="width:${(i-100)*12}%"></div></div></div>`; }
     const chipIcons = ['filter_list', 'sell', 'done', 'location_on', 'alarm', 'bookmark', 'star', 'cached'];
-    for(let i=113; i<=120; i++) {
-      let ico = chipIcons[i-113];
-      sec5.innerHTML += `
-        <div class="catalog-item pixel-interactive v-chip">
-          <span class="material-symbols-outlined" style="font-size:1rem;">${ico}</span>
-          <span>Chip ${i}</span>
-        </div>`;
-    }
+    for(let i=113; i<=120; i++) { sec5.innerHTML += `<div class="catalog-item pixel-interactive v-chip"><span class="material-symbols-outlined" style="font-size:1rem;">${chipIcons[i-113]}</span><span>Chip ${i}</span></div>`; }
 
-    /* --- 6. リップル＆システム制御 --- */
+    /* --- 7. ジャイロ効果（3Dパララックス） ＆ リップルスクリプト --- */
+    document.addEventListener('mousemove', function(e) {
+      // マウスの位置を検知し、一番近い「pixel-interactive」カードを立体的に傾ける
+      const cards = document.querySelectorAll('.pixel-interactive');
+      cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const cardX = rect.left + rect.width / 2;
+        const cardY = rect.top + rect.height / 2;
+        const distX = e.clientX - cardX;
+        const distY = e.clientY - cardY;
+        
+        // 距離が近い場合のみ傾き（パララックス）を適用
+        if (Math.abs(distX) < 180 && Math.abs(distY) < 180) {
+          const rotateX = (distY / rect.height) * -18; // 上下傾き
+          const rotateY = (distX / rect.width) * 18;   // 左右傾き
+          card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.04)`;
+        } else {
+          card.style.transform = '';
+        }
+      });
+    });
+
+    // マウスが外れたら立体傾きをなめらかに戻す
+    document.addEventListener('mouseout', function() {
+      document.querySelectorAll('.pixel-interactive').forEach(card => card.style.transform = '');
+    });
+
+    // 高精度リップル発生器
     document.addEventListener('click', function(e) {
-      // スイッチ本体をクリックしたときは通常のリップルを発生させない（Pixel仕様）
       if (e.target.closest('.pixel-switch')) return;
-
       const target = e.target.closest('.pixel-interactive');
       if (!target) return;
       const rect = target.getBoundingClientRect();
@@ -341,14 +327,10 @@
     function toggleFabMenu() { document.getElementById('pixelFabGroup').classList.toggle('active'); }
     function toggleTheme() {
       const body = document.body;
-      const icon = document.getElementById('theme-icon');
-      const text = document.getElementById('theme-text');
       body.classList.toggle('light-theme');
-      if (body.classList.contains('light-theme')) {
-        icon.textContent = 'dark_mode'; text.textContent = 'ダークモードにする';
-      } else {
-        icon.textContent = 'light_mode'; text.textContent = 'ライトモードにする';
-      }
+      const isLight = body.classList.contains('light-theme');
+      document.getElementById('theme-icon').textContent = isLight ? 'dark_mode' : 'light_mode';
+      document.getElementById('theme-text').textContent = isLight ? 'ダークモードにする' : 'ライトモードにする';
     }
   </script>
 </body>
